@@ -1,0 +1,42 @@
+package com.example.PVSSpringBoot;
+
+import com.example.PVSSpringBoot.Entities.User;
+import com.example.PVSSpringBoot.OAuth2.AOuth2Service;
+import com.example.PVSSpringBoot.repositories.UsersRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+
+
+import java.sql.Date;
+import java.util.Map;
+
+@RestController
+public class Controller {
+//    UsersRepo UserRepo;
+    @Autowired
+    private UsersRepo usersRepo;
+
+    @GetMapping(path = "/hello")
+    public String helloWorld(){
+        return "hello World";
+    }
+
+    @GetMapping(path = "/add")
+    String add(){
+        User user = User.builder().user_id(10).email("kono").join_date(new Date(10000L)).is_admin(false).build();
+        User x = usersRepo.save(user);
+        return x.toString();
+    }
+
+    @GetMapping("/del")
+    String del(){
+        usersRepo.deleteById(504L);
+        return "Done";
+    }
+
+
+}
