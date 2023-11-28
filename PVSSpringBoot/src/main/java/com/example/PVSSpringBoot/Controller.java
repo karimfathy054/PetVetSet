@@ -26,7 +26,13 @@ public class Controller {
         }
         var now = LocalDateTime.now();
         Date date = new Date(now.getYear()-1900, now.getMonth().getValue()-1, now.getDayOfMonth());
-        User user = User.builder().email(body.get("email")).join_date(date).is_admin(false).password(body.get("password")).user_name(body.get("user_name")).build();
+        User user = User.builder()
+            .email(body.get("email"))
+            .join_date(date)
+            .is_admin(false)
+            .password(body.get("password"))
+            .user_name(body.get("user_name"))
+            .build();
         User x = usersRepo.save(user);
         return x.toString();
     }
