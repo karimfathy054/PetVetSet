@@ -25,6 +25,10 @@ public class UserRepoTest {
         this.usersRepo = usersRepo;
     }
 
+    @AfterEach
+    public void wipeDB(){
+        usersRepo.deleteAll();
+    }
 
     @Test
     public void testAddingAUserAndGettingItsValuesByitsEmail() {
