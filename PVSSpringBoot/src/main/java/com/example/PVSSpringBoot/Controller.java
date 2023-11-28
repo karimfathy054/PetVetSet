@@ -16,10 +16,7 @@ public class Controller {
     @Autowired
     private UsersRepo usersRepo;
 
-    @GetMapping(path = "/hello")
-    public String helloWorld(){
-        return "hello World";
-    }
+
 
     @PostMapping(path = "/signup")
     String signUp(@RequestBody Map<String, String> body){
@@ -65,7 +62,7 @@ public class Controller {
         return "Admined successfully";
     }
     @PostMapping("/removeadmin")
-    public String removeAdmin(@RequestBody Map<String, Long> body){
+    public String removeAdminAccess(@RequestBody Map<String, Long> body){
         var enrtyAdmin = usersRepo.findById(body.get("admin"));
         var enrtyUser = usersRepo.findById(body.get("user"));
         if(enrtyAdmin.isEmpty()){
@@ -81,7 +78,7 @@ public class Controller {
         }
         user.setIs_admin(false);
         usersRepo.save(user);
-        return "Admin removed successfully";
+        return "Admin access removed successfully";
     }
     @GetMapping("/getuser")
     public UserFront getUser(@RequestBody Map<String, Integer> body){
