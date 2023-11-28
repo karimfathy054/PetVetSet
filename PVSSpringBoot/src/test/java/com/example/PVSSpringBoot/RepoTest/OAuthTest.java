@@ -30,7 +30,7 @@ public class OAuthTest {
 @Test
 public void Test_for_Login_for_User_already_in_data_base() {
     AOuth2Service aouth2Service = new AOuth2Service(this.usersRepo);
-    String res = aouth2Service.LogInOAuthUser("abdelrahmanelsayd223@gmail.com","abdelrahman","elsayd");
+    String res = aouth2Service.LogInOAuthUser("abdelrahmanelsayd223@gmail.com");
     assertEquals(" User Found and Email :abdelrahmanelsayd223@gmail.com",res);
 
 }
@@ -39,7 +39,7 @@ public void Test_for_Login_for_User_already_in_data_base() {
     @Test
     public void Test_for_Login_for_User_Not_in_data_base() {
         AOuth2Service aouth2Service = new AOuth2Service(this.usersRepo);
-        String res = aouth2Service.LogInOAuthUser("abdelrahmanelsayd222@gmail.com","abdelrahman","elsayd");
+        String res = aouth2Service.LogInOAuthUser("abdelrahmanelsayd222@gmail.com");
         assertEquals(" User Not Found!!!!",res);
 
     }
