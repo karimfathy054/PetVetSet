@@ -20,7 +20,7 @@ public class Oauth2Config {
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
-                .defaultSuccessUrl("/auth", true);
+                .defaultSuccessUrl("/oauthSignUp", true);
 
         return http.build();
     }

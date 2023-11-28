@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 public class Controller {
-    UsersRepo UserRepo;
+//    UsersRepo UserRepo;
     @Autowired
     private UsersRepo usersRepo;
 
@@ -40,14 +40,21 @@ public class Controller {
         usersRepo.deleteById(504L);
         return "Done";
     }
-    @GetMapping("/auth")
-    String auth(){
+    @GetMapping("/oauthLogin")
+    String authLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String auth = authentication.toString();
+        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+        return aOuth2Service.BuildOAuthSignIn(auth);
+    }
+    @GetMapping("/oauthSignUp")
+    String authSignUp(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String auth = authentication.toString();
 
-        AOuth2Service aOuth2Service = new AOuth2Service();
-        aOuth2Service.InsertOAuthUser(auth);
-        return "Success";
+        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+
+        return aOuth2Service.BuildOAuthSignUp(auth);
     }
 
 }
