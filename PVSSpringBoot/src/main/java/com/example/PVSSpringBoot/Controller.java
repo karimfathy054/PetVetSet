@@ -61,11 +61,11 @@ public class Controller {
         User admin = enrtyAdmin.get();
         User user = enrtyUser.get();
         if(!admin.getIs_admin()){
-            return "Admin is not admin";
+            return "User granting admin access is not admin";
         }
         user.setIs_admin(true);
         usersRepo.save(user);
-        return "Admined successfully";
+        return "Admin access granted successfully";
     }
     @PostMapping("/removeadmin")
     public String removeAdminAccess(@RequestBody Map<String, Long> body){
@@ -80,7 +80,7 @@ public class Controller {
         User admin = enrtyAdmin.get();
         User user = enrtyUser.get();
         if(!admin.getIs_admin()){
-            return "Admin is not admin";
+            return "User removing admin access is not admin";
         }
         user.setIs_admin(false);
         usersRepo.save(user);
@@ -117,7 +117,7 @@ public class Controller {
         User admin = enrtyAdmin.get();
         User user = enrtyUser.get();
         if(!admin.getIs_admin()){
-            return "Admin is not admin";
+            return "Deleting user doesn't have admin access";
         }
         if(user.getUser_id()==0){
             return "Can't delete master admin";
