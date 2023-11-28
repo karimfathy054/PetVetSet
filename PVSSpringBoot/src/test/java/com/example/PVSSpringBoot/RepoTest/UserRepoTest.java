@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +19,11 @@ import java.util.Optional;
 @ExtendWith(SpringExtension.class)
 public class UserRepoTest {
 
-    @Autowired
-    private UsersRepo usersRepo;
+
+    UsersRepo usersRepo;
 
     @Autowired
-    public void UserRepoTest(UsersRepo usersRepo) {
+    public UserRepoTest(UsersRepo usersRepo) {
         this.usersRepo = usersRepo;
     }
 
@@ -30,6 +31,7 @@ public class UserRepoTest {
     public void wipeDB(){
         usersRepo.deleteAll();
     }
+
     @Test
     public void testAddingAUserAndGettingItsValuesByitsEmail() {
         User x = User.builder().email("kono").join_date(new Date(10L)).is_admin(false).user_name("dsjbasdkb").build();
@@ -38,9 +40,7 @@ public class UserRepoTest {
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo(x.getEmail());
-        Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
-
-
+        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UserRepoTest {
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo("admin");
-        Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
+        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
     }
 
     @Test

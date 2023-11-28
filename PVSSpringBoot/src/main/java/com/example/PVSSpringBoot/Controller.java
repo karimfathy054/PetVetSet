@@ -2,6 +2,7 @@ package com.example.PVSSpringBoot;
 
 import com.example.PVSSpringBoot.Entities.User;
 import com.example.PVSSpringBoot.OAuth2.AOuth2Service;
+
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,12 @@ import java.util.Map;
 @RestController
 public class Controller {
 //    UsersRepo UserRepo;
+
+
+import java.sql.Date;
+
+@RestController
+public class Controller {
     @Autowired
     private UsersRepo usersRepo;
 
@@ -37,6 +44,7 @@ public class Controller {
         usersRepo.deleteById(504L);
         return "Done";
     }
+
     @GetMapping("/oauthLogin")
     String authLogin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

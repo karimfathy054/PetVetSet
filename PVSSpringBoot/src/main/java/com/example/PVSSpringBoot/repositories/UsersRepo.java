@@ -12,8 +12,8 @@ import java.util.Optional;
 
 
 @Repository
-public interface UsersRepo extends CrudRepository<User,Long>  {
 
+public interface UsersRepo extends CrudRepository<User,Long> {
     @Transactional
     @Modifying
     @Query("update User u set u.password = ?1 where u.email like ?2 and u.password like ?3")
