@@ -3,19 +3,19 @@ package com.example.PVSSpringBoot.Entities;
 import java.sql.Date;
 
 public class UserFront {
-    private int id;
+    private long id;
     private String user_name;
     private String email;
     private boolean is_admin;
 
-    public UserFront(int id, String user_name, String email, boolean is_admin) {
+    public UserFront(long id, String user_name, String email, boolean is_admin) {
         this.id = id;
         this.user_name = user_name;
         this.email = email;
         this.is_admin = is_admin;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

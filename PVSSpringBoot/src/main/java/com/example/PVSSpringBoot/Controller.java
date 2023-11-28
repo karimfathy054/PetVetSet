@@ -25,12 +25,7 @@ import java.sql.Date;
 
 import java.util.Map;
 
-@RestController
-public class Controller {
-//    UsersRepo UserRepo;
 
-
-import java.sql.Date;
 
 @RestController
 public class Controller {
@@ -38,7 +33,7 @@ public class Controller {
     private UsersRepo usersRepo;
 
 
-
+    @GetMapping("/hello")
     @PostMapping(path = "/signup")
     String signUp(@RequestBody Map<String, String> body){
         var e = usersRepo.findByEmail(body.get("email"));
