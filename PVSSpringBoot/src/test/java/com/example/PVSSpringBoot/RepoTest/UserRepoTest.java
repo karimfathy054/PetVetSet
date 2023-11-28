@@ -3,6 +3,7 @@ package com.example.PVSSpringBoot.RepoTest;
 import com.example.PVSSpringBoot.Entities.User;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @ExtendWith(SpringExtension.class)
 public class UserRepoTest {
 
+
     UsersRepo usersRepo;
 
     @Autowired
@@ -32,15 +34,13 @@ public class UserRepoTest {
 
     @Test
     public void testAddingAUserAndGettingItsValuesByitsEmail() {
-        User x = User.builder().email("kono").join_date(new Date(10L)).is_admin(false).username("dsjbasdkb").build();
+        User x = User.builder().email("kono").join_date(new Date(10L)).is_admin(false).user_name("dsjbasdkb").build();
         usersRepo.save(x);
         Optional<User> result  = usersRepo.findByEmail(x.getEmail());
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo(x.getEmail());
-        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUsername());
-
-
+        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
     }
 
     @Test
@@ -63,19 +63,19 @@ public class UserRepoTest {
 
     @Test
     public void TestChangingEmail() {
-        User x = User.builder().email("kono").is_admin(false).username("dashbk").join_date(new Date(100L)).build();
+        User x = User.builder().email("kono").is_admin(false).user_name("dashbk").join_date(new Date(100L)).build();
         usersRepo.save(x);
         usersRepo.updateEmail("admin","kono");
         Optional<User> result  = usersRepo.findByEmail("admin");
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo("admin");
-        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUsername());
+        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
     }
 
     @Test
     public void testChangingPassword(){
-        User x = User.builder().email("kono").username("dashbk").is_admin(false).join_date(new Date(100L)).password("07775000").build();
+        User x = User.builder().email("kono").user_name("dashbk").is_admin(false).join_date(new Date(100L)).password("07775000").build();
         usersRepo.save(x);
         usersRepo.changePassword("55005",x.getEmail(),x.getPassword());
         Optional<User> result  = usersRepo.findByEmail("kono");

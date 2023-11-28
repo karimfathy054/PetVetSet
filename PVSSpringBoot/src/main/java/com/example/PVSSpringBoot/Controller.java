@@ -1,16 +1,29 @@
 package com.example.PVSSpringBoot;
 
 import com.example.PVSSpringBoot.Entities.User;
+import com.example.PVSSpringBoot.OAuth2.AOuth2Service;
+
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+
+
+import java.sql.Date;
+import java.util.Map;
+
+@RestController
+public class Controller {
+//    UsersRepo UserRepo;
+
 
 import java.sql.Date;
 
 @RestController
 public class Controller {
-
     @Autowired
     private UsersRepo usersRepo;
 
@@ -30,6 +43,23 @@ public class Controller {
     String del(){
         usersRepo.deleteById(504L);
         return "Done";
+    }
+
+    @GetMapping("/oauthLogin")
+    String authLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String auth = authentication.toString();
+        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+        return aOuth2Service.BuildOAuthSignIn(auth);
+    }
+    @GetMapping("/oauthSignUp")
+    String authSignUp(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String auth = authentication.toString();
+
+        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+
+        return aOuth2Service.BuildOAuthSignUp(auth);
     }
 
 }
