@@ -28,6 +28,9 @@ public class User {
     @Column(name = "email", nullable = false, unique = true, length = 30)
     private String email;
 
+    @Column(name = "user_name", nullable = false, length = 30)
+    private String user_name;
+
     @Column(name = "is_admin", nullable = false)
     private Boolean is_admin = false;
 
@@ -39,7 +42,8 @@ public class User {
     @Column(name = "join_date", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)
     private Date join_date;
-
+    @Column(name="password",length=20)
+    private String password;
 
 
 }
