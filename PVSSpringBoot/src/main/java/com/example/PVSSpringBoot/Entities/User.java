@@ -20,8 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id", nullable = false)
-    @Unsigned
-    private Integer user_id;
+    private Long user_id;
 
 
     @Column(name = "email", nullable = false, unique = true, length = 30)
