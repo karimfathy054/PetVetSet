@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "92fb2ac8-b3c7-414c-a963-cef9b33d4337",
+		"name": "Id check",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31411357"
+	},
+	"item": [
+		{
+			"name": "add user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.response.to.not.have.body(\"Email already used\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{useremail}},\r\n    \"password\": {{userpass}},\r\n    \"user_name\": {{username}}\r\n}"
+				},
+				"url": "http://localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "get user with email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user_id\", jsonData.id);\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(false);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{useremail}}\r\n}"
+				},
+				"url": "http://localhost:8080/getuserbyemail"
+			},
+			"response": []
+		},
+		{
+			"name": "get user with wrong id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user1id\", jsonData.id);\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.eql(-1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.eql(\"Id not valid\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": -10\r\n}"
+				},
+				"url": "http://localhost:8080/getuser"
+			},
+			"response": []
+		},
+		{
+			"name": "get user with wrong email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user1id\", jsonData.id);\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.eql(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.eql(\"Email not valid\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"wrong\"\r\n}"
+				},
+				"url": "http://localhost:8080/getuserbyemail"
+			},
+			"response": []
+		},
+		{
+			"name": "set admin wrong admin id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": -10,\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "set admin wrong user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong user id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": 0,\r\n    \"user\": -10\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "set user to become admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Admined successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": 0,\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "remove admin wrong admin id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": -10,\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "remove admin wrong user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong user id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": 0,\r\n    \"user\": -10\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "delete master admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Can't delete master admin\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{user_id}},\r\n    \"user\": 0\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user wrong admin id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": -1,\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"User deleted successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": 0,\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user wrong user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check wrong admin id\", function () {\r",
+							"    pm.response.to.have.body(\"Wrong user id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": 0,\r\n    \"user\": -10\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "adminemail",
+			"value": "\"admin@pet.com\"",
+			"type": "string"
+		},
+		{
+			"key": "adminpass",
+			"value": "\"admin123\"",
+			"type": "string"
+		},
+		{
+			"key": "useremail",
+			"value": "\"omar@pet.com\"",
+			"type": "string"
+		},
+		{
+			"key": "userpass",
+			"value": "\"omar_tarek\"",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "\"omar tarek\"",
+			"type": "string"
+		},
+		{
+			"key": "user1id",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		}
+	]
+}
