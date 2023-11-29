@@ -4,9 +4,6 @@ export default function SignupController() {
     const userName = location.state.userName;
     const password = location.state.password;
     const email = location.state.email;
-    console.log(userName);
-    console.log(password);
-    console.log(email);
     const encodedUserName = encodeURIComponent(userName);
     const encodedPassword = encodeURIComponent(password);
     const encodedEmail = encodeURIComponent(email);
