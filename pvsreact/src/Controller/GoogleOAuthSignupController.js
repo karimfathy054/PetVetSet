@@ -6,4 +6,5 @@ export default function GoogleOAuthSignupController() {
             "Content-Type": "application/json",
         }
     }).then((r) => r.json()).then((data) => console.log(data));
+    {/*the data is the response of the get request from the backend*/}
 }
