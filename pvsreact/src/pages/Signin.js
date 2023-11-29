@@ -18,8 +18,6 @@ export default function Signin() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(userName);
-        console.log(password);
         navigate('/SigninController', { replace: true, state: { userName, password } });
     }
     return (
