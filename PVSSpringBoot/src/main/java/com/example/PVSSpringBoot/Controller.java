@@ -33,8 +33,7 @@ public class Controller {
     private UsersRepo usersRepo;
 
 
-    @GetMapping("/hello")
-    @PostMapping(path = "/signup")
+    @PostMapping("/api/signup")
     String signUp(@RequestBody Map<String, String> body){
         var e = usersRepo.findByEmail(body.get("email"));
         if(!e.isEmpty()){
@@ -52,7 +51,7 @@ public class Controller {
         User x = usersRepo.save(user);
         return x.toString();
     }
-    @GetMapping("/login")
+    @GetMapping("/api/login")
     public UserFront logIn(@RequestBody Map<String, String> body){
         var entry = usersRepo.findByEmail(body.get("email"));
         if(entry.isEmpty()){
@@ -64,7 +63,7 @@ public class Controller {
         }
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
-    @PostMapping("/setadmin")
+    @PostMapping("/api/setadmin")
     public String setAdmin(@RequestBody Map<String, Long> body){
         var enrtyAdmin = usersRepo.findById(body.get("admin"));
         var enrtyUser = usersRepo.findById(body.get("user"));
@@ -83,7 +82,7 @@ public class Controller {
         usersRepo.save(user);
         return "Admin access granted successfully";
     }
-    @PostMapping("/removeadmin")
+    @PostMapping("/api/removeadmin")
     public String removeAdminAccess(@RequestBody Map<String, Long> body){
         var enrtyAdmin = usersRepo.findById(body.get("admin"));
         var enrtyUser = usersRepo.findById(body.get("user"));
@@ -102,7 +101,7 @@ public class Controller {
         usersRepo.save(user);
         return "Admin access removed successfully";
     }
-    @GetMapping("/getuser")
+    @GetMapping("/api/getuser")
     public UserFront getUser(@RequestBody Map<String, Integer> body){
         var entry = usersRepo.findById(Long.valueOf(body.get("id")));
         if(entry.isEmpty()){
@@ -111,7 +110,7 @@ public class Controller {
         User user = entry.get();
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
-    @GetMapping("/getuserbyemail")
+    @GetMapping("/api/getuserbyemail")
     public UserFront getUserByEmail(@RequestBody Map<String, String> body){
         var entry = usersRepo.findByEmail(body.get("email"));
         if(entry.isEmpty()){
@@ -120,7 +119,7 @@ public class Controller {
         User user = entry.get();
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
-    @DeleteMapping("/deleteuser")
+    @DeleteMapping("/api/deleteuser")
     public String deleteUser(@RequestBody Map<String, Long> body){
         var enrtyAdmin = usersRepo.findById(body.get("admin"));
         var enrtyUser = usersRepo.findById(body.get("user"));
