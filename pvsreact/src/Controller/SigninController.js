@@ -3,8 +3,6 @@ export default function SigninController() {
     const location = useLocation();
     const userName = location.state.userName;
     const password = location.state.password;
-    console.log(userName);
-    console.log(password);
     const encodedUserName = encodeURIComponent(userName);
     const encodedPassword = encodeURIComponent(password);
 
