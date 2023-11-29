@@ -28,9 +28,6 @@ export default function Signup() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(userName);
-        console.log(password);
-        console.log(email);
         navigate('/SignupController', { replace: true, state: { userName, password, email } });
     }
     return (
