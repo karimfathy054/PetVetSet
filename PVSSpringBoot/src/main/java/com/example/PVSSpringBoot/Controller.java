@@ -26,7 +26,7 @@ import java.sql.Date;
 import java.util.Map;
 
 
-
+@CrossOrigin
 @RestController
 public class Controller {
     @Autowired
@@ -51,8 +51,10 @@ public class Controller {
         User x = usersRepo.save(user);
         return x.toString();
     }
-    @GetMapping("/api/login")
+    @PostMapping("/api/login")
     public UserFront logIn(@RequestBody Map<String, String> body){
+        System.out.println("body.get(\"email\") = " + body.get("email"));
+        System.out.println("body.get(\"password\") = " + body.get("password"));
         var entry = usersRepo.findByEmail(body.get("email"));
         if(entry.isEmpty()){
             return new UserFront(-1, "Email not valid", "", false);
@@ -104,7 +106,7 @@ public class Controller {
     @GetMapping("/api/getuser")
     public UserFront getUser(@RequestBody Map<String, Integer> body){
         var entry = usersRepo.findById(Long.valueOf(body.get("id")));
-        if(entry.isEmpty()){
+        if( entry.isEmpty()){
             return new UserFront(-1, "Id not valid", "", false);
         }
         User user = entry.get();

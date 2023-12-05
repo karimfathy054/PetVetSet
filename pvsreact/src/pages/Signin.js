@@ -3,7 +3,7 @@ import styles from "../CSS/style.module.css"
 import cat from "../images/Screenshot 2023-11-20 201730.png"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import GoogleOAuth from "./GoogleOAuth"
+// import GoogleOAuth from "./GoogleOAuth"
 import { FaGoogle } from "react-icons/fa";
 
 export default function Signin() {
@@ -26,7 +26,7 @@ export default function Signin() {
                 <div className={styles.content}>
                     <form onSubmit={handleSubmit}>
                         <div className={styles.head}>Sign in</div>
-                        <input type="text" placeholder="Username" value={userName} onChange={handleUserName} required></input>
+                        <input type="email" placeholder="Email" value={userName} onChange={handleUserName} required></input>
                         <input type="password" placeholder="Password" value={password} onChange={handlePassword} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Invalid Password" required></input>
                         <button type="submit">Sign in</button>
                         <Link to="/Signup">Create acount</Link>

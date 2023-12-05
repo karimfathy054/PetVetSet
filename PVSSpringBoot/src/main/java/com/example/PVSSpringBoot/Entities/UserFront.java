@@ -1,6 +1,6 @@
 package com.example.PVSSpringBoot.Entities;
 
-import java.sql.Date;
+
 
 public class UserFront {
     private long id;

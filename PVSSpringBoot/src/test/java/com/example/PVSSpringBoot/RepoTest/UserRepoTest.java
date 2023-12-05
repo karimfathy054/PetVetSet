@@ -40,12 +40,12 @@ public class UserRepoTest {
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo(x.getEmail());
-        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
+        Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
     }
 
     @Test
     public void testDeleteingAUserByItsId() {
-        User x = User.builder().email("kono").is_admin(false).join_date(new Date(100L)).build();
+        User x = User.builder().email("kono").user_name("kimo").is_admin(false).join_date(new Date(100L)).build();
         usersRepo.save(x);
         usersRepo.deleteById(Long.valueOf(x.getUser_id()));
         Optional<User> result  = usersRepo.findByEmail(x.getEmail());
@@ -54,7 +54,7 @@ public class UserRepoTest {
 
     @Test
     public void testDeleteingAUserByItsEmail() {
-        User x = User.builder().email("kono").is_admin(false).join_date(new Date(100L)).build();
+        User x = User.builder().email("kono").user_name("kimo").is_admin(false).join_date(new Date(100L)).build();
         usersRepo.save(x);
         usersRepo.deleteByEmail("kono");
         Optional<User> result  = usersRepo.findByEmail(x.getEmail());
@@ -70,7 +70,7 @@ public class UserRepoTest {
         Assertions.assertThat(result).isPresent();
         Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
         Assertions.assertThat(result.get().getEmail()).isEqualTo("admin");
-        Assertions.assertThat(result.get().getUsername()).isEqualTo(x.getUser_name());
+        Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
     }
 
     @Test
@@ -85,9 +85,9 @@ public class UserRepoTest {
 
     @Test
     public  void testReturningAdmins(){
-        User admin = User.builder().is_admin(true).email("admin").join_date(new Date(10L)).build();
-        User user1 = User.builder().is_admin(false).email("kimo").join_date(new Date(10L)).build();
-        User user2 = User.builder().is_admin(false).email("kono").join_date(new Date(10L)).build();
+        User admin = User.builder().user_name("kimo").is_admin(true).email("admin").join_date(new Date(10L)).build();
+        User user1 = User.builder().user_name("kimo").is_admin(false).email("kimo").join_date(new Date(10L)).build();
+        User user2 = User.builder().user_name("kimo").is_admin(false).email("kono").join_date(new Date(10L)).build();
 
         usersRepo.save(admin);
         usersRepo.save(user1);
@@ -100,9 +100,9 @@ public class UserRepoTest {
 
     @Test
     public void testFindingAllNonNativeUsers(){
-        User nativeUser = User.builder().is_admin(true).email("admin").password("7777").join_date(new Date(10L)).build();
-        User user1 = User.builder().is_admin(false).email("kimo").join_date(new Date(10L)).build();
-        User user2 = User.builder().is_admin(false).email("kono").join_date(new Date(10L)).build();
+        User nativeUser = User.builder().user_name("kimo").is_admin(true).email("admin").password("7777").join_date(new Date(10L)).build();
+        User user1 = User.builder().user_name("kimo").is_admin(false).email("kimo").join_date(new Date(10L)).build();
+        User user2 = User.builder().user_name("kimo").is_admin(false).email("kono").join_date(new Date(10L)).build();
 
         usersRepo.save(nativeUser);
         usersRepo.save(user1);
@@ -116,9 +116,9 @@ public class UserRepoTest {
 
     @Test
     public  void testReturningNonAdmins(){
-        User admin = User.builder().is_admin(true).email("admin").join_date(new Date(10L)).build();
-        User user1 = User.builder().is_admin(false).email("kimo").join_date(new Date(10L)).build();
-        User user2 = User.builder().is_admin(false).email("kono").join_date(new Date(10L)).build();
+        User admin = User.builder().user_name("kimo").is_admin(true).email("admin").join_date(new Date(10L)).build();
+        User user1 = User.builder().user_name("kimo").is_admin(false).email("kimo").join_date(new Date(10L)).build();
+        User user2 = User.builder().user_name("kimo").is_admin(false).email("kono").join_date(new Date(10L)).build();
 
         usersRepo.save(admin);
         usersRepo.save(user1);
@@ -132,9 +132,9 @@ public class UserRepoTest {
 
     @Test
     public void testFindingAllNativeUsers(){
-        User nativeUser = User.builder().is_admin(true).email("admin").password("7777").join_date(new Date(10L)).build();
-        User user1 = User.builder().is_admin(false).email("kimo").join_date(new Date(10L)).build();
-        User user2 = User.builder().is_admin(false).email("kono").join_date(new Date(10L)).build();
+        User nativeUser = User.builder().user_name("kimo").is_admin(true).email("admin").password("7777").join_date(new Date(10L)).build();
+        User user1 = User.builder().user_name("kimo").is_admin(false).email("kimo").join_date(new Date(10L)).build();
+        User user2 = User.builder().user_name("kimo").is_admin(false).email("kono").join_date(new Date(10L)).build();
 
         usersRepo.save(nativeUser);
         usersRepo.save(user1);
