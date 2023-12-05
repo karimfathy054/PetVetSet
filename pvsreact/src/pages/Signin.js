@@ -5,7 +5,13 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 // import GoogleOAuth from "./GoogleOAuth"
 import { FaGoogle } from "react-icons/fa";
-
+function googleSign(){
+    fetch('http://localhost:8080/oauthSignUp',{
+        method: 'GET'
+    })
+    .then(response => console.log(response))
+    .catch(error => console.log("ERROR: ", error))
+}
 export default function Signin() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
@@ -18,7 +24,20 @@ export default function Signin() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate('/SigninController', { replace: true, state: { userName, password } });
+        // navigate('/SigninController', { replace: true, state: { userName, password } });
+        fetch('http://localhost:8080/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: userName,
+                password: password
+            }),
+        })
+            .then(response => response.json())
+            .then(data => console.log('User :', data))
+            .catch(error => console.error('Error creating user:', error));
     }
     return (
         <>
@@ -31,7 +50,8 @@ export default function Signin() {
                         <button type="submit">Sign in</button>
                         <Link to="/Signup">Create acount</Link>
                         <div className={styles.line}>or sign in with</div>
-                        <div onClick={() => navigate('GoogleOAuthSigninController', { replace: true })} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> {/*Need to implement in google OAuth*/}
+                        <div onClick={googleSign} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> {/*Need to implement in google OAuth*/}
+                        {/* <div onClick={() => { navigate('GoogleOAuthSigninController', { replace: true }) }} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> Need to implement in google OAuth */}
                     </form>
                     <img src={cat}></img>
                 </div>

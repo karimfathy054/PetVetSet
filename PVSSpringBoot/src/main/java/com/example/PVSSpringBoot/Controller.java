@@ -26,30 +26,35 @@ import java.sql.Date;
 import java.util.Map;
 
 
-@CrossOrigin
+
+
 @RestController
+@CrossOrigin()
 public class Controller {
     @Autowired
     private UsersRepo usersRepo;
-
+    @GetMapping("/api/hello")
+    UserFront hello(){
+        return new UserFront(-1, "Hello", "", false);
+    }
 
     @PostMapping("/api/signup")
-    String signUp(@RequestBody Map<String, String> body){
+    UserFront signUp(@RequestBody Map<String, String> body){
         var e = usersRepo.findByEmail(body.get("email"));
         if(!e.isEmpty()){
-            return "Email already used";
+            return new UserFront(-1, "Email already used", "", false);
         }
         var now = LocalDateTime.now();
         Date date = new Date(now.getYear()-1900, now.getMonth().getValue()-1, now.getDayOfMonth());
         User user = User.builder()
-            .email(body.get("email"))
-            .join_date(date)
-            .is_admin(false)
-            .password(body.get("password"))
-            .user_name(body.get("user_name"))
-            .build();
+                .email(body.get("email"))
+                .join_date(date)
+                .is_admin(false)
+                .password(body.get("password"))
+                .user_name(body.get("user_name"))
+                .build();
         User x = usersRepo.save(user);
-        return x.toString();
+        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
     @PostMapping("/api/login")
     public UserFront logIn(@RequestBody Map<String, String> body){
@@ -61,7 +66,7 @@ public class Controller {
         }
         User user = entry.get();
         if(!user.getPassword().equals(body.get("password"))){
-                return new UserFront(-1, "Password is wrong", "", false);
+            return new UserFront(-1, "Password is wrong", "", false);
         }
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
@@ -146,6 +151,7 @@ public class Controller {
 
     @GetMapping("/oauthLogin")
     String authLogin(){
+        System.out.println("HERE :PGIN");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String auth = authentication.toString();
         AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
@@ -153,6 +159,7 @@ public class Controller {
     }
     @GetMapping("/oauthSignUp")
     String authSignUp(){
+        System.out.println("HERE SING");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String auth = authentication.toString();
 

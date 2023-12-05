@@ -21,7 +21,7 @@ public String BuildOAuthSignIn(String OAuth){
     String email= arrOfStr[0].substring(arrOfStr2[0].length()+6,arrOfStr[0].length()-4);
     return this.LogInOAuthUser(email,arrOfStr3[0],arrOfStr4[0]);
 }
-    public String BuildOAuthSignUp(String OAuth){
+    public String  BuildOAuthSignUp(String OAuth){
         String[] arrOfStr = OAuth.split("Credentials=");
         String[] arrOfStr2 = arrOfStr[0].split("email=");
         String[] arrOfStr3 = arrOfStr[0].split("name=");
