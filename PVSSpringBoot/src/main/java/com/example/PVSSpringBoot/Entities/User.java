@@ -46,7 +46,7 @@ public class User implements UserDetails {
     @Column(name = "join_date", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)
     private Date join_date;
-    @Column(name="password",length=20)
+    @Column(name="password",length=80)
     private String password;
 
     @Enumerated(EnumType.STRING)
