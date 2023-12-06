@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-import com.example.PVSSpringBoot.OAuth2.AOuth2Service;
+//import com.example.PVSSpringBoot.OAuth2.AOuth2Service;
 
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,23 +149,23 @@ public class Controller {
     }
 
 
-    @GetMapping("/oauthLogin")
-    String authLogin(){
-        System.out.println("HERE :PGIN");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String auth = authentication.toString();
-        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
-        return aOuth2Service.BuildOAuthSignIn(auth);
-    }
-    @GetMapping("/oauthSignUp")
-    String authSignUp(){
-        System.out.println("HERE SING");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String auth = authentication.toString();
-
-        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
-
-        return aOuth2Service.BuildOAuthSignUp(auth);
-    }
+//    @GetMapping("/oauthLogin")
+//    String authLogin(){
+//        System.out.println("HERE :PGIN");
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String auth = authentication.toString();
+//        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+//        return aOuth2Service.BuildOAuthSignIn(auth);
+//    }
+//    @GetMapping("/oauthSignUp")
+//    String authSignUp(){
+//        System.out.println("HERE SING");
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String auth = authentication.toString();
+//
+//        AOuth2Service aOuth2Service = new AOuth2Service(usersRepo);
+//
+//        return aOuth2Service.BuildOAuthSignUp(auth);
+//    }
 
 }
