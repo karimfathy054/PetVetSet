@@ -8,10 +8,6 @@ import {
 } from "react-router-dom";
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
-import SignupController from './Controller/SignupController';
-import SigninController from './Controller/SigninController';
-import GoogleOAuthSigninController from './Controller/GoogleOAuthSigninController';
-import GoogleOAuthSignupController from './Controller/GoogleOAuthSignupController';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,22 +20,6 @@ const router = createBrowserRouter([
   {
     path: '/Signup',
     element: <Signup></Signup>
-  },
-  {
-    path: '/SignupController',
-    element: <SignupController></SignupController>
-  },
-  {
-    path: '/SigninController',
-    element: <SigninController></SigninController>
-  },
-  {
-    path: '/GoogleOAuthSigninController',
-    element: <GoogleOAuthSigninController></GoogleOAuthSigninController>
-  },
-  {
-    path: '/GoogleOAuthSignupController',
-    element: <GoogleOAuthSignupController></GoogleOAuthSignupController>
   }
 ]);
 
