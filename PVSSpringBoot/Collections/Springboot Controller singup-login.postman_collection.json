@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "ab70d28b-48f9-4c2e-80ab-f22668357aa7",
+		"name": "Springboot Controller singup/login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31411357"
+	},
+	"item": [
+		{
+			"name": "user sign up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.toJSON()\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"check user email\", function () {\r",
+							"    pm.response.to.not.have.body(\"Email already used\");\r",
+							"});\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{email}},\r\n    \"password\": {{password}},\r\n    \"user_name\": \"Omar Tarek\"\r\n}"
+				},
+				"url": "http://localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "user login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"user_id\", jsonData.id);\r",
+							"pm.test(\"log in successful\", function () {\r",
+							"    pm.expect(jsonData.id).to.not.equal(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(false);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{email}},\r\n    \"password\": {{password}}\r\n}"
+				},
+				"url": "http://localhost:8080/login"
+			},
+			"response": []
+		},
+		{
+			"name": "user signup with the same  email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.response.to.have.body(\"Email already used\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"email@test.com\",\r\n    \"password\": \"omar123\",\r\n    \"user_name\": \"Omar Tarek\"\r\n}"
+				},
+				"url": "http://localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check successfull delete\", function () {\r",
+							"    pm.response.to.have.body(\"User deleted successfully\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{admin_id}},\r\n    \"user\": {{user_id}}\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"pm.globals.set(\"user_id\", response.id);\r",
+							"pm.test(\"log in successful\", function () {\r",
+							"    pm.expect(response.id).to.equal(-1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{email}},\r\n    \"password\": {{password}}\r\n}"
+				},
+				"url": "http://localhost:8080/login"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "email",
+			"value": "\"email@test.com\"",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "\"omar123\"",
+			"type": "string"
+		},
+		{
+			"key": "admin_id",
+			"value": "0",
+			"type": "string"
+		}
+	]
+}

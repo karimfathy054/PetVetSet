@@ -1,0 +1,700 @@
+{
+	"info": {
+		"_postman_id": "5a481cde-357b-4e61-a0ab-e10d09a8463f",
+		"name": "Controller test admin adding and removing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31411357"
+	},
+	"item": [
+		{
+			"name": "login master admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{adminemail}},\r\n    \"password\": {{adminpass}}\r\n}"
+				},
+				"url": "http://localhost:8080/login"
+			},
+			"response": []
+		},
+		{
+			"name": "signup user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Email already used\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{user1email}},\r\n    \"password\": {{user1pass}},\r\n    \"user_name\": {{user1username}}\r\n}"
+				},
+				"url": "http://localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "llogin user 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user1id\", jsonData.id);\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(false);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{user1email}},\r\n    \"password\": {{user1pass}}\r\n}"
+				},
+				"url": "http://localhost:8080/login"
+			},
+			"response": []
+		},
+		{
+			"name": "signup user 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Email already used\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{user2email}},\r\n    \"password\": {{user2pass}},\r\n    \"user_name\": {{user2username}}\r\n}"
+				},
+				"url": "http://localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "llogin user 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"user2id\", jsonData.id);\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(false);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": {{user2email}},\r\n    \"password\": {{user2pass}}\r\n}"
+				},
+				"url": "http://localhost:8080/login"
+			},
+			"response": []
+		},
+		{
+			"name": "user removes admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"Admin is not admin\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong user id\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{user1id}},\r\n    \"user\": {{adminid}}\r\n}"
+				},
+				"url": "http://localhost:8080/removeadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "check master admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{adminid}}\r\n}"
+				},
+				"url": "http://localhost:8080/getuser"
+			},
+			"response": []
+		},
+		{
+			"name": "master admin makes user1 admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"Admined successfully\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Admin is not admin\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong user id\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{adminid}},\r\n    \"user\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "check uesr1 admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/getuser"
+			},
+			"response": []
+		},
+		{
+			"name": "admin removes admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"Admin removed successfully\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Admin is not admin\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong user id\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{adminid}},\r\n    \"user\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/removeadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "check user1 is not admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"check valid id\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.not.eql(-1);\r",
+							"});\r",
+							"pm.test(\"check valid email\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Email not valid\");\r",
+							"});\r",
+							"pm.test(\"ckeck valid pasword\", function () {\r",
+							"    pm.expect(jsonData.user_name).to.not.eql(\"Password is wrong\");\r",
+							"});\r",
+							"pm.test(\"check is admin\", function () {\r",
+							"    pm.expect(jsonData.is_admin).to.eql(false);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/getuser"
+			},
+			"response": []
+		},
+		{
+			"name": "user makes admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body(\"Admin is not admin\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong user id\");\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.not.have.body(\"Wrong admin id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{user2id}},\r\n    \"user\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/setadmin"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check successfull delete\", function () {\r",
+							"    pm.response.to.have.body(\"User deleted successfully\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{adminid}},\r\n    \"user\": {{user1id}}\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		},
+		{
+			"name": "delete user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check successfull delete\", function () {\r",
+							"    pm.response.to.have.body(\"User deleted successfully\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"admin\": {{adminid}},\r\n    \"user\": {{user2id}}\r\n}"
+				},
+				"url": "http://localhost:8080/deleteuser"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "adminid",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "adminemail",
+			"value": "\"admin@pet.com\"",
+			"type": "string"
+		},
+		{
+			"key": "adminpass",
+			"value": "\"admin123\"",
+			"type": "string"
+		},
+		{
+			"key": "user1email",
+			"value": "\"omar@pet.com\"",
+			"type": "string"
+		},
+		{
+			"key": "user1pass",
+			"value": "\"omar123\"",
+			"type": "string"
+		},
+		{
+			"key": "user1username",
+			"value": "\"Omar Tarek\"",
+			"type": "string"
+		},
+		{
+			"key": "user1id",
+			"value": ""
+		},
+		{
+			"key": "user2email",
+			"value": "\"mohames@pet.com\"",
+			"type": "string"
+		},
+		{
+			"key": "user2pass",
+			"value": "\"mohamed_123\"",
+			"type": "string"
+		},
+		{
+			"key": "user2username",
+			"value": "\"mohamed amr\"",
+			"type": "string"
+		},
+		{
+			"key": "user2id",
+			"value": ""
+		}
+	]
+}
