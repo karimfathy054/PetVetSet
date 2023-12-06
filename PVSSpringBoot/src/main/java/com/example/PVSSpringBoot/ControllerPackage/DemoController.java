@@ -1,4 +1,4 @@
-package com.example.PVSSpringBoot.demo;
+package com.example.PVSSpringBoot.ControllerPackage;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
