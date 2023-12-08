@@ -31,6 +31,7 @@ public class Product {
     @NonNull
     private Float price;
 
+<<<<<<< HEAD
     @Column(name = "target_animal")
     private String targetAnimal;
 
@@ -38,6 +39,8 @@ public class Product {
     private String imageLink;
 
 
+=======
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

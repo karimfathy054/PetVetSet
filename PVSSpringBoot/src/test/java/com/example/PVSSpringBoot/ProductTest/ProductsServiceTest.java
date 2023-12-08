@@ -131,6 +131,7 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.delete(1L)).isTrue();
     }
 
+<<<<<<< HEAD
     //getting all the products in the DB
     @Test
     void testGettingall(){
@@ -147,6 +148,8 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.findAll().get(0)).isEqualTo(p);
     }
 
+=======
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     //bad cases
     //finding a product by name that does not exist
     @Test
@@ -230,14 +233,22 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.delete(15L)).isFalse();
     }
     @Test
+<<<<<<< HEAD
     void testDeleteProductNullID(){
+=======
+    void testDeleteProductDNullID(){
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
 //        Mockito.when(repo.existsById(15L)).thenReturn(false);
         Assertions.assertThat(service.delete(null)).isFalse();
     }
     //adding inappropriate input
+<<<<<<< HEAD
     @Test
     void testGettingNone(){
         Mockito.when(repo.count()).thenReturn(0L);
         Assertions.assertThat(service.findAll().size()).isEqualTo(0);
     }
+=======
+
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
 }

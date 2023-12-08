@@ -36,7 +36,10 @@ public class ProductsControllerTest {
     @MockBean
     ProductManagementService service;
 
+<<<<<<< HEAD
     //smoke test
+=======
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     @Test
     void test() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/products/hello")).andDo(print())
@@ -58,6 +61,7 @@ public class ProductsControllerTest {
         Mockito.when(service.findById(1L)).thenReturn(p);
         mockMvc.perform(MockMvcRequestBuilders.get("/products/id=1"))
                 .andDo(MockMvcResultHandlers.print())
+<<<<<<< HEAD
                 .andExpect(MockMvcResultMatchers.content().json("{id:1,productName:Pname,brandName:Bname,price:10.0,targetAnimal:null,imageLink:null}"));
         Mockito.verify(service, Mockito.times(1)).findById(1L);
     }
@@ -76,6 +80,9 @@ public class ProductsControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/products/all"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0,targetAnimal:null,imageLink:null}]"));
+=======
+                .andExpect(MockMvcResultMatchers.content().json("{id:1,productName:Pname,brandName:Bname,price:10.0}"));
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
         Mockito.verify(service, Mockito.times(1)).findById(1L);
     }
 
@@ -92,7 +99,11 @@ public class ProductsControllerTest {
         Mockito.when(service.searchForProduct("Pname")).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/products/name=Pname"))
                 .andDo(MockMvcResultHandlers.print())
+<<<<<<< HEAD
                 .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0,targetAnimal:null,imageLink:null}]"));
+=======
+                .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0}]"));
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
         Mockito.verify(service, Mockito.times(1)).searchForProduct("Pname");
     }
     //ask for a product by price
@@ -108,7 +119,11 @@ public class ProductsControllerTest {
         Mockito.when(service.searchForPrice(10f)).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/products/price<=10"))
                 .andDo(MockMvcResultHandlers.print())
+<<<<<<< HEAD
                 .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0,targetAnimal:null,imageLink:null}]"));
+=======
+                .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0}]"));
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
         Mockito.verify(service, Mockito.times(1)).searchForPrice(10f);
     }
 
@@ -125,11 +140,19 @@ public class ProductsControllerTest {
         Mockito.when(service.searchForBrand("Bname")).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/products/brand/Bname"))
                 .andDo(MockMvcResultHandlers.print())
+<<<<<<< HEAD
                 .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0,targetAnimal:null,imageLink:null}]"));
         Mockito.verify(service, Mockito.times(1)).searchForProduct("Bname");
     }
     //add product
     //FIXME:can't test post
+=======
+                .andExpect(MockMvcResultMatchers.content().json("[{id:1,productName:Pname,brandName:Bname,price:10.0}]"));
+        Mockito.verify(service, Mockito.times(1)).searchForProduct("Bname");
+    }
+    //add product
+    //can't test post
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     @Test
     void testAddingProduct() throws Exception {
         Product body = new Product();
@@ -139,6 +162,7 @@ public class ProductsControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("product added"));
         Mockito.verify(service, Mockito.times(1)).addNewProduct(body);
     }
+<<<<<<< HEAD
     //delete product
     @Test
     void testDeleteProduct() throws Exception {
@@ -156,5 +180,10 @@ public class ProductsControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("deletion failed"));
         Mockito.verify(service, Mockito.times(1)).delete(1L);
     }
+=======
+    //TODO: complete remaining tests
+    //delete product
+    //bad cases
+>>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
 
 }
