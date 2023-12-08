@@ -50,6 +50,7 @@ export default function Signup() {
             .then(response => response.json())
             .then(data => {
                 setToken(data.token);
+                navigate('../Home', { replace: true, state: { token: data.token } });
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Is Already Exist"); });
 
@@ -99,6 +100,7 @@ export default function Signup() {
                 .then(data => {
                     setToken(data.token);
                     setTemp(false);
+                    navigate('../Home', { replace: true, state: { token: data.token } });
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
