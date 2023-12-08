@@ -1,8 +1,10 @@
 import Signin from "./pages/Signin";
+import Profile from "./pages/UserProfile";
 function App() {
   return (
     <div className="App">
-      <Signin></Signin>
+      <Profile></Profile>
+      {/* <Signin></Signin> */}
     </div>
   );
 }
