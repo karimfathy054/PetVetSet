@@ -17,19 +17,11 @@ public class ProductController {
         this.productManagementService = productManagementService;
     }
 
-<<<<<<< HEAD
     @GetMapping("/all")
-=======
-    @GetMapping()
->>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     List<Product> findAll(){
         return productManagementService.findAll();
     }
 
-    @GetMapping("/hello")
-    String hello(){
-        return "Hello";
-    }
 
     @GetMapping("/id={id}")
     Product findProduct(@PathVariable Long id){
