@@ -19,7 +19,6 @@ export default function Header({ token, decode }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setName(data.user_name);
             })
             .catch(error => {
