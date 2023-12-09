@@ -81,6 +81,27 @@ public class ProductsServiceTest {
         Assertions.assertThat(queryResult.get(1).getProductName()).isEqualTo("Pname1");
 
     }
+
+    @Test
+    void testFindByPriceRange(){
+        Product p = Product.builder()
+                .id(1L)
+                .productName("Pname")
+                .brandName("Bname")
+                .price(10f)
+                .build();
+        Product p1 = Product.builder()
+                .id(1L)
+                .productName("Pname1")
+                .brandName("Bname1")
+                .price(20f)
+                .build();
+        List<Product> list = Arrays.asList(p);
+        Mockito.when(repo.findByPriceBetween(0f,15f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(0f,15f);
+        Assertions.assertThat(queryResult.size()).isEqualTo(1);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("Pname");
+    }
     //finding a product by brand
     @Test
     void findProductByBrand(){
@@ -111,6 +132,39 @@ public class ProductsServiceTest {
         Assertions.assertThat(queryResult).isNotNull();
         Assertions.assertThat(queryResult.getProductName()).isEqualTo("Pname");
     }
+
+    @Test
+    void findProductByTargetAnimal(){
+        Product p = Product.builder()
+                .id(1L)
+                .productName("Pname")
+                .brandName("Bname")
+                .targetAnimal("CAT")
+                .price(10f)
+                .build();
+        List<Product> list = Arrays.asList(p);
+        Mockito.when(repo.findByTargetAnimalLikeIgnoreCase("CAT")).thenReturn(list);
+        List<Product> queryResult = service.searchByTargetAnimal("CAT");
+        Assertions.assertThat(queryResult.size()).isEqualTo(1);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("Pname");
+    }
+
+    @Test
+    void findProductByCategory(){
+        Product p = Product.builder()
+                .id(1L)
+                .productName("Pname")
+                .brandName("Bname")
+                .targetAnimal("CAT")
+                .category("ACCESSORIES")
+                .price(10f)
+                .build();
+        List<Product> list = Arrays.asList(p);
+        Mockito.when(repo.findByCategoryLikeIgnoreCase("ACCESSORIES")).thenReturn(list);
+        List<Product> queryResult = service.searchForCategory("ACCESSORIES");
+        Assertions.assertThat(queryResult.size()).isEqualTo(1);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("Pname");
+    }
     //adding a product successfully
     @Test
     void testAddingProduct(){
@@ -131,7 +185,6 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.delete(1L)).isTrue();
     }
 
-<<<<<<< HEAD
     //getting all the products in the DB
     @Test
     void testGettingall(){
@@ -148,8 +201,6 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.findAll().get(0)).isEqualTo(p);
     }
 
-=======
->>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
     //bad cases
     //finding a product by name that does not exist
     @Test
@@ -180,6 +231,45 @@ public class ProductsServiceTest {
         Assertions.assertThat(queryResult).isNull();
     }
 
+    @Test
+    void testFindingInvalidPriceRange(){
+        List<Product> list = Arrays.asList();
+        Mockito.when(repo.findByPriceBetween(10f,50f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(10f,50f);
+        Assertions.assertThat(queryResult).isEmpty();
+    }
+    @Test
+    void testFindingInvalidPriceRange2(){
+        List<Product> list = Arrays.asList();
+//        Mockito.when(repo.findByPriceLessThanEqual(-50f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(10f,-50f);
+        Assertions.assertThat(queryResult).isNull();
+    }
+
+    @Test
+    void testFindingInvalidPriceRange2comp(){
+        List<Product> list = Arrays.asList();
+//        Mockito.when(repo.findByPriceLessThanEqual(-50f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(-10f,50f);
+        Assertions.assertThat(queryResult).isNull();
+    }
+
+    @Test
+    void testFindingInvalidPriceRange2comp2(){
+        List<Product> list = Arrays.asList();
+//        Mockito.when(repo.findByPriceLessThanEqual(-50f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(-10f,-50f);
+        Assertions.assertThat(queryResult).isNull();
+    }
+
+    @Test
+    void testFindingInvalidPriceRange3(){
+        List<Product> list = Arrays.asList();
+//        Mockito.when(repo.findByPriceLessThanEqual(50f)).thenReturn(list);
+        List<Product> queryResult = service.searchForPriceBetween(50f,10f);
+        Assertions.assertThat(queryResult).isNull();
+    }
+
     //finding a product by brand that does not exist
     @Test
     void testFindingInvalidBrand(){
@@ -193,6 +283,22 @@ public class ProductsServiceTest {
         //        Mockito.when(repo.findByBrandNameLikeIgnoreCase("petly")).thenReturn(list);
         List<Product> queryResult = service.searchForBrand(null);
         Assertions.assertThat(queryResult).isNull();
+    }
+
+    @Test
+    void findProductByNonExistantCategory(){
+        List<Product> list = Arrays.asList();
+        Mockito.when(repo.findByCategoryLikeIgnoreCase("FOOD")).thenReturn(list);
+        List<Product> queryResult = service.searchForCategory("FOOD");
+        Assertions.assertThat(queryResult).isEmpty();
+    }
+
+    @Test
+    void findProductByNonExistantTargetAnimal(){
+        List<Product> list = Arrays.asList();
+        Mockito.when(repo.findByTargetAnimalLikeIgnoreCase("DOG")).thenReturn(list);
+        List<Product> queryResult = service.searchByTargetAnimal("DOG");
+        Assertions.assertThat(queryResult).isEmpty();
     }
     //finding a product by id that does not exist
     @Test
@@ -233,22 +339,14 @@ public class ProductsServiceTest {
         Assertions.assertThat(service.delete(15L)).isFalse();
     }
     @Test
-<<<<<<< HEAD
     void testDeleteProductNullID(){
-=======
-    void testDeleteProductDNullID(){
->>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
 //        Mockito.when(repo.existsById(15L)).thenReturn(false);
         Assertions.assertThat(service.delete(null)).isFalse();
     }
     //adding inappropriate input
-<<<<<<< HEAD
     @Test
     void testGettingNone(){
         Mockito.when(repo.count()).thenReturn(0L);
         Assertions.assertThat(service.findAll().size()).isEqualTo(0);
     }
-=======
-
->>>>>>> b6ee88146414874a7d00d51c8072ca0a820084f2
 }

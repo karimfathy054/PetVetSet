@@ -57,4 +57,21 @@ public class ProductManagementService {
         if(repo.count() == 0) return List.of();
         return repo.findAll();
     }
+
+    public List<Product> searchForCategory(String category){
+        if(category == null) return null;
+        return repo.findByCategoryLikeIgnoreCase(category);
+    }
+
+    public List<Product> searchByTargetAnimal(String targetAnimal){
+        if(targetAnimal == null) return null;
+        return repo.findByTargetAnimalLikeIgnoreCase(targetAnimal);
+    }
+    
+    public List<Product> searchForPriceBetween(Float priceStart, Float priceEnd){
+        if(priceStart == null || priceEnd == null) return null;
+        if(priceStart<0||priceEnd<0) return null;
+        if(priceStart > priceEnd) return null;
+        return repo.findByPriceBetween(priceStart, priceEnd);
+    }
 }

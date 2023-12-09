@@ -79,10 +79,34 @@ public class ProductsRepoTest {
         Assertions.assertThat(queryResult.get(1).getProductName()).isEqualTo("chewing toy");
     }
 
+    //test getting data from the db by target animal
+    @Test
+    void testGetProductByTargetAnimal(){
+        List<Product> queryResult = repository.findByTargetAnimalLikeIgnoreCase("CAT");
+        Assertions.assertThat(queryResult.size()).isEqualTo(1);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("litter box");
+    }
+
+    //test getting data from the db by category
+    @Test
+    void testGetProductByCategory(){
+        List<Product> queryResult = repository.findByTargetAnimalLikeIgnoreCase("ACCESSORIES");
+        Assertions.assertThat(queryResult.size()).isEqualTo(1);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("litter box");
+    }
+
     //test filtering data by price
     @Test
     void testFilterByPrice(){
         List<Product> queryResult = repository.findByPriceLessThanEqual(50f);
+        Assertions.assertThat(queryResult.size()).isEqualTo(2);
+        Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("litter box");
+        Assertions.assertThat(queryResult.get(1).getProductName()).isEqualTo("catnip");
+    }
+
+    @Test
+    void testFilterByPrice2(){
+        List<Product> queryResult = repository.findByPriceBetween(0f,50f);
         Assertions.assertThat(queryResult.size()).isEqualTo(2);
         Assertions.assertThat(queryResult.get(0).getProductName()).isEqualTo("litter box");
         Assertions.assertThat(queryResult.get(1).getProductName()).isEqualTo("catnip");
@@ -110,6 +134,19 @@ public class ProductsRepoTest {
         Assertions.assertThat(queryResult).hasSize(0);
     }
 
+    @Test
+    void testGetProductByNonExistantTargetAnimal(){
+        List<Product> queryResult = repository.findByTargetAnimalLikeIgnoreCase("DOG");
+        Assertions.assertThat(queryResult.size()).isEqualTo(0);
+    }
+
+    //test getting data from the db by category
+    @Test
+    void testGetProductByNonExistantCategory(){
+        List<Product> queryResult = repository.findByTargetAnimalLikeIgnoreCase("FOOD");
+        Assertions.assertThat(queryResult.size()).isEqualTo(0);
+    }
+
     //test filtering data by price that does not exist
     @Test
     void testFilterByPriceNotInRange(){
@@ -117,17 +154,24 @@ public class ProductsRepoTest {
         Assertions.assertThat(queryResult.size()).isEqualTo(0);
     }
 
-    //test filtering data by price that is not a number
-//    @Test
-//    void testFilterByPriceNotaNumber(){
-//        List<Product> queryResult = repository.findByPriceLessThanEqual(Float.valueOf("none"));
-//        Assertions.assertThat(queryResult.size()).isEqualTo(0);
-//    }
-
     //test filtering data by price that is negative
     @Test
     void testFilterByPriceNegative(){
         List<Product> queryResult = repository.findByPriceLessThanEqual(-10f);
+        Assertions.assertThat(queryResult.size()).isEqualTo(0);
+    }
+
+    //test filtering data by price that does not exist
+    @Test
+    void testFilterByPriceNotInRange2(){
+        List<Product> queryResult = repository.findByPriceBetween(0f,10f);
+        Assertions.assertThat(queryResult.size()).isEqualTo(0);
+    }
+
+    //test filtering data by price that is negative
+    @Test
+    void testFilterByReversedPrices(){
+        List<Product> queryResult = repository.findByPriceBetween(50f,10f);
         Assertions.assertThat(queryResult.size()).isEqualTo(0);
     }
     //test adding inappropriate input

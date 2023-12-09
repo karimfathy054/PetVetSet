@@ -42,6 +42,21 @@ public class ProductController {
         return productManagementService.searchForProduct(productName);
     }
 
+    @GetMapping("/category={category}")
+    List<Product> filterCategory(@PathVariable String category){
+        return productManagementService.searchForCategory(category);
+    }
+    
+    @GetMapping("/Target_Animal={Animal}")
+    List<Product> filterTargetAnimal(@PathVariable String Animal){
+        return productManagementService.searchByTargetAnimal(Animal);
+    }
+    
+    @GetMapping("/filter/price>={startPrice}&&price<={endPrice}")
+    List<Product> filterPriceBetween(@PathVariable Float startPrice, @PathVariable Float endPrice){
+        return productManagementService.searchForPriceBetween(startPrice, endPrice);
+    }
+
     @PostMapping("/add")
     String addProduct(@RequestBody Product body){
         if(productManagementService.addNewProduct(body)) return "product added";
