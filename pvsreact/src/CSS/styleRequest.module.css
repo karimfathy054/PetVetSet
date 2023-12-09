@@ -1,0 +1,142 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+html {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/back4.jpg') center/cover no-repeat; /* Replace 'background.jpg' with your actual image file */
+  padding: 20px;
+  font-family: Cursive;
+  
+
+  
+}
+body{
+    font-family: Cursive;
+}
+
+/*form styles*/
+.msform {
+    margin-top: 15px;
+	width: 780px;
+    height: 680px;
+	margin-right: 750px;
+	text-align: center;
+	position: relative;
+    color: #f22c5c;
+    font-size: 25px;
+    font-family: Cursive;
+   
+}
+.label{
+    padding-bottom: 25px;
+    font-family: Cursive;
+   
+}
+
+.msform fieldset {
+    
+	background: rgb(50, 50, 50);
+	border: 0 none;
+	border-radius: 25px;
+	box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 90%;
+    height: 100%;
+	margin-left: 30px;
+   
+    font-family: Cursive;
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+.msform fieldset:not(:first-of-type) {
+    
+	display: none;
+    font-family: Cursive;
+}
+/*inputs*/
+.input1 {
+	padding: 15px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+    margin-top: 5px;
+	width: 100%;
+	box-sizing: border-box;
+    font-family: Cursive;
+	color: #f22c5c;
+	font-size: 18px;
+    
+}
+.input2{
+    padding: 15px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+    margin-top: 5px;
+	width: 100%;
+	box-sizing: border-box;
+    font-family: Cursive;
+	color: #000000;
+	font-size: 18px;
+}
+/*buttons*/
+.msform .action-button {
+	width: 100px;
+	background: #f22c5c;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px;
+	margin: 5px 5px;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: Cursive;
+}
+.msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #f22c5c;
+}
+
+.msform .button{
+    background-color: #f22c5c;
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    cursor: pointer;
+    color: black;
+    font-size: 14px;
+    font-family: Cursive;
+    
+    &:hover {
+        background-color: rgb(255, 255, 255);
+      }
+
+}
+.input2{
+    background-color: rgb(255, 255, 255)
+}
+.select1{
+    margin-right: 300px;
+}
+.select_button{
+    margin-bottom: 15px;
+    background-color: #f22c5c;
+    width: 100px;
+    height: 30px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-family: Cursive;
+    cursor: pointer;
+}
+.select2{
+    margin-top: 20px;
+    margin-right: 250px;
+}
+
+
+  
