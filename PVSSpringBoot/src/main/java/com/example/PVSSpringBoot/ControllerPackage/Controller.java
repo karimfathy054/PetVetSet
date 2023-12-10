@@ -1,6 +1,8 @@
 package com.example.PVSSpringBoot.ControllerPackage;
 
 
+import com.example.PVSSpringBoot.Entities.ProductFront;
+import com.example.PVSSpringBoot.Entities.ProductFrontBuilder;
 import com.example.PVSSpringBoot.Entities.UserFront;
 
 
@@ -74,6 +76,40 @@ public class Controller {
     public String deleteUser(@RequestBody Map<String, Long> body){
         return requestService.deleteUser(body.get("admin"), body.get("user"));
     }
+
+    @PostMapping("/addNewProduct")
+    public String addNewProduct(@RequestBody Map<String, String> body){
+        //in RequestService
+        //public String addNewProduct(ProductFront)
+        return requestService.addNewProduct(
+                new ProductFrontBuilder()
+                        .setProductName(body.get("name"))
+                        .setApproved(false)
+                        .setBrandName(body.get("brandName"))
+                        .setDescription(body.get("description"))
+                        .setPrice(Float.parseFloat(body.get("price")))
+                        .setTargetAnimal(body.get("targetAnimal"))
+                        .setCategoryName(body.get("categoryName"))
+                        .get()
+        );
+    }
+
+    @PostMapping("/getProduct")
+    public ProductFront getProductById(@RequestBody Map<String, Long> body){
+        //public ProductFront getProductById(long id)
+        return requestService.getProductById(body.get("id"));
+    }
+
+    @DeleteMapping("/deleteProduct")
+    public String deleteProductById(@RequestBody Map<String, Long> body){
+        //public String deleteProductById(long id)
+        return requestService.deleteProductById(body.get("id"));
+    }
+
+
+
+
+
 
 
 //    @GetMapping("/oauthLogin")
