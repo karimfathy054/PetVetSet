@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
+import {User} from "../User.js"
 
 export default function Signup() {
 
@@ -33,6 +34,7 @@ export default function Signup() {
     const handleEmail = (e) => {
         setEmail(e.target.value);
     }
+    // const h
     const handleSubmit = (e) => {
         e.preventDefault();
         // navigate('/SignupController', { replace: true, state: { userName, password, email } });
@@ -49,65 +51,93 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
-                setToken(data.token);
+                console.log(data.token)
+                createUser(data.token)
+                console.log("fsjfe")
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Is Already Exist"); });
 
     }
 
-
+    function createUser(token){
+        console.log("Here")
+        let body = {
+            email: email
+        }
+        console.log(body)
+        fetch('http://localhost:8080/api/getUserByEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify(body),
+        })
+        .then(response => response.json())
+        .then(data => {
+                console.log(data)
+                let user = User.getUser()
+                user.set_id(data.id)
+                user.set_user_name(data.user_name)
+                user.set_email(data.email)
+                user.set_is_admin(data.is_admin)
+                console.log("user:",user)
+                console.log("Navigating")
+                navigate('/UserProfile')
+            })
+    }
 
     //new code
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => { setUser(codeResponse); },
         onError: (error) => console.log('Login Failed:', error)
     });
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .then(() => setTemp(true))
-                    .catch((err) => console.log("oooo" + err));
-            }
-        },
-        [user]
-    );
-    useEffect(() => {
-        // login();
-        if (temp) {
-            fetch('http://localhost:8080/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: profile.email,
-                    password: "null",
-                    userName: profile.name
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setToken(data.token);
-                    setTemp(false);
-                })
-                .catch(error => {
-                    console.error('Error creating user:', error);
-                    if (temp)
-                        window.alert("Account Is Already Exist!")
-                    setTemp(false);
-                });
-        }
-    })
+    // useEffect(
+    //     () => {
+    //         if (user) {
+    //             axios
+    //                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+    //                     headers: {
+    //                         Authorization: `Bearer ${user.access_token}`,
+    //                         Accept: 'application/json'
+    //                     }
+    //                 })
+    //                 .then((res) => {
+    //                     setProfile(res.data);
+    //                 })
+    //                 .then(() => setTemp(true))
+    //                 .catch((err) => console.log("oooo" + err));
+    //         }
+    //     },
+    //     [user]
+    // );
+    // useEffect(() => {
+    //     // login();
+    //     if (temp) {
+    //         fetch('http://localhost:8080/api/auth/register', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 email: profile.email,
+    //                 password: "null",
+    //                 userName: profile.name
+    //             }),
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 setToken(data.token);
+    //                 setTemp(false);
+    //             })
+    //             .catch(error => {
+    //                 console.error('Error creating user:', error);
+    //                 if (temp)
+    //                     window.alert("Account Is Already Exist!")
+    //                 setTemp(false);
+    //             });
+    //     }
+    // })
     return (
         <>
             <div className={styles.signin}>
@@ -123,7 +153,7 @@ export default function Signup() {
                         {/* <div onClick={() => navigate('../GoogleOAuthSignupController', { replace: true })} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> */}
                         <div onClick={() => { login(); }} className={styles.googleSign} ><FaGoogle></FaGoogle> Google</div>
                     </form>
-                    <img src={dog}></img>
+                    <img src={dog} alt = "Dog"></img>
                 </div>
             </div>
         </>
