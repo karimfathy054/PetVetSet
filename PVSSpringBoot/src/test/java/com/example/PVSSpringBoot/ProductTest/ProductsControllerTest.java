@@ -175,17 +175,15 @@ public class ProductsControllerTest {
 
 
     //add product
-    //FIXME:can't test post
     @Test
     void testAddingProduct() throws Exception {
         Product body = new Product();
         Mockito.when(service.addNewProduct(body)).thenReturn(true);
         mockMvc.perform(MockMvcRequestBuilders.post("/products/add")
-                        .content("{productName:Pname,brandName:Bname,price:10.0}"))
+                        .content("{\"productName\":\"Pname\",\"brandName\":\"Bname\",\"price\":\"10.0\"}"))
                 .andExpect(MockMvcResultMatchers.content().string("product added"));
         Mockito.verify(service, Mockito.times(1)).addNewProduct(body);
     }
-    //TODO: complete remaining tests
     //delete product
     @Test
     void testDeleteProduct() throws Exception {
