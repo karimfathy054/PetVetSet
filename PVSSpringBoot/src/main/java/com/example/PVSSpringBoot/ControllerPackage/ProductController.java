@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/products")
 @CrossOrigin
 public class ProductController {
-    @Autowired
+    
     ProductManagementService productManagementService;
     @Autowired
     public ProductController(ProductManagementService productManagementService) {
