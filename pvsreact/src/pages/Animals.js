@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import ProductListHeader from "../ProductListComponents/ProductListHeader";
 import List from "../ProductListComponents/List";
 import ListLanding from "../ProductListComponents/ListLanding";
-export default function ProductList() {
+import AnimalList from "../ProductListComponents/AnimalList";
+export default function Animals() {
     const location = useLocation();
     const [token, setToken] = useState('');
     const [decode, setDecode] = useState({});
@@ -16,12 +17,11 @@ export default function ProductList() {
         }
     }
     )
-
     return (
         <>
             <ProductListHeader token={token} decode={decode} />
             <ListLanding></ListLanding>
-            <List token={token} />
+            <AnimalList token={token} />
         </>
     )
 }

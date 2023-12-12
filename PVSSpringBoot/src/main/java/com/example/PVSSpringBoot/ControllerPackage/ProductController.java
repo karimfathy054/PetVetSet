@@ -9,8 +9,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin
 public class ProductController {
-
+    
     ProductManagementService productManagementService;
     @Autowired
     public ProductController(ProductManagementService productManagementService) {
@@ -63,6 +64,11 @@ public class ProductController {
         return "adding new product failed";
     }
 
+    @GetMapping("/rate={rate}&&id={id}")
+    String addRate(@PathVariable Float rate, @PathVariable Long id){
+        if(productManagementService.addRate(rate,id))return "rate added";
+        return "adding new rate failed";
+    }
 
     @DeleteMapping("/id={id}")
     String deleteProduct(@PathVariable Long id){

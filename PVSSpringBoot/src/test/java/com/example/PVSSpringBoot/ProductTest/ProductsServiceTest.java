@@ -349,4 +349,17 @@ public class ProductsServiceTest {
         Mockito.when(repo.count()).thenReturn(0L);
         Assertions.assertThat(service.findAll().size()).isEqualTo(0);
     }
+
+    @Test
+    void testAddRating(){
+        Product p = Product.builder()
+                .id(1L)
+                .productName("Pname")
+                .brandName("Bname")
+                .price(10f)
+                .build();
+        Optional<Product> Optional = java.util.Optional.ofNullable(p);
+        Mockito.when(repo.findById(1L)).thenReturn(Optional);
+        Assertions.assertThat(service.addRate(5f,1L)).isEqualTo(true);
+    }
 }
