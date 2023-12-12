@@ -2,7 +2,7 @@ import React from 'react';
 import image from '../images/User/maleUser.png'
 import styles from "../CSS/style.module.css"
 import '../CSS/style.module.css'; // assuming the CSS is in a file named Profile.css in the same directory
-// import {User} from "../User.js"
+import {User} from "../User.js"
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -10,18 +10,36 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.cancelNamChange = this.cancelNamChange.bind(this)
-    // this.user = User.getUser()
+    this.getJoinDate = this.getJoinDate.bind(this)
+    this.user = User.getUser()
     this.state = {
       // name: this.user.get_user_name(),
       // email: this.user.get_email(),
-      name: "Omar Tarek Abdelwahab",
-      email: "omar@pet.com",
+      name: this.user.get_user_name(),
+      email: this.user.get_email(),
       imageUrl: image, // replace with the actual image path
       changeNameButton: true,
       changeNameMessage: "Enter Name:",
       nameValue: '',
-      joinDate: '2023-12-10'
+      joinDate: this.user.get_join_date()
     };
+    this.getJoinDate()
+  }
+  getJoinDate(){
+    console.log("success!!")
+    fetch('http://localhost:8080/api/getJoinDate/'+this.user.get_id(), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + this.user.get_token()
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data)
+                this.user.set_join_date(data)
+                this.setState({joinDate: this.user.get_join_date()})            
+            })
   }
   changeName(){
     this.setState({changeNameButton: false})
@@ -35,11 +53,32 @@ class Profile extends React.Component {
       this.setState({changeNameMessage: "Name can't be less than 2 characters"})
       event.preventDefault()
     }else{
+      this.user.set_user_name(this.state.nameValue)
       this.setState({changeNameMessage: "Enter Name:"})
       this.setState({name: this.state.nameValue, nameValue: '', changeNameButton: true})
       console.log("name:",this.state.name)
       console.log("name:",this.state.nameValue)
       event.preventDefault()
+      fetch('http://localhost:8080/api/changeUserName', {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + this.user.get_token()
+            },
+            body: JSON.stringify({
+              id: this.user.get_id(),
+              newName: this.user.get_user_name()
+            })
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data)
+                if(data != 'Wrong Id!!'){
+                  this.setState({name: this.user.get_user_name()})
+                }
+                console.log("fsjfe")
+            })
+
     }
   }
   cancelNamChange(){

@@ -81,6 +81,7 @@ export default function Signup() {
                 user.set_user_name(data.user_name)
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
+                user.set_token(token)
                 console.log("user:",user)
                 console.log("Navigating")
                 navigate('/UserProfile')
