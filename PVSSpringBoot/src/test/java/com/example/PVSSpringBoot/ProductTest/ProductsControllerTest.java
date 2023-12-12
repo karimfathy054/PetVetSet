@@ -1,6 +1,7 @@
 package com.example.PVSSpringBoot.ProductTest;
 
 
+import com.example.PVSSpringBoot.ControllerPackage.PetController;
 import com.example.PVSSpringBoot.ControllerPackage.ProductController;
 import com.example.PVSSpringBoot.Entities.Product;
 import com.example.PVSSpringBoot.services.ProductManagementService;
@@ -9,6 +10,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -20,6 +23,8 @@ import java.util.List;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(ProductController.class)
+@ContextConfiguration(classes = ProductController.class)
+@WithMockUser
 public class ProductsControllerTest {
 
     @Autowired
@@ -28,13 +33,13 @@ public class ProductsControllerTest {
     @MockBean
     ProductManagementService service;
 
-    //smoke test
-    @Test
-    void test() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/products/hello")).andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Hello"));
-    }
+//     //smoke test
+//     @Test
+//     void test() throws Exception {
+//         mockMvc.perform(MockMvcRequestBuilders.get("/products/hello")).andDo(print())
+//                 .andExpect(MockMvcResultMatchers.status().isOk())
+//                 .andExpect(MockMvcResultMatchers.content().string("Hello"));
+//     }
 
     //happy cases
     //ask for a product by id

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -26,12 +28,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @WebMvcTest(PetController.class)
+@ContextConfiguration(classes = PetController.class)
+@WithMockUser
 public class PetControllerTest {
+    
     @Autowired
     MockMvc mockMvc;
     
-    @Autowired
-    PetController controller;
 
     @MockBean
     PetManagementService service;
@@ -137,19 +140,7 @@ public class PetControllerTest {
         verify(service,times(1)).getById(1L);
     }
 
-    /**
-     * {
-     *     "id": 102,
-     *     "name": "karim",
-     *     "type": "cat",
-     *     "breed": "siami",
-     *     "description": null,
-     *     "birthDate": "2002-04-05",
-     *     "age": 21,
-     *     "imageLink": null
-     * }
-     * @throws Exception
-     */
+
     @Test
     void testFindByName() throws Exception {
         Pet pet = Pet.builder()
