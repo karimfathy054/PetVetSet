@@ -19,7 +19,7 @@ export default function List({ token }) {
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
-                    console.log(data);
+                    // console.log(data);
                     setTemp(false);
                 })
                 .catch(error => {
@@ -39,7 +39,7 @@ export default function List({ token }) {
             .then(response => response.json())
             .then(data => {
                 setProducts(data);
-                console.log(data);
+                // console.log(data);
                 setTemp(false);
             })
             .catch(error => {
@@ -58,7 +58,7 @@ export default function List({ token }) {
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
-                    console.log(data);
+                    // console.log(data);
                     setTemp(false);
                 })
                 .catch(error => {
@@ -76,7 +76,7 @@ export default function List({ token }) {
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
-                    console.log(data);
+                    // console.log(data);
                     setTemp(false);
                 })
                 .catch(error => {
@@ -97,7 +97,7 @@ export default function List({ token }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setTemp(false);
             })
             .catch(error => {
