@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -78,7 +79,7 @@ public class Controller {
     }
 
     @PostMapping("/addNewProduct")
-    public String addNewProduct(@RequestBody Map<String, String> body){
+    public String addNewProduct(@RequestBody Map<String, String> body){System.out.println("111");
         //in RequestService
         //public String addNewProduct(ProductFront)
         return requestService.addNewProduct(
@@ -90,19 +91,18 @@ public class Controller {
                         .setPrice(Float.parseFloat(body.get("price")))
                         .setTargetAnimal(body.get("targetAnimal"))
                         .setCategoryName(body.get("categoryName"))
+                        .setUserEmail(body.get("userEmail"))
                         .get()
         );
     }
 
-    @PostMapping("/getProduct")
-    public ProductFront getProductById(@RequestBody Map<String, Long> body){
-        //public ProductFront getProductById(long id)
-        return requestService.getProductById(body.get("id"));
+    @PostMapping("/getProductByUser")
+    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getProductByUserEmail(body.get("email"));
     }
 
-    @DeleteMapping("/deleteProduct")
-    public String deleteProductById(@RequestBody Map<String, Long> body){
-        //public String deleteProductById(long id)
+    @PostMapping("/deleteRequestProduct")
+    public String deleteRequestProductById(@RequestBody Map<String, Long> body){
         return requestService.deleteProductById(body.get("id"));
     }
 

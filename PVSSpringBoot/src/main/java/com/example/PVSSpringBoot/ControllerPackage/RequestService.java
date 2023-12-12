@@ -1,12 +1,16 @@
 package com.example.PVSSpringBoot.ControllerPackage;
 
 
-import com.example.PVSSpringBoot.Entities.User;
-import com.example.PVSSpringBoot.Entities.UserFront;
+import com.example.PVSSpringBoot.Entities.*;
+import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +18,8 @@ public class RequestService {
 
     @Autowired
     private UsersRepo usersRepo;
+    @Autowired
+    private RequestProductRepo requestProductRepo;
 
     public String setAdmin(Long adminId, Long userId) {
         var enrtyAdmin = usersRepo.findById(userId);
@@ -91,7 +97,48 @@ public class RequestService {
         usersRepo.deleteById(Long.valueOf(user.getUser_id()));
         return "User deleted successfully";
     }
+    public String addNewProduct(ProductFront product){
+        String userEmail = product.getUserEmail();
+        var enrtyUser = usersRepo.findByEmail(userEmail);
+        if(enrtyUser.isEmpty()){
+            return "The email of user is wrong";
+        }
+        Long userId = enrtyUser.get().getUser_id();
+        String date = java.time.LocalDate.now().toString();
+        RequestProduct reqProduct = RequestProduct.builder().productName(product.getProductName()).categoryName(product.getCategoryName())
+                        .price(product.getPrice()).brandName(product.getBrandName()).join_date(Date.valueOf(date)).description(product.getDescription())
+                        .targetAnimal(product.getTargetAnimal()).userId(userId).build();
+        requestProductRepo.save(reqProduct);
+        return "Added to database...";
+    }
 
+
+
+    public String deleteProductById( Long id) {
+        Optional<RequestProduct> reqProduct = requestProductRepo.findById(id);
+        if(reqProduct.isEmpty()){
+            return "this product is not found...";
+        }
+        requestProductRepo.deleteById(id);
+        return "delete success from database...";
+
+
+    }
+
+    public List<ProductFront> getProductByUserEmail(String email) {
+        var enrtyUser = usersRepo.findByEmail(email);
+        if(enrtyUser.isEmpty()){
+            return null;
+        }
+        List<RequestProduct> listProduct = requestProductRepo.findByUserId(enrtyUser.get().getUser_id());
+        List<ProductFront> listProductFront = new ArrayList<>();
+        for(RequestProduct it: listProduct){
+            ProductFrontBuilder productFrontBuilder = new ProductFrontBuilder();
+            listProductFront.add(productFrontBuilder.convertFromRequestToFront(it).get());
+        }
+        return listProductFront;
+
+    }
 
 //    public UserFront login(String email, String password) {
 //        System.out.println("body.get(\"email\") = " + email);

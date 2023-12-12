@@ -3,6 +3,16 @@ package com.example.PVSSpringBoot.Entities;
 public class ProductFront {
     private String description;
     private long productId;
+
+    public long getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(long userId) {
+        UserId = userId;
+    }
+
+    private long UserId;
     //image handled separately
     private float price;
     private String brandName;
@@ -10,6 +20,15 @@ public class ProductFront {
     private String targetAnimal;
     private String productName;
     private boolean isApproved;
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
 
     public String getDescription() {
@@ -67,4 +86,5 @@ public class ProductFront {
     public void setApproved(boolean approved) {
         isApproved = approved;
     }
+
 }
