@@ -11,7 +11,7 @@ export default function Home() {
     const [decode, setDecode] = useState({});
     const [temp, setTemp] = useState(true);
     useEffect(() => {
-        if (location.state != null && temp) {
+        if (location.state != null) {
             setToken(location.state.token);
             setDecode(location.state.decode);
             setTemp(false);

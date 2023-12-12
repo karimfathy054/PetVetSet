@@ -39,6 +39,14 @@ public class ProductManagementService {
         return queryResult.orElse(null);
     }
 
+    public boolean addRate(Float rate,Long id){
+        if(findById(id) != null){
+            repo.updateRating(rate,id);
+            return true;
+        }
+        return false;
+    }
+
     public boolean addNewProduct(Product product){
         if(product == null) return false;
         if(repo.existsInDB(product.getProductName(), product.getBrandName()))return false;

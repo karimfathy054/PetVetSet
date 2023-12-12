@@ -2,8 +2,10 @@ package com.example.PVSSpringBoot.repositories;
 
 import com.example.PVSSpringBoot.Entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,5 +29,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByPriceBetween(Float priceStart, Float priceEnd);
 
-
+    @Transactional
+    @Modifying
+    @Query("update Product p set p.rating = (p.rating * (p.noOfRating / (p.noOfRating + 1))) + (?1 / (p.noOfRating+1.0)) , p.noOfRating = p.noOfRating+1  where p.id = ?2")
+    void updateRating(Float rate,Long id);
 }

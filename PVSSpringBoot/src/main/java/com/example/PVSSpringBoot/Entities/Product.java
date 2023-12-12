@@ -40,6 +40,14 @@ public class Product {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "rating")
+    private Float rating;
+
+    @Column(name = "noOfRating")
+    private Long noOfRating;
+
+    @Column(name = "description")
+    private String description;
 
     @Override
     public boolean equals(Object o) {

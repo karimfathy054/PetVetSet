@@ -8,6 +8,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"
+import Token from "../Token"
 export default function Signin() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
@@ -91,6 +92,7 @@ export default function Signin() {
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);
+                    console.log(jwtDecode(data.token))
                     navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
