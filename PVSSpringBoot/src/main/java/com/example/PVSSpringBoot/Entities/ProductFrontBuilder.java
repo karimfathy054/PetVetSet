@@ -1,6 +1,8 @@
 package com.example.PVSSpringBoot.Entities;
 
 
+import java.util.List;
+
 public class ProductFrontBuilder {
     private ProductFront productFront;
 
@@ -13,12 +15,17 @@ public class ProductFrontBuilder {
         this.productFront.setPrice(0);
         this.productFront.setCategoryName("any");
         this.productFront.setTargetAnimal("any");
+        this.productFront.setUserEmail("any");
     }
-///
+
     public ProductFront get(){return this.productFront;}
 
     public ProductFrontBuilder setProductName(String name){
         this.productFront.setProductName(name);
+        return this;
+    }
+    public ProductFrontBuilder setUserEmail(String email){
+        this.productFront.setUserEmail(email);
         return this;
     }
 
@@ -66,6 +73,7 @@ public class ProductFrontBuilder {
         this.productFront.setUserId(product.getUserId());
         return this;
     }
+
 
 
 }

@@ -98,37 +98,23 @@ public class RequestService {
         return "User deleted successfully";
     }
     public String addNewProduct(ProductFront product){
+        String userEmail = product.getUserEmail();
+        var enrtyUser = usersRepo.findByEmail(userEmail);
+        if(enrtyUser.isEmpty()){
+            return "The email of user is wrong";
+        }
+        Long userId = enrtyUser.get().getUser_id();
         String date = java.time.LocalDate.now().toString();
         RequestProduct reqProduct = RequestProduct.builder().productName(product.getProductName()).categoryName(product.getCategoryName())
                         .price(product.getPrice()).brandName(product.getBrandName()).join_date(Date.valueOf(date)).description(product.getDescription())
-                        .targetAnimal(product.getTargetAnimal()).userId(product.getUserId()).build();
+                        .targetAnimal(product.getTargetAnimal()).userId(userId).build();
         requestProductRepo.save(reqProduct);
         return "Added to database...";
-
     }
 
-    public ProductFront getProductById(Long id) {
-        Optional<RequestProduct> reqProduct = requestProductRepo.findById(id);
-        if(reqProduct.isEmpty()){
-            return null;
-        }
-        RequestProduct product = reqProduct.get();
-        ProductFrontBuilder productFrontBuilder = new ProductFrontBuilder();
-        productFrontBuilder.convertFromRequestToFront(product);
-        return productFrontBuilder.get();
 
 
-    }
-
-    public String deleteProductById(Long admin, Long id) {
-        var enrtyAdmin = usersRepo.findById(admin);
-        if(enrtyAdmin.isEmpty()){
-            return "Wrong admin id";
-        }
-        User admin2 = enrtyAdmin.get();
-        if(!admin2.getIs_admin()){
-            return "Deleting request product doesn't have admin access";
-        }
+    public String deleteProductById( Long id) {
         Optional<RequestProduct> reqProduct = requestProductRepo.findById(id);
         if(reqProduct.isEmpty()){
             return "this product is not found...";
@@ -139,12 +125,12 @@ public class RequestService {
 
     }
 
-    public List<ProductFront> getProductByUserId(Long id) {
-        var enrtyUser = usersRepo.findById(id);
+    public List<ProductFront> getProductByUserEmail(String email) {
+        var enrtyUser = usersRepo.findByEmail(email);
         if(enrtyUser.isEmpty()){
             return null;
         }
-        List<RequestProduct> listProduct = requestProductRepo.findByUserId(id);
+        List<RequestProduct> listProduct = requestProductRepo.findByUserId(enrtyUser.get().getUser_id());
         List<ProductFront> listProductFront = new ArrayList<>();
         for(RequestProduct it: listProduct){
             ProductFrontBuilder productFrontBuilder = new ProductFrontBuilder();

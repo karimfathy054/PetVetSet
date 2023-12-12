@@ -54,6 +54,9 @@ public class RequestProduct {
     @Column(name="categoryName",nullable = false)
     private String categoryName;
 
+    @Column(name="targetAnimal",nullable = false)
+    private String targetAnimal;
+
 
     public Long getProductId() {
         return productId;
@@ -95,7 +98,6 @@ public class RequestProduct {
         return targetAnimal;
     }
 
-    @Column(name="targetAnimal",nullable = false)
-    private String targetAnimal;
-///
+
+
 }

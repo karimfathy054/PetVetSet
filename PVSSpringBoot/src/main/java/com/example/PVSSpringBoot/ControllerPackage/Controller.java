@@ -79,7 +79,7 @@ public class Controller {
     }
 
     @PostMapping("/addNewProduct")
-    public String addNewProduct(@RequestBody Map<String, String> body){
+    public String addNewProduct(@RequestBody Map<String, String> body){System.out.println("111");
         //in RequestService
         //public String addNewProduct(ProductFront)
         return requestService.addNewProduct(
@@ -91,26 +91,19 @@ public class Controller {
                         .setPrice(Float.parseFloat(body.get("price")))
                         .setTargetAnimal(body.get("targetAnimal"))
                         .setCategoryName(body.get("categoryName"))
-                        .setUserId(Long.parseLong(body.get("userId")))
+                        .setUserEmail(body.get("userEmail"))
                         .get()
         );
     }
 
-    @PostMapping("/getProduct")
-    public ProductFront getProductById(@RequestBody Map<String, Long> body){
-        //public ProductFront getProductById(long id)
-        return requestService.getProductById(body.get("id"));
-    }
     @PostMapping("/getProductByUser")
-    public List<ProductFront> getProductByUserId(@RequestBody Map<String, Long> body){
-        //public ProductFront getProductById(long id)
-        return requestService.getProductByUserId(body.get("id"));
+    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getProductByUserEmail(body.get("email"));
     }
 
-    @PostMapping("/deleteProduct")
-    public String deleteProductById(@RequestBody Map<String, Long> body){
-        //public String deleteProductById(long id)
-        return requestService.deleteProductById(body.get("admin"),body.get("id"));
+    @PostMapping("/deleteRequestProduct")
+    public String deleteRequestProductById(@RequestBody Map<String, Long> body){
+        return requestService.deleteProductById(body.get("id"));
     }
 
 

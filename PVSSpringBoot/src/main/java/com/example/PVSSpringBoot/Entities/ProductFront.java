@@ -20,7 +20,15 @@ public class ProductFront {
     private String targetAnimal;
     private String productName;
     private boolean isApproved;
+    private String userEmail;
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 
 
     public String getDescription() {
@@ -78,5 +86,5 @@ public class ProductFront {
     public void setApproved(boolean approved) {
         isApproved = approved;
     }
-/////
+
 }
