@@ -8,8 +8,10 @@ import com.example.PVSSpringBoot.services.ProductManagementService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,10 +22,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(ProductController.class)
 @ContextConfiguration(classes = ProductController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @WithMockUser
 public class ProductsControllerTest {
 
@@ -183,11 +187,13 @@ public class ProductsControllerTest {
     @Test
     void testAddingProduct() throws Exception {
         Product body = new Product();
-        Mockito.when(service.addNewProduct(body)).thenReturn(true);
+        Mockito.when(service.addNewProduct(any())).thenReturn(true);
         mockMvc.perform(MockMvcRequestBuilders.post("/products/add")
+        .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"productName\":\"Pname\",\"brandName\":\"Bname\",\"price\":\"10.0\"}"))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("product added"));
-        Mockito.verify(service, Mockito.times(1)).addNewProduct(body);
+        Mockito.verify(service, Mockito.times(1)).addNewProduct(any());
     }
     //delete product
     @Test
