@@ -48,14 +48,14 @@ class PetRepoTest {
 
     @Test
     void testFindByNameExistant(){
-        List<Pet> queryResult = repo.findByNameLikeIgnoreCase("pet1");
+        List<Pet> queryResult = repo.findByNameContainsIgnoreCase("pet1");
         Assertions.assertThat(queryResult.size()).isEqualTo(1);
         assertThat(queryResult.get(0).getName()).isEqualTo("pet1");
         assertThat(queryResult.get(0).getType()).isEqualTo("cat");
     }
     @Test
     void testFindByNameNonExistant(){
-        List<Pet> queryResult = repo.findByNameLikeIgnoreCase("pet5");
+        List<Pet> queryResult = repo.findByNameContainsIgnoreCase("pet5");
         assertThat(queryResult.size()).isEqualTo(0);
     }
 

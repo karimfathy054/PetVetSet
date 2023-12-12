@@ -104,16 +104,16 @@ public class PetManagementServiceTest {
                 .type("cat")
                 .breed("persian")
                 .birthDate(Date.valueOf(LocalDate.EPOCH)).build();
-        Mockito.when(repo.findByNameLikeIgnoreCase("pet")).thenReturn(List.of(p));
+        Mockito.when(repo.findByNameContainsIgnoreCase("pet")).thenReturn(List.of(p));
         List<Pet> queryResult = service.getByName("pet");
         assertThat(queryResult.size()).isEqualTo(1);
         assertThat(queryResult.get(0).getName()).isEqualTo("pet");
-        verify(repo,Mockito.times(1)).findByNameLikeIgnoreCase("pet");
+        verify(repo,Mockito.times(1)).findByNameContainsIgnoreCase("pet");
     }
 
     @Test
     void testGetByNonExistantName(){//return empty Pet object
-        Mockito.when(repo.findByNameLikeIgnoreCase("pet")).thenReturn(Collections.emptyList());
+        Mockito.when(repo.findByNameContainsIgnoreCase("pet")).thenReturn(Collections.emptyList());
         List<Pet> queryResult = service.getByName("pet");
         assertThat(queryResult.size()).isEqualTo(0);
     }

@@ -42,7 +42,7 @@ public class PetManagementService {
     //find a pet by name
     public List<Pet> getByName(String name){
         if(name == null) return Collections.emptyList();
-        return repo.findByNameLikeIgnoreCase(name);
+        return repo.findByNameContainsIgnoreCase(name);
     }
     //find a pet by type
     public List<Pet> findByType(String type){

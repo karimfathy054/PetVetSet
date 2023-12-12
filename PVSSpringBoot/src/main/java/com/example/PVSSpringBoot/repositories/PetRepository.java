@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
-    List<Pet> findByNameLikeIgnoreCase(String name);
+    List<Pet> findByNameContainsIgnoreCase(String name);
 
     List<Pet> findByTypeLikeIgnoreCase(String type);
 
