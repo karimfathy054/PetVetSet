@@ -1,6 +1,8 @@
 package com.example.PVSSpringBoot.ControllerPackage;
 
 
+import com.example.PVSSpringBoot.Entities.ProductFront;
+import com.example.PVSSpringBoot.Entities.ProductFrontBuilder;
 import com.example.PVSSpringBoot.Entities.UserFront;
 
 
@@ -13,13 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.util.List;
 import java.util.Map;
 
 
 
 
 @RestController
-@CrossOrigin()
+@CrossOrigin
 @RequestMapping("/api")
 public class Controller {
     @Autowired
@@ -74,6 +77,40 @@ public class Controller {
     public String deleteUser(@RequestBody Map<String, Long> body){
         return requestService.deleteUser(body.get("admin"), body.get("user"));
     }
+
+    @PostMapping("/addNewProduct")
+    public String addNewProduct(@RequestBody Map<String, String> body){System.out.println("111*****************");
+        //in RequestService
+        //public String addNewProduct(ProductFront)
+        return requestService.addNewProduct(
+                new ProductFrontBuilder()
+                        .setProductName(body.get("name"))
+                        .setApproved(false)
+                        .setBrandName(body.get("brandName"))
+                        .setDescription(body.get("description"))
+                        .setPrice(Float.parseFloat(body.get("price")))
+                        .setTargetAnimal(body.get("targetAnimal"))
+                        .setCategoryName(body.get("categoryName"))
+                        .setUserEmail(body.get("userEmail"))
+                        .setImage(body.get("photo"))
+                        .get()
+        );
+    }
+
+    @PostMapping("/getProductByUser")
+    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getProductByUserEmail(body.get("email"));
+    }
+
+    @PostMapping("/deleteRequestProduct")
+    public String deleteRequestProductById(@RequestBody Map<String, Long> body){
+        return requestService.deleteProductById(body.get("id"));
+    }
+
+
+
+
+
 
 
 //    @GetMapping("/oauthLogin")
