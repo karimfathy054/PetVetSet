@@ -154,7 +154,7 @@ export default function Signup() {
                         {/* <div onClick={() => navigate('../GoogleOAuthSignupController', { replace: true })} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> */}
                         <div onClick={() => { login(); }} className={styles.googleSign} ><FaGoogle></FaGoogle> Google</div>
                     </form>
-                    <img src={dog} ></img>
+                    <img src={dog}></img>
                 </div>
             </div>
         </>
