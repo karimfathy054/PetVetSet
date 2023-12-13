@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Animals from './pages/Animals';
+import Profile from './pages/UserProfile';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/Animals',
     element: <Animals />
+  },
+  {
+    path: '/Profile',
+    element: <Profile />
   }
 ]);
 

@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"
 import Token from "../Token"
+import { User } from "../User.js"
 export default function Signin() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
@@ -42,6 +43,7 @@ export default function Signin() {
         })
             .then(response => response.json())
             .then(data => {
+                createUser(data.token);
                 setToken(data.token);
                 setDecode(jwtDecode(data.token));
                 navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
@@ -92,7 +94,9 @@ export default function Signin() {
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);
+                    createUser(data.token, jwtDecode(data.token));
                     // console.log(jwtDecode(data.token))
+                    console.log(data.token)
                     navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
@@ -103,6 +107,32 @@ export default function Signin() {
                 });
         }
     })
+    function createUser(token, email) {
+        console.log("Here")
+        console.log(email)
+        let body = {
+            email: email.sub
+        }
+        console.log(body)
+        fetch('http://localhost:8080/api/getUserByEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify(body),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                let user = User.getUser()
+                user.set_id(data.id)
+                user.set_user_name(data.user_name)
+                user.set_email(data.email)
+                user.set_is_admin(data.is_admin)
+                user.set_token(token)
+            })
+    }
     return (
         <div className={styles.signin}>
             <div className={styles.content}>

@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
-import {User} from "../User.js"
+import { User } from "../User.js"
 
 import { jwtDecode } from "jwt-decode"
 export default function Signup() {
@@ -63,7 +63,7 @@ export default function Signup() {
 
     }
 
-    function createUser(token){
+    function createUser(token) {
         console.log("Here")
         let body = {
             email: email
@@ -77,8 +77,8 @@ export default function Signup() {
             },
             body: JSON.stringify(body),
         })
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
                 console.log(data)
                 let user = User.getUser()
                 user.set_id(data.id)
@@ -86,9 +86,6 @@ export default function Signup() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
-                console.log("user:",user)
-                console.log("Navigating")
-                navigate('/UserProfile')
             })
     }
 
@@ -132,6 +129,8 @@ export default function Signup() {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console
+                    createUser(data.token);
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);

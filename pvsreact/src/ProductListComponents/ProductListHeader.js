@@ -36,11 +36,14 @@ export default function ProductListHeader({ token, decode }) {
     const handleProducts = () => {
         navigate('../ProductList', { replace: true, state: { token: token, decode: decode } });
     }
+    const handleUser = () => {
+        navigate('/Profile');
+    }
     return (
         <div className={styles.header}>
             <div className={styles.welcome}>
                 <p className={styles.semititle}>PVS</p>
-                <div className={styles.user} ><FaUser /> {name}</div>
+                <div className={styles.user} onClick={handleUser}><FaUser /> {name}</div>
             </div>
             <ul>
                 <li><a onClick={handleHome}>Home</a></li>
