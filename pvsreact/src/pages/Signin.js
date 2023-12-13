@@ -43,7 +43,7 @@ export default function Signin() {
         })
             .then(response => response.json())
             .then(data => {
-                createUser(data.token);
+                createUser(data.token, userName);
                 setToken(data.token);
                 setDecode(jwtDecode(data.token));
                 navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });

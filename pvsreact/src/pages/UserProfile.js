@@ -88,7 +88,10 @@ class Profile extends React.Component {
   render() {
     const isChangeNameButton = this.state.changeNameButton;
     let button;
-    if (isChangeNameButton) {
+    if(this.state.email.includes("gmail")){
+      button = <></>
+    }
+    else if (isChangeNameButton) {
       button = <button onClick={this.changeName} className={styles.change_name_button}>Change name</button>
     } else {
       button = <form onSubmit={this.handleSubmit}>
