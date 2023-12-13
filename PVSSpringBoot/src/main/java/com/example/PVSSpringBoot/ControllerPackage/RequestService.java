@@ -7,7 +7,7 @@ import com.example.PVSSpringBoot.repositories.UsersRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.sql.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +16,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RequestService {
 
+    public static final String ADDED_TO_DATABASE = "Added to database...";
+    public static final String WRONG_USER_EMAIL = "The email of user is wrong";
+    public static final String PRODUCT_NOT_FOUND = "this product is not found...";
+    public static final String PRODUCT_DELETE_SUCCESS = "delete success from database...";
     @Autowired
     private UsersRepo usersRepo;
     @Autowired
     private RequestProductRepo requestProductRepo;
+
+//    public RequestService(RequestProductRepo requestProductRepo, UsersRepo usersRepo){
+//        this.usersRepo = usersRepo;
+//        this.requestProductRepo = requestProductRepo;
+//    }
 
     public String setAdmin(Long adminId, Long userId) {
         var enrtyAdmin = usersRepo.findById(userId);
@@ -98,18 +107,29 @@ public class RequestService {
         return "User deleted successfully";
     }
     public String addNewProduct(ProductFront product){
-        String userEmail = product.getUserEmail();
-        var enrtyUser = usersRepo.findByEmail(userEmail);
-        if(enrtyUser.isEmpty()){
-            return "The email of user is wrong";
+//        String userEmail = product.getUserEmail();
+//        var enrtyUser = usersRepo.findByEmail(userEmail);
+//        if(enrtyUser.isEmpty()){
+//            return "The email of user is wrong";
+//        }
+//        Long userId = enrtyUser.get().getUser_id();
+//        String date = java.time.LocalDate.now().toString();
+//        RequestProduct reqProduct = RequestProduct.builder().productName(product.getProductName()).categoryName(product.getCategoryName())
+//                        .price(product.getPrice()).brandName(product.getBrandName()).join_date(Date.valueOf(date)).description(product.getDescription())
+//                        .targetAnimal(product.getTargetAnimal()).userId(userId).build();
+        RequestProduct reqProduct;
+        try {
+            reqProduct = new RequestProductAdapter(
+                    requestProductRepo,
+                    usersRepo
+            ).frontToNewData(product);
+            requestProductRepo.save(reqProduct);
+            return ADDED_TO_DATABASE;
+        }catch (Exception e){
+            e.printStackTrace();
+            return WRONG_USER_EMAIL;
         }
-        Long userId = enrtyUser.get().getUser_id();
-        String date = java.time.LocalDate.now().toString();
-        RequestProduct reqProduct = RequestProduct.builder().productName(product.getProductName()).categoryName(product.getCategoryName())
-                        .price(product.getPrice()).brandName(product.getBrandName()).join_date(Date.valueOf(date)).description(product.getDescription())
-                        .targetAnimal(product.getTargetAnimal()).userId(userId).build();
-        requestProductRepo.save(reqProduct);
-        return "Added to database...";
+
     }
 
 
@@ -117,24 +137,25 @@ public class RequestService {
     public String deleteProductById( Long id) {
         Optional<RequestProduct> reqProduct = requestProductRepo.findById(id);
         if(reqProduct.isEmpty()){
-            return "this product is not found...";
+            return PRODUCT_NOT_FOUND;
         }
         requestProductRepo.deleteById(id);
-        return "delete success from database...";
+        return PRODUCT_DELETE_SUCCESS;
 
 
     }
 
     public List<ProductFront> getProductByUserEmail(String email) {
-        var enrtyUser = usersRepo.findByEmail(email);
-        if(enrtyUser.isEmpty()){
+        var entryUser = usersRepo.findByEmail(email);
+        if(entryUser.isEmpty()){
             return null;
+//            throw new RuntimeException("User not found");
         }
-        List<RequestProduct> listProduct = requestProductRepo.findByUserId(enrtyUser.get().getUser_id());
+        List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUser_id());
         List<ProductFront> listProductFront = new ArrayList<>();
         for(RequestProduct it: listProduct){
-            ProductFrontBuilder productFrontBuilder = new ProductFrontBuilder();
-            listProductFront.add(productFrontBuilder.convertFromRequestToFront(it).get());
+            listProductFront.add(new RequestProductAdapter(requestProductRepo, usersRepo)
+                    .dataToFront(it));
         }
         return listProductFront;
 

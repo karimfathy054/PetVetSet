@@ -58,19 +58,14 @@ public class ProductFrontBuilder {
         this.productFront.setTargetAnimal(targetAnimal);
         return this;
     }
-    public ProductFrontBuilder setUserId(Long userId){
-        this.productFront.setUserId(userId);
+
+    public ProductFrontBuilder setProductId(long productId){
+        this.productFront.setProductId(productId);
         return this;
     }
-    public ProductFrontBuilder convertFromRequestToFront(RequestProduct product){
-        this.productFront.setBrandName(product.getBrandName());
-        this.productFront.setApproved(false);
-        this.productFront.setCategoryName(product.getCategoryName());
-        this.productFront.setDescription(product.getDescription());
-        this.productFront.setPrice(product.getPrice());
-        this.productFront.setTargetAnimal(product.getTargetAnimal());
-        this.productFront.setProductName(product.getProductName());
-        this.productFront.setUserId(product.getUserId());
+
+    public ProductFrontBuilder setProductPhoto(String photo){
+        this.productFront.setPhoto(photo);
         return this;
     }
 

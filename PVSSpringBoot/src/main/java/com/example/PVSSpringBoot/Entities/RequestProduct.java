@@ -40,10 +40,8 @@ public class RequestProduct {
     @Column(name = "price", nullable = false)
     private float price ;
 
-    @Lob
     @Column(name = "productPhoto")
-    @JdbcTypeCode(SqlTypes.BLOB)
-    private Blob productPhoto;
+    private String productPhoto;
 
     @Column(name = "requestDate", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)
@@ -78,7 +76,7 @@ public class RequestProduct {
         return price;
     }
 
-    public Blob getProductPhoto() {
+    public String getProductPhoto() {
         return productPhoto;
     }
 

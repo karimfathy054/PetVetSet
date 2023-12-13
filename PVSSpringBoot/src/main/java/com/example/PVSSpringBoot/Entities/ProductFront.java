@@ -2,17 +2,7 @@ package com.example.PVSSpringBoot.Entities;
 
 public class ProductFront {
     private String description;
-    private long productId;
 
-    public long getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(long userId) {
-        UserId = userId;
-    }
-
-    private long UserId;
     //image handled separately
     private float price;
     private String brandName;
@@ -21,6 +11,9 @@ public class ProductFront {
     private String productName;
     private boolean isApproved;
     private String userEmail;
+    private long productId;
+
+    private String photo;
 
     public String getUserEmail() {
         return userEmail;
@@ -87,4 +80,19 @@ public class ProductFront {
         isApproved = approved;
     }
 
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }
