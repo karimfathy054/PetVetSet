@@ -22,7 +22,7 @@ const handleSelectChange = (e) => {
       setSelectedValue2(e.target.value);
       console.log(selectedValue2);
     };
-  const handleInputChange = (e) => {
+  const handleInputTargetAnimal = (e) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
@@ -108,7 +108,7 @@ const handleSelectChange = (e) => {
         <option value="option3">Option 3</option>
       </select>
       <label className={styles.select2} htmlFor="mySelect2">Select a Target animal:</label>
-      <select className={styles.select_button}id="mySelect2" value={selectedValue2} onChange={handleSelectChange2}>
+      <select className={styles.select_button}id="mySelect2" value={selectedValue2} onChange={handleInputTargetAnimal}>
         <option value="">Select</option>
         <option value="option4">Option 1</option>
         <option value="option5">Option 2</option>
