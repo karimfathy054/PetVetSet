@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
-//@RunWith(SpringRunner.class)
 class RequestServiceTest {
 
 
@@ -37,12 +36,6 @@ class RequestServiceTest {
 
     @InjectMocks
     private RequestService serviceUnderTest;
-
-    @BeforeEach
-    void setUp(){
-//        this.adapter = new RequestProductAdapter(requestProductRepo, usersRepo);
-//        this.serviceUnderTest = new RequestService(requestProductRepo, usersRepo);
-    }
 
     @BeforeTestMethod
     void init(){
@@ -59,11 +52,11 @@ class RequestServiceTest {
                 .setBrandName("Catso")
                 .setDescription("Delicious cat food")
                 .setTargetAnimal("cat")
-                .setUserEmail("abcd132@moogle.com")
+                .setUserEmail("abcd132@gmail.com")
                 .get();
 
         User user = User.builder()
-                .email("abcd132@moogle.com")
+                .email("abcd132@gmail.com")
                 .user_id(123L)
                 .build();
 
@@ -87,7 +80,7 @@ class RequestServiceTest {
                 .setBrandName("Catso")
                 .setDescription("Delicious cat food")
                 .setTargetAnimal("cat")
-                .setUserEmail("abcd132@moogle.com")
+                .setUserEmail("abcd132@gmail.com")
                 .get();
 
         BDDMockito.given(this.usersRepo.findByEmail(productFront.getUserEmail()))
@@ -108,8 +101,8 @@ class RequestServiceTest {
                 .setBrandName("Catso")
                 .setDescription("Delicious cat food")
                 .setTargetAnimal("cat")
-                .setUserEmail("abcd132@moogle.com")
-                .setProductId(5656)
+                .setUserEmail("abcd132@gmail.com")
+                .setProductId(5656L)
                 .get();
 
         BDDMockito.given(this.requestProductRepo.findById(productFront.getProductId()))
@@ -125,8 +118,8 @@ class RequestServiceTest {
     @Test
     void productNotFoundOnDelete(){
         ProductFront productFront = new ProductFrontBuilder()
-                .setUserEmail("abcd132@moogle.com")
-                .setProductId(5656)
+                .setUserEmail("abcd132@gmail.com")
+                .setProductId(5656L)
                 .get();
 
         BDDMockito.given(this.requestProductRepo.findById(productFront.getProductId()))
@@ -145,7 +138,7 @@ class RequestServiceTest {
                 .setBrandName("Catso")
                 .setDescription("Delicious cat food")
                 .setTargetAnimal("cat")
-                .setUserEmail("abcd132@moogle.com")
+                .setUserEmail("abcd132@gmail.com")
                 .setProductId(5656L)
                 .get();
 
@@ -162,7 +155,7 @@ class RequestServiceTest {
                 .build();
 
         User user = User.builder()
-                .email("abcd132@moogle.com")
+                .email("abcd132@gmail.com")
                 .user_id(123L)
                 .build();
 
@@ -190,7 +183,7 @@ class RequestServiceTest {
     @Test
     void userNotFoundWhenGettingProductsByEmail(){
         User user = User.builder()
-                .email("abcd132@moogle.com")
+                .email("abcd132@gmail.com")
                 .user_id(123L)
                 .build();
 
