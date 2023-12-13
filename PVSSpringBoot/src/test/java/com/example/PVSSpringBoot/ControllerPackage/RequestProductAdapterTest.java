@@ -48,7 +48,7 @@ class RequestProductAdapterTest {
                 .build();
 
         User user = User.builder()
-                .email("abcd132@moogle.com")
+                .email("abcd132@gmail.com")
                 .build();
 
         BDDMockito.given(usersRepo.findById(rp.getUserId()))
@@ -91,11 +91,11 @@ class RequestProductAdapterTest {
                 .setBrandName("Catso")
                 .setDescription("Delicious cat food")
                 .setTargetAnimal("cat")
-                .setUserEmail("abcd132@moogle.com")
+                .setUserEmail("abcd132@gmail.com")
                 .get();
 
         User user = User.builder()
-                .email("abcd132@moogle.com")
+                .email("abcd132@gmail.com")
                 .user_id(123L)
                 .build();
 
@@ -122,7 +122,7 @@ class RequestProductAdapterTest {
     @Test
     void ProductUploaderNotFound(){
         ProductFront productFront = new ProductFrontBuilder()
-                .setUserEmail("haha@moogle.com")
+                .setUserEmail("haha@gmail.com")
                 .get();
         BDDMockito.given(usersRepo
                         .findByEmail(productFront.getUserEmail()))
