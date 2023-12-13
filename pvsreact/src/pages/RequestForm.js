@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom"
+import { wait } from "@testing-library/user-event/dist/utils";
 import styles from "../CSS/styleRequest.module.css"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useEffect } from "react";
 const ProductUploadForm = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedValue2, setSelectedValue2] = useState('');
@@ -12,12 +10,15 @@ const ProductUploadForm = () => {
   const [Description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [responseText, setResponseText] = useState(null);
+//   function isString(value) {
+//     return Object.prototype.toString.call(value) === '[object String]';
+// }
 const handleSelectChange = (e) => {
     setSelectedValue(e.target.value);
     console.log(selectedValue);
   }
 
-  const handleSelectChange2 = (e) => {
+  const handleTargetAnimal = (e) => {
       setSelectedValue2(e.target.value);
       console.log(selectedValue2);
     }
@@ -31,7 +32,7 @@ const handleSelectChange = (e) => {
     }
     const handlePrice = (e) => {
       setPrice(e.target.value);
-      console.log(Price);
+      
     }
     const handleBrandName = (e) => {
       setBrandName(e.target.value);
@@ -44,8 +45,13 @@ const handleSelectChange = (e) => {
     console.log(file.name);
     setImage(file.name);
   }
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRvMkBnbWFpbC5jb20iLCJpYXQiOjE3MDIzNzM4ODQsImV4cCI6MTcwMjQ2MDI4NH0.rZzFcP6Yk3IBIdG4HaZrKZmHhSNIc9rjoRBLUiuqmj8' 
-  const handleSubmit = async (e) => { 
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRvQGdtYWlsLmNvbSIsImlhdCI6MTcwMjUwMTQyMiwiZXhwIjoxNzAyNTg3ODIyfQ.ZAx4g7FuPc4YobSPdgSB1WzttblkC0b92MBIYsAkA2c' 
+  const handleSubmit = async (e) => {
+    if(Price.trim() === "" || Number.isNaN(Number(Price))){
+      window.alert("Enter number in the price.");
+      setPrice("");
+     console.log(Price);
+    } else{
     e.preventDefault();
     const response = await fetch('http://localhost:8080/api/addNewProduct', {
         method: 'POST',
@@ -84,6 +90,8 @@ const handleSelectChange = (e) => {
           setproductName("");
           setSelectedValue("");
           setSelectedValue2("");
+  }
+   
       
 }
   return (
@@ -146,7 +154,6 @@ const handleSelectChange = (e) => {
 
       <label className={styles.select1} htmlFor="mySelect">Select a Category:</label>
       <select className={styles.select_button}id="mySelect" value={selectedValue} onChange={handleSelectChange}>
-        <option value="">Select</option>
         <option value="food">food</option>
         <option value="accessories">accessories</option>
         <option value="artiika">artiika</option>
@@ -154,14 +161,15 @@ const handleSelectChange = (e) => {
         <option value="canin">canin</option>
         <option value="toys">toys</option>
         <option value="medicine">medicine</option>
+        required
       </select>
       <label className={styles.select2} htmlFor="mySelect">Select a Target animal:</label>
-      <select className={styles.select_button}id="mySelect2" value={selectedValue2} onChange={handleSelectChange2}>
-        <option value="">Select</option>
+      <select className={styles.select_button}id="mySelect2" value={selectedValue2} onChange={handleTargetAnimal}>
+        <option value="pet">pet</option>
         <option value="dog">dog</option>
         <option value="cat">cat</option>
         <option value="bird">bird</option>
-        <option value="pet">pet</option>
+        required
       </select>
       
 
