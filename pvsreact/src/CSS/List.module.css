@@ -392,11 +392,16 @@ a {
 .list .content .box .text h3 {
     margin: 0;
     padding: 0;
+    text-transform: uppercase;
 }
 
 .list .content .box .text p {
     color: var(--text-color);
     line-height: 1.6;
+}
+
+.list .content .box .text p:nth-child(3) {
+    font-weight: bold;
 }
 
 .list .content .box .text .price {

@@ -10,7 +10,7 @@ export default function AnimalList({ token }) {
     const [rate, setRate] = useState(0);
     useEffect(() => {
         if (temp) {
-            fetch(`http://localhost:8080/products/category=${"pet"}`, {
+            fetch(`http://localhost:8080/pet/all`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -30,7 +30,7 @@ export default function AnimalList({ token }) {
     }
     )
     const handleSearch = () => {
-        fetch(`http://localhost:8080/products/name=${search}`, {
+        fetch(`http://localhost:8080/pet/name=${search}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -49,7 +49,7 @@ export default function AnimalList({ token }) {
     }
     const handleFilter = (e) => {
         if (e.target.value != "all") {
-            fetch(`http://localhost:8080/products/Target_Animal=${e.target.value}`, {
+            fetch(`http://localhost:8080/pet/type=${e.target.value}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function AnimalList({ token }) {
                 });
         }
         else {
-            fetch(`http://localhost:8080/products/category=${"pet"}`, {
+            fetch(`http://localhost:8080/pet/all`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -84,32 +84,6 @@ export default function AnimalList({ token }) {
                     setTemp(false);
                 });
         }
-    }
-    const handleRating = (e) => {
-        e.preventDefault();
-        console.log(e.target.id)
-        console.log(e.target[0].value)
-        fetch(`http://localhost:8080/products/rate=${e.target[0].value}&&id=${e.target.id}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        })
-            // .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setTemp(false);
-            })
-            .catch(error => {
-                console.error('Error creating user:', error);
-                setTemp(false);
-            });
-        const contact = document.getElementById("rate" + e.target.id);
-        contact.style.display = "none";
-    }
-    const handleRate = (e) => {
-        const contact = document.getElementById("rate" + e.target.id);
-        contact.style.display = "block";
     }
     return (
         <div class={styles.list}>
@@ -130,25 +104,12 @@ export default function AnimalList({ token }) {
                 <div class={styles.content}>
                     {products.map((product) => {
                         return (<div class={styles.box} key={product.id}>
-                            <div class={styles.image}><img src={require("../" + product.imageLink)} alt="" /></div>
+                            <div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>
                             <div class={styles.text}>
-                                <h3>{product.productName}</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit</p>
-                                <div className={styles.price}>{product.price} $</div>
-                            </div>
-                            <div className={styles.rateAndAdd}>
-                                <div className={styles.rate}>
-                                    <FaStar className={styles.i} />
-                                    <div className={styles.rating}>{product.rating} /10</div>
-                                </div>
-                                <div className={styles.add}>
-                                    <div onClick={handleRate} className={styles.addRating} id={product.id}>Add Rating</div>
-                                    <div className={styles.type} id={"rate" + product.id}>
-                                        <form id={product.id} onSubmit={handleRating}>
-                                            <input type="number" min="0" max="10" step="0.01" value={rate} onChange={(e) => setRate(e.target.value)} ></input>
-                                        </form>
-                                    </div>
-                                </div>
+                                <h3>{product.name}</h3>
+                                <p>{product.description}</p>
+                                <p>{product.breed}</p>
+                                <div className={styles.price}>For Adoption</div>
                             </div>
                             <div class={styles.info}>
                                 <a>Read Me</a>

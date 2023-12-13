@@ -135,7 +135,7 @@ export default function List({ token }) {
                     {products.map((product) => {
                         return (
                             <div class={styles.box}>
-                                <div class={styles.image}><img src={require("../" + product.imageLink)} alt="" /></div>
+                                <div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>
                                 <div class={styles.text}>
                                     <h3>{product.productName}</h3>
                                     <p>{product.description}</p>
