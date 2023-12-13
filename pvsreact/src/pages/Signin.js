@@ -78,6 +78,7 @@ export default function Signin() {
 
     useEffect(() => {
         // login();
+        console.log(profile.email)
         if (temp) {
             fetch('http://localhost:8080/api/auth/authenticate', {
                 method: 'POST',
@@ -91,13 +92,13 @@ export default function Signin() {
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);
-                    createUser(data.token, jwtDecode(data.token));
+                    createUser(data.token, profile.email);
                     // console.log(jwtDecode(data.token))
                     console.log(data.token)
-                    navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
@@ -111,7 +112,7 @@ export default function Signin() {
         console.log("Here")
         console.log(email)
         let body = {
-            email: email.sub
+            email: email
         }
         console.log(body)
         fetch('http://localhost:8080/api/getUserByEmail', {
@@ -131,6 +132,7 @@ export default function Signin() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
+                navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
             })
     }
     return (

@@ -28,19 +28,19 @@ class Profile extends React.Component {
   getJoinDate() {
     console.log("success!!")
     console.log(this.user.get_token())
-    // fetch(`http://localhost:8080/api/getJoinDate/${this.user.get_id()}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: "Bearer " + this.user.get_token()
-    //   }
-    // })
-    //   .then(response => response.text())
-    //   .then(data => {
-    //     console.log(data)
-    //     this.user.set_join_date(data)
-    //     this.setState({ joinDate: this.user.get_join_date() })
-    //   })
+    fetch(`http://localhost:8080/api/getJoinDate/${this.user.get_id()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: "Bearer " + this.user.get_token()
+      }
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data)
+        this.user.set_join_date(data)
+        this.setState({ joinDate: this.user.get_join_date() })
+      })
   }
   changeName() {
     this.setState({ changeNameButton: false })

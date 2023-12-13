@@ -54,16 +54,15 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
-                createUser(data.token)
+                createUser(data.token, email)
                 setToken(data.token);
                 setDecode(jwtDecode(data.token));
-                navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Is Already Exist"); });
 
     }
 
-    function createUser(token) {
+    function createUser(token, email){
         console.log("Here")
         let body = {
             email: email
@@ -86,6 +85,7 @@ export default function Signup() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
+                navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
             })
     }
 
@@ -129,8 +129,7 @@ export default function Signup() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console
-                    createUser(data.token);
+                    createUser(data.token, profile.email);
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);
