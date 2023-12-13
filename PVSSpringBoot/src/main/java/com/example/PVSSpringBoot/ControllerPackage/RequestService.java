@@ -92,6 +92,24 @@ public class RequestService {
         return "User deleted successfully";
     }
 
+    public String getJoinDate(long id) {
+        var user = usersRepo.findById(id);
+        if(user.isEmpty()){
+            return "Wrong Id!!";
+        }
+        return user.get().getJoin_date().toString();
+    }
+
+    public String changeUserName(long id, String newName) {
+        var userEntry = usersRepo.findById(id);
+        if(userEntry.isEmpty())
+            return "Wrong Id!!";
+        User user = userEntry.get();
+        user.setUser_name(newName);
+        usersRepo.save(user);
+        return "User Saved Successfully!!";
+    }
+
 
 //    public UserFront login(String email, String password) {
 //        System.out.println("body.get(\"email\") = " + email);

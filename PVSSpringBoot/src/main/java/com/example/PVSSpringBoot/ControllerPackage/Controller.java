@@ -4,6 +4,8 @@ package com.example.PVSSpringBoot.ControllerPackage;
 import com.example.PVSSpringBoot.Entities.UserFront;
 
 
+import org.springframework.http.ResponseEntity;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +72,14 @@ public class Controller {
     @PostMapping("/getUserByEmail")
     public UserFront getUserByEmail(@RequestBody Map<String, String> body){
         return requestService.getUserByEmail(body.get("email"));
+    }
+    @GetMapping("/getJoinDate/{id}")
+    public ResponseEntity<String> getJoinDate(@PathVariable long id){
+        return ResponseEntity.ok(requestService.getJoinDate(id));
+    }
+    @PostMapping("/changeUserName")
+    public ResponseEntity<String> changeUserName(@RequestBody Map<String, String> body){
+        return ResponseEntity.ok(requestService.changeUserName(Long.parseLong(body.get("id")), body.get("newName")));
     }
     @DeleteMapping("/deleteUser")
     public String deleteUser(@RequestBody Map<String, Long> body){
