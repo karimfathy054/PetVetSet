@@ -10,10 +10,7 @@ const ProductUploadForm = () => {
   const [Description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [responseText, setResponseText] = useState(null);
-//   function isString(value) {
-//     return Object.prototype.toString.call(value) === '[object String]';
-// }
-const handleSelectChange = (e) => {
+  const handleSelectChange = (e) => {
     setSelectedValue(e.target.value);
     console.log(selectedValue);
   }
