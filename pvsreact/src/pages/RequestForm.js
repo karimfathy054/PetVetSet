@@ -3,94 +3,102 @@ import styles from "../CSS/styleRequest.module.css"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react";
-import axios from "axios";
-
-// import React, { useState } from 'react';
-// import styles from './ProductUploadForm.module.css';
-
-
-
 const ProductUploadForm = () => {
-  const [product, setProduct] = useState({
-    productName: '',
-    description: '',
-    price: '',
-    image: null,
-    brandName:'',
-  });
   const [selectedValue, setSelectedValue] = useState('');
-
-const handleSelectChange = (e) => {
-  console.log(selectedValue2);
-    setSelectedValue(e.target.value);
-  };
   const [selectedValue2, setSelectedValue2] = useState('');
+  const [productName, setproductName] = useState('');
+  const [Price, setPrice] = useState('');
+  const [brandName, setBrandName] = useState('');
+  const [Description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+  const [responseText, setResponseText] = useState(null);
+const handleSelectChange = (e) => {
+    setSelectedValue(e.target.value);
+    console.log(selectedValue);
+  }
 
   const handleSelectChange2 = (e) => {
-    console.log(selectedValue2);
       setSelectedValue2(e.target.value);
-    };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
+      console.log(selectedValue2);
+    }
+    const handleProductName = (e) => {
+      setproductName(e.target.value);
+      console.log(productName);
+    }
+    const handleDescription = (e) => {
+      setDescription(e.target.value);
+      console.log(Description);
+    }
+    const handlePrice = (e) => {
+      setPrice(e.target.value);
+      console.log(Price);
+    }
+    const handleBrandName = (e) => {
+      setBrandName(e.target.value);
+      console.log(brandName);
+    }
+  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      image: file,
-    }));
-  };
+    console.log(file.name);
+    setImage(file.name);
+  }
   const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRvMkBnbWFpbC5jb20iLCJpYXQiOjE3MDIzNzM4ODQsImV4cCI6MTcwMjQ2MDI4NH0.rZzFcP6Yk3IBIdG4HaZrKZmHhSNIc9rjoRBLUiuqmj8' 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { 
     e.preventDefault();
-    fetch('http://localhost:8080/api/addNewProduct', {
+    const response = await fetch('http://localhost:8080/api/addNewProduct', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          name : product.productName,
-          brandName : product.brandName,
-          description : product.description,
-          price : product.price ,
+          name : productName,
+          brandName : brandName,
+          description : Description,
+          price : Price ,
           targetAnimal : selectedValue,
           categoryName: selectedValue2,
           userEmail :'abdo@gmail.com' ,
+          photo : image,
           
         }),
     })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        })
-        setProduct({
-          productName: '',
-          description: '',
-          price: '',
-          image: null,
-          brandName:'',
-        });
+         
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    // Assuming the server returns a string
+    const textResponse = await response.text();
+    console.log(textResponse);
+    if(textResponse == "Added to database..."){
+      window.alert("Uploading success and waiting For admin acceptance");
+    }
+         
+          setBrandName("");
+          setDescription("");
+          setImage(null);
+          setPrice("");
+          setproductName("");
+          setSelectedValue("");
+          setSelectedValue2("");
+      
 }
   return (
     <form className={styles.msform}>
     <fieldset>
     <div className={styles.productFormContainer}>
       <h2 className={styles.label}>Product Upload Form</h2>
-      <form onSubmit={handleSubmit}>
+      <form >
         <label className={styles.label}>
           Product Name
           <input className={styles.input2}
             type="text"
             name="productName"
-            value={product.productName}
-            onChange={handleInputChange}
+            value={productName}
+            onChange={handleProductName}
             required
           />
         </label>
@@ -99,8 +107,8 @@ const handleSelectChange = (e) => {
           Description
           <textarea className={styles.input2}
             name="description"
-            value={product.description}
-            onChange={handleInputChange}
+            value={Description}
+            onChange={handleDescription}
             required
           />
         </label  >
@@ -109,8 +117,8 @@ const handleSelectChange = (e) => {
           Price
           <input className={styles.input3}
             name="price"
-            value={product.price}
-            onChange={handleInputChange}
+            value={Price}
+            onChange={handlePrice}
             required
             
           />
@@ -119,8 +127,8 @@ const handleSelectChange = (e) => {
           Brand name
           <input className={styles.input3}
             name="brandName"
-            value={product.brandName}
-            onChange={handleInputChange}
+            value={brandName}
+            onChange={handleBrandName}
             required
             
           />
@@ -147,7 +155,7 @@ const handleSelectChange = (e) => {
         <option value="toys">toys</option>
         <option value="medicine">medicine</option>
       </select>
-      <label className={styles.select2} htmlFor="mySelect2">Select a Target animal:</label>
+      <label className={styles.select2} htmlFor="mySelect">Select a Target animal:</label>
       <select className={styles.select_button}id="mySelect2" value={selectedValue2} onChange={handleSelectChange2}>
         <option value="">Select</option>
         <option value="dog">dog</option>
@@ -157,7 +165,7 @@ const handleSelectChange = (e) => {
       </select>
       
 
-        <button className={styles.button} type="submit">Upload Product</button>
+        <button className={styles.button} type="submit" onClick={handleSubmit}>Upload Product</button>
       </form>
     </div>
     </fieldset>
