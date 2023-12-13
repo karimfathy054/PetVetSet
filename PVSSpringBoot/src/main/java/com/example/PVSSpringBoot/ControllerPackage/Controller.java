@@ -5,6 +5,8 @@ import com.example.PVSSpringBoot.Entities.UserFront;
 
 
 import org.springframework.http.ResponseEntity;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,7 +22,7 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin()
+@CrossOrigin
 @RequestMapping("/api")
 public class Controller {
     @Autowired

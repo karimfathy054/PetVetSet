@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import {User} from "../User.js"
 
+import { jwtDecode } from "jwt-decode"
 export default function Signup() {
 
     const navigate = useNavigate();
@@ -22,6 +23,8 @@ export default function Signup() {
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
     const [temp, setTemp] = useState(false);
+    const [decode, setDecode] = useState({});
+
     const handleUserName = (e) => {
         setUserName(e.target.value);
     }
@@ -51,9 +54,10 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.token)
                 createUser(data.token)
-                console.log("fsjfe")
+                setToken(data.token);
+                setDecode(jwtDecode(data.token));
+                navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Is Already Exist"); });
 
@@ -129,7 +133,9 @@ export default function Signup() {
                 .then(response => response.json())
                 .then(data => {
                     setToken(data.token);
+                    setDecode(jwtDecode(data.token));
                     setTemp(false);
+                    navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
