@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import RequestForm from './pages/RequestForm';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Animals from './pages/Animals';
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
     element: <Signup></Signup>
   },
   {
+    path: '/RequestForm',
+    element: <RequestForm></RequestForm>
     path: '/Home',
     element: <Home></Home>
   },
