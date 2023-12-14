@@ -50,8 +50,8 @@ class Profile extends React.Component {
     this.setState({ nameValue: event.target.value })
   }
   handleSubmit(event) {
-    if (this.state.nameValue.length <= 2) {
-      this.setState({ changeNameMessage: "Name can't be less than 2 characters" })
+    if (this.state.nameValue.length < 4) {
+      this.setState({ changeNameMessage: "Name can't be less than 4 characters" })
       event.preventDefault()
     } else {
       this.user.set_user_name(this.state.nameValue)
@@ -77,7 +77,6 @@ class Profile extends React.Component {
           if (data != 'Wrong Id!!') {
             this.setState({ name: this.user.get_user_name() })
           }
-          console.log("fsjfe")
         })
 
     }

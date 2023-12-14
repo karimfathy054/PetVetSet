@@ -5,7 +5,7 @@
 
 html {
 	display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   background: url('/back4.jpg') center/cover no-repeat; /* Replace 'background.jpg' with your actual image file */
   padding: 20px;
@@ -23,7 +23,8 @@ body{
     margin-top: 15px;
 	  width: 780px;
     height: 680px;
-	  margin-right: 750px;
+	  /* margin-right: 750px; */
+    margin-right: 150%;
 	  text-align: center;
 	  position: relative;
     color: #f22c5c;

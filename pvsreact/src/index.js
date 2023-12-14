@@ -29,6 +29,8 @@ const router = createBrowserRouter([
   {
     path: '/RequestForm',
     element: <RequestForm></RequestForm>
+  },
+  {
     path: '/Home',
     element: <Home></Home>
   },

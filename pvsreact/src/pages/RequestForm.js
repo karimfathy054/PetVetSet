@@ -1,6 +1,7 @@
 import { wait } from "@testing-library/user-event/dist/utils";
 import styles from "../CSS/styleRequest.module.css"
 import { useState } from "react"
+import {User} from '../User'
 const ProductUploadForm = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedValue2, setSelectedValue2] = useState('');
@@ -42,7 +43,6 @@ const ProductUploadForm = () => {
     console.log(file.name);
     setImage(file.name);
   }
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmRvQGdtYWlsLmNvbSIsImlhdCI6MTcwMjUwMTQyMiwiZXhwIjoxNzAyNTg3ODIyfQ.ZAx4g7FuPc4YobSPdgSB1WzttblkC0b92MBIYsAkA2c' 
   const handleSubmit = async (e) => {
     if(Price.trim() === "" || Number.isNaN(Number(Price))){
       window.alert("Enter number in the price.");
@@ -54,7 +54,7 @@ const ProductUploadForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${User.getUser().get_token()}`,
         },
         body: JSON.stringify({
           name : productName,
@@ -63,7 +63,7 @@ const ProductUploadForm = () => {
           price : Price ,
           targetAnimal : selectedValue,
           categoryName: selectedValue2,
-          userEmail :'abdo@gmail.com' ,
+          userEmail :User.getUser().get_email() ,
           photo : image,
           
         }),
