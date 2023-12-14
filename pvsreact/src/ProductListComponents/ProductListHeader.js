@@ -8,26 +8,28 @@ import { User } from "../User";
 export default function ProductListHeader({ token, decode }) {
     const [name, setName] = useState("");
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     fetch(`http://localhost:8080/api/getUserByEmail`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`,
-    //             "Accept": 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             email: decode.sub,
-    //         }),
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setName(data.user_name);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error creating user:', error);
-    //         });
-    // })
+    const [mainUser, setMainUser] = useState({});
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/getUserByEmail`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: decode.sub,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setName(data.user_name);
+                setMainUser(data);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+            });
+    })
     const handleHome = () => {
         navigate('../Home', { replace: true, state: { token: token, decode: decode } });
     }
@@ -38,11 +40,11 @@ export default function ProductListHeader({ token, decode }) {
         navigate('../ProductList', { replace: true, state: { token: token, decode: decode } });
     }
     const handleUser = () => {
-        navigate('/Profile');
+        navigate('/Profile', { replace: true, state: { token: token, decode: decode } });
     }
     const handleAddProduct = () => {
         console.log("ERERE")
-        navigate('/RequestForm');
+        navigate('/RequestForm', { replace: true, state: { mainUser: mainUser, token: token, decode: decode } });
     }
     return (
         <div className={styles.header}>

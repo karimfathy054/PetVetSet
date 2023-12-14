@@ -3,6 +3,10 @@ import image from '../images/User/maleUser.png'
 import styles from "../CSS/style.module.css"
 import '../CSS/style.module.css'; // assuming the CSS is in a file named Profile.css in the same directory
 import { User } from "../User.js"
+import { useLocation } from 'react-router-dom';
+import Header from '../Components/Header.js';
+import { Route, Routes, Link } from 'react-router-dom';
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -13,17 +17,20 @@ class Profile extends React.Component {
     this.getJoinDate = this.getJoinDate.bind(this)
     this.user = User.getUser()
     this.state = {
-      // name: this.user.get_user_name(),
-      // email: this.user.get_email(),
       name: this.user.get_user_name(),
       email: this.user.get_email(),
       imageUrl: image, // replace with the actual image path
       changeNameButton: true,
       changeNameMessage: "Enter Name:",
       nameValue: '',
-      joinDate: this.user.get_join_date()
+      joinDate: this.user.get_join_date(),
     };
     this.getJoinDate()
+    this.handleLocation()
+  }
+  handleLocation() {
+    this.location = this.props.location;
+    console.log(this.location + "ooooooooooooooooooooo")
   }
   getJoinDate() {
     console.log("success!!")
@@ -87,10 +94,7 @@ class Profile extends React.Component {
   render() {
     const isChangeNameButton = this.state.changeNameButton;
     let button;
-    if(this.state.email.includes("gmail")){
-      button = <></>
-    }
-    else if (isChangeNameButton) {
+    if (isChangeNameButton) {
       button = <button onClick={this.changeName} className={styles.change_name_button}>Change name</button>
     } else {
       button = <form onSubmit={this.handleSubmit}>
@@ -103,26 +107,29 @@ class Profile extends React.Component {
       </form>
     }
     return (
-      <div className={styles.profile_container}>
-        <div className={styles.profile_left}>
-          <div className={styles.profile_image_div}>
-            <img className={styles.profile_image} src={this.state.imageUrl} alt='User' />
+      <>
+
+        <div className={styles.profile_container}>
+          <div className={styles.profile_left}>
+            <div className={styles.profile_image_div}>
+              <img className={styles.profile_image} src={this.state.imageUrl} alt='User' />
+            </div>
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Name</h2>
+            <h2 className={styles.profile_name}>{this.state.name}</h2>
+            {button}
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Email</h2>
+            <h2 className={styles.profile_email}>{this.state.email}</h2>
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Joined:</h2>
+            <h2 className={styles.profile_email}>{this.state.joinDate}</h2>
           </div>
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Name</h2>
-          <h2 className={styles.profile_name}>{this.state.name}</h2>
-          {button}
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Email</h2>
-          <h2 className={styles.profile_email}>{this.state.email}</h2>
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Joined:</h2>
-          <h2 className={styles.profile_email}>{this.state.joinDate}</h2>
+          <div className={styles.profile_right}>
+            <p>Right</p>
+          </div>
         </div>
-        <div className={styles.profile_right}>
-          <p>Right</p>
-        </div>
-      </div>
+      </>
     );
   }
 }
