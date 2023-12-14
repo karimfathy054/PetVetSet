@@ -7,6 +7,7 @@ export class User {
     #join_date
     #token
     #decode
+    #image
     set_id(id) { this.#id = id }
     set_user_name(user_name) { this.#user_name = user_name }
     set_email(email) { this.#email = email }
@@ -19,6 +20,9 @@ export class User {
     }
     set_decode(decode) {
         this.decode = decode
+    }
+    set_image(image) {
+        this.image = image
     }
 
     get_id() { return this.#id }
@@ -33,6 +37,9 @@ export class User {
     }
     get_decode() {
         return this.decode
+    }
+    get_image() {
+        return this.image
     }
 
     static getUser() {
