@@ -114,7 +114,6 @@ public class RequestService {
             e.printStackTrace();
             return WRONG_USER_EMAIL;
         }
-
     }
 
     public String getJoinDate(long id) {
@@ -150,11 +149,11 @@ public class RequestService {
 
     public List<ProductFront> getProductByUserEmail(String email) {
         var entryUser = usersRepo.findByEmail(email);
+        List<ProductFront> listProductFront = new ArrayList<>();
         if(entryUser.isEmpty()){
-            return null;
+            return listProductFront ;
         }
         List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUser_id());
-        List<ProductFront> listProductFront = new ArrayList<>();
         for(RequestProduct it: listProduct){
             listProductFront.add(new RequestProductAdapter(requestProductRepo, usersRepo)
                     .dataToFront(it));

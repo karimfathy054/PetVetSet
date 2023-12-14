@@ -85,14 +85,14 @@ public class Controller {
                         .get()
         );
     }
+    @GetMapping("/getProductByUser")
+    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getProductByUserEmail(body.get("email"));
+    }
 
-//    @PostMapping("/getProductByUser")
-//    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
-//        return requestService.getProductByUserEmail(body.get("email"));
-//    }
 
-//    @PostMapping("/deleteRequestProduct")
-//    public String deleteRequestProductById(@RequestBody Map<String, Long> body){
-//        return requestService.deleteProductById(body.get("id"));
-//    }
+   @PostMapping("/deleteRequestProduct")
+   public String deleteRequestProductById(@RequestBody Map<String, Long> body){
+       return requestService.deleteProductById(body.get("id"));
+   }
 }
