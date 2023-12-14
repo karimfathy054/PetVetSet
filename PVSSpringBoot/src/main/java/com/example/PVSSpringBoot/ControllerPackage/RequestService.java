@@ -25,52 +25,52 @@ public class RequestService {
     @Autowired
     private RequestProductRepo requestProductRepo;
 
-    public String setAdmin(Long adminId, Long userId) {
-        var enrtyAdmin = usersRepo.findById(userId);
-        var enrtyUser = usersRepo.findById(userId);
-        if(enrtyAdmin.isEmpty()){
-            return "Wrong admin id";
-        }
-        if(enrtyUser.isEmpty()){
-            return "Wrong user id";
-        }
-        User admin = enrtyAdmin.get();
-        User user = enrtyUser.get();
-        if(!admin.getIs_admin()){
-            return "User granting admin access is not admin";
-        }
-        user.setIs_admin(true);
-        usersRepo.save(user);
-        return "Admin access granted successfully";
-    }
+//    public String setAdmin(Long adminId, Long userId) {
+//        var enrtyAdmin = usersRepo.findById(userId);
+//        var enrtyUser = usersRepo.findById(userId);
+//        if(enrtyAdmin.isEmpty()){
+//            return "Wrong admin id";
+//        }
+//        if(enrtyUser.isEmpty()){
+//            return "Wrong user id";
+//        }
+//        User admin = enrtyAdmin.get();
+//        User user = enrtyUser.get();
+//        if(!admin.getIs_admin()){
+//            return "User granting admin access is not admin";
+//        }
+//        user.setIs_admin(true);
+//        usersRepo.save(user);
+//        return "Admin access granted successfully";
+//    }
+//
+//    public String removeAdminAccess(Long adminId, Long userId) {
+//        var enrtyAdmin = usersRepo.findById(adminId);
+//        var enrtyUser = usersRepo.findById(userId);
+//        if(enrtyAdmin.isEmpty()){
+//            return "Wrong admin id";
+//        }
+//        if(enrtyUser.isEmpty()){
+//            return "Wrong user id";
+//        }
+//        User admin = enrtyAdmin.get();
+//        User user = enrtyUser.get();
+//        if(!admin.getIs_admin()){
+//            return "User removing admin access is not admin";
+//        }
+//        user.setIs_admin(false);
+//        usersRepo.save(user);
+//        return "Admin access removed successfully";
+//    }
 
-    public String removeAdminAccess(Long adminId, Long userId) {
-        var enrtyAdmin = usersRepo.findById(adminId);
-        var enrtyUser = usersRepo.findById(userId);
-        if(enrtyAdmin.isEmpty()){
-            return "Wrong admin id";
-        }
-        if(enrtyUser.isEmpty()){
-            return "Wrong user id";
-        }
-        User admin = enrtyAdmin.get();
-        User user = enrtyUser.get();
-        if(!admin.getIs_admin()){
-            return "User removing admin access is not admin";
-        }
-        user.setIs_admin(false);
-        usersRepo.save(user);
-        return "Admin access removed successfully";
-    }
-
-    public UserFront getUser(Integer id) {
-        var entry = usersRepo.findById(Long.valueOf(id));
-        if( entry.isEmpty()){
-            return new UserFront(-1, "Id not valid", "", false);
-        }
-        User user = entry.get();
-        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
-    }
+//    public UserFront getUser(Integer id) {
+//        var entry = usersRepo.findById(Long.valueOf(id));
+//        if( entry.isEmpty()){
+//            return new UserFront(-1, "Id not valid", "", false);
+//        }
+//        User user = entry.get();
+//        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+//    }
 
     public UserFront getUserByEmail(String email) {
         var entry = usersRepo.findByEmail(email);
@@ -81,26 +81,26 @@ public class RequestService {
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
 
-    public String deleteUser(Long adminId, Long userID) {
-        var enrtyAdmin = usersRepo.findById(adminId);
-        var enrtyUser = usersRepo.findById(userID);
-        if(enrtyAdmin.isEmpty()){
-            return "Wrong admin id";
-        }
-        if(enrtyUser.isEmpty()){
-            return "Wrong user id";
-        }
-        User admin = enrtyAdmin.get();
-        User user = enrtyUser.get();
-        if(!admin.getIs_admin()){
-            return "Deleting user doesn't have admin access";
-        }
-        if(user.getUser_id()==0){
-            return "Can't delete master admin";
-        }
-        usersRepo.deleteById(Long.valueOf(user.getUser_id()));
-        return "User deleted successfully";
-    }
+//    public String deleteUser(Long adminId, Long userID) {
+//        var enrtyAdmin = usersRepo.findById(adminId);
+//        var enrtyUser = usersRepo.findById(userID);
+//        if(enrtyAdmin.isEmpty()){
+//            return "Wrong admin id";
+//        }
+//        if(enrtyUser.isEmpty()){
+//            return "Wrong user id";
+//        }
+//        User admin = enrtyAdmin.get();
+//        User user = enrtyUser.get();
+//        if(!admin.getIs_admin()){
+//            return "Deleting user doesn't have admin access";
+//        }
+//        if(user.getUser_id()==0){
+//            return "Can't delete master admin";
+//        }
+//        usersRepo.deleteById(Long.valueOf(user.getUser_id()));
+//        return "User deleted successfully";
+//    }
     public String addNewProduct(ProductFront product){
         RequestProduct reqProduct;
         try {

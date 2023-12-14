@@ -97,7 +97,6 @@ export default function List({ token }) {
         })
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
                 setTemp(false);
             })
             .catch(error => {
@@ -106,6 +105,21 @@ export default function List({ token }) {
             });
         const contact = document.getElementById("rate" + e.target.id);
         contact.style.display = "none";
+        fetch('http://localhost:8080/products/all', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setProducts(data);
+                setTemp(false);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+                setTemp(false);
+            });
     }
     const handleRate = (e) => {
         const contact = document.getElementById("rate" + e.target.id);

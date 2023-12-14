@@ -43,10 +43,10 @@ export default function Signin() {
         })
             .then(response => response.json())
             .then(data => {
-                createUser(data.token, userName);
                 setToken(data.token);
                 setDecode(jwtDecode(data.token));
-                navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
+                createUser(data.token, userName);
+                // navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Not Found Login") });
     }
@@ -111,6 +111,7 @@ export default function Signin() {
     function createUser(token, email) {
         console.log("Here")
         console.log(email)
+        console.log(jwtDecode(token))
         let body = {
             email: email
         }
@@ -132,6 +133,7 @@ export default function Signin() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
+                user.set_decode(jwtDecode(token))
                 navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
             })
     }

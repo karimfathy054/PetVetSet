@@ -62,7 +62,7 @@ export default function Signup() {
 
     }
 
-    function createUser(token, email){
+    function createUser(token, email) {
         console.log("Here")
         let body = {
             email: email
@@ -85,6 +85,7 @@ export default function Signup() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
+                user.set_decode(jwtDecode(token))
                 navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
             })
     }
@@ -133,7 +134,7 @@ export default function Signup() {
                     setToken(data.token);
                     setDecode(jwtDecode(data.token));
                     setTemp(false);
-                    navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
+                    // navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);

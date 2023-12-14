@@ -3,6 +3,11 @@ import image from '../images/User/maleUser.png'
 import styles from "../CSS/style.module.css"
 import '../CSS/style.module.css'; // assuming the CSS is in a file named Profile.css in the same directory
 import { User } from "../User.js"
+import { useLocation } from 'react-router-dom';
+import Header from '../Components/Header.js';
+import { Route, Routes, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -11,17 +16,18 @@ class Profile extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.cancelNamChange = this.cancelNamChange.bind(this)
     this.getJoinDate = this.getJoinDate.bind(this)
+    this.handleHome = this.handleHome.bind(this)
     this.user = User.getUser()
     this.state = {
-      // name: this.user.get_user_name(),
-      // email: this.user.get_email(),
       name: this.user.get_user_name(),
       email: this.user.get_email(),
       imageUrl: image, // replace with the actual image path
       changeNameButton: true,
       changeNameMessage: "Enter Name:",
       nameValue: '',
-      joinDate: this.user.get_join_date()
+      joinDate: this.user.get_join_date(),
+      token: this.user.get_token(),
+      decode: this.user.get_decode()
     };
     this.getJoinDate()
   }
@@ -50,8 +56,8 @@ class Profile extends React.Component {
     this.setState({ nameValue: event.target.value })
   }
   handleSubmit(event) {
-    if (this.state.nameValue.length <= 2) {
-      this.setState({ changeNameMessage: "Name can't be less than 2 characters" })
+    if (this.state.nameValue.length < 4) {
+      this.setState({ changeNameMessage: "Name can't be less than 4 characters" })
       event.preventDefault()
     } else {
       this.user.set_user_name(this.state.nameValue)
@@ -77,7 +83,6 @@ class Profile extends React.Component {
           if (data != 'Wrong Id!!') {
             this.setState({ name: this.user.get_user_name() })
           }
-          console.log("fsjfe")
         })
 
     }
@@ -85,13 +90,14 @@ class Profile extends React.Component {
   cancelNamChange() {
     this.setState({ changeNameMessage: "Enter Name:", changeNameButton: true, nameValue: '' })
   }
+  handleHome() {
+    const navigate = useNavigate();
+    navigate('/Home', { replace: true, state: { token: this.user.get_token(), decode: this.user.get_token() } });
+  }
   render() {
     const isChangeNameButton = this.state.changeNameButton;
     let button;
-    if(this.state.email.includes("gmail")){
-      button = <></>
-    }
-    else if (isChangeNameButton) {
+    if (isChangeNameButton) {
       button = <button onClick={this.changeName} className={styles.change_name_button}>Change name</button>
     } else {
       button = <form onSubmit={this.handleSubmit}>
@@ -103,27 +109,28 @@ class Profile extends React.Component {
         <button onClick={this.cancelNamChange}>cancel</button>
       </form>
     }
+
     return (
-      <div className={styles.profile_container}>
-        <div className={styles.profile_left}>
-          <div className={styles.profile_image_div}>
-            <img className={styles.profile_image} src={this.state.imageUrl} alt='User' />
+      <>
+        <div className={styles.profile_container}>
+          <div className={styles.profile_left}>
+            <div className={styles.profile_image_div}>
+              <img className={styles.profile_image} src={this.state.imageUrl} alt='User' />
+            </div>
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Name</h2>
+            <h2 className={styles.profile_name}>{this.state.name}</h2>
+            {button}
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Email</h2>
+            <h2 className={styles.profile_email}>{this.state.email}</h2>
+            <hr className={styles.profile_line_break} />
+            <h2 className={styles.profile_header}>Joined:</h2>
+            <h2 className={styles.profile_email}>{this.state.joinDate}</h2>
           </div>
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Name</h2>
-          <h2 className={styles.profile_name}>{this.state.name}</h2>
-          {button}
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Email</h2>
-          <h2 className={styles.profile_email}>{this.state.email}</h2>
-          <hr className={styles.profile_line_break} />
-          <h2 className={styles.profile_header}>Joined:</h2>
-          <h2 className={styles.profile_email}>{this.state.joinDate}</h2>
+          <Link to="/Home" state={{ token: this.user.get_token(), decode: this.user.get_decode() }} className={styles.profile_right}><FaHome></FaHome> Return</Link>
         </div>
-        <div className={styles.profile_right}>
-          <p>Right</p>
-        </div>
-      </div>
+      </>
     );
   }
 }

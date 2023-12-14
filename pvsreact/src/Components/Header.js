@@ -8,28 +8,28 @@ import { User } from "../User.js";
 export default function Header({ token, decode }) {
     const [name, setName] = useState("");
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     fetch(`http://localhost:8080/api/getUserByEmail`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`,
-    //             "Accept": 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             email: decode.sub,
-    //         }),
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setName(data.user_name);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error creating user:', error);
-    //         });
-    // })
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/getUserByEmail`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: decode.sub,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setName(data.user_name);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+            });
+    })
     const handleUser = () => {
-        navigate('/Profile');
+        navigate('/Profile', { replace: true, state: { token: token, decode: decode } });
     }
     return (
         <div className={styles.header}>
