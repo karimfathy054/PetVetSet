@@ -75,7 +75,7 @@ public class Controller {
         );
     }
 
-    @PostMapping("/getProductByUser")
+    @GetMapping("/getProductByUser")
     public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
         return requestService.getProductByUserEmail(body.get("email"));
     }
