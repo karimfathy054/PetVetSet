@@ -6,7 +6,8 @@ import { User } from "../User.js"
 import { useLocation } from 'react-router-dom';
 import Header from '../Components/Header.js';
 import { Route, Routes, Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +16,7 @@ class Profile extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.cancelNamChange = this.cancelNamChange.bind(this)
     this.getJoinDate = this.getJoinDate.bind(this)
+    this.handleHome = this.handleHome.bind(this)
     this.user = User.getUser()
     this.state = {
       name: this.user.get_user_name(),
@@ -24,13 +26,10 @@ class Profile extends React.Component {
       changeNameMessage: "Enter Name:",
       nameValue: '',
       joinDate: this.user.get_join_date(),
+      token: this.user.get_token(),
+      decode: this.user.get_decode()
     };
     this.getJoinDate()
-    this.handleLocation()
-  }
-  handleLocation() {
-    this.location = this.props.location;
-    console.log(this.location + "ooooooooooooooooooooo")
   }
   getJoinDate() {
     console.log("success!!")
@@ -91,6 +90,10 @@ class Profile extends React.Component {
   cancelNamChange() {
     this.setState({ changeNameMessage: "Enter Name:", changeNameButton: true, nameValue: '' })
   }
+  handleHome() {
+    const navigate = useNavigate();
+    navigate('/Home', { replace: true, state: { token: this.user.get_token(), decode: this.user.get_token() } });
+  }
   render() {
     const isChangeNameButton = this.state.changeNameButton;
     let button;
@@ -106,9 +109,9 @@ class Profile extends React.Component {
         <button onClick={this.cancelNamChange}>cancel</button>
       </form>
     }
+
     return (
       <>
-
         <div className={styles.profile_container}>
           <div className={styles.profile_left}>
             <div className={styles.profile_image_div}>
@@ -125,9 +128,7 @@ class Profile extends React.Component {
             <h2 className={styles.profile_header}>Joined:</h2>
             <h2 className={styles.profile_email}>{this.state.joinDate}</h2>
           </div>
-          <div className={styles.profile_right}>
-            <p>Right</p>
-          </div>
+          <Link to="/Home" state={{ token: this.user.get_token(), decode: this.user.get_decode() }} className={styles.profile_right}><FaHome></FaHome> Return</Link>
         </div>
       </>
     );

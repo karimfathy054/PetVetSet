@@ -85,6 +85,7 @@ export default function Signup() {
                 user.set_email(data.email)
                 user.set_is_admin(data.is_admin)
                 user.set_token(token)
+                user.set_decode(jwtDecode(token))
                 navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
             })
     }
