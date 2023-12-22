@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pet")
+@CrossOrigin
 public class PetController {
 
     @Autowired

@@ -182,6 +182,7 @@ class RequestServiceTest {
 
     @Test
     void userNotFoundWhenGettingProductsByEmail(){
+        List<ProductFront> listProductFront = new ArrayList<>();
         User user = User.builder()
                 .email("abcd132@gmail.com")
                 .user_id(123L)
@@ -189,6 +190,6 @@ class RequestServiceTest {
 
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))
                 .willReturn(Optional.empty());
-        assertNull(serviceUnderTest.getProductByUserEmail(user.getEmail()));
+        assertEquals(listProductFront,serviceUnderTest.getProductByUserEmail(user.getEmail()));
     }
 }

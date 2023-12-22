@@ -110,7 +110,6 @@ export default function Signin() {
     })
     function createUser(token, email) {
         console.log("Here")
-        console.log(email)
         console.log(jwtDecode(token))
         let body = {
             email: email

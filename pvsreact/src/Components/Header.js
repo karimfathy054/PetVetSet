@@ -36,7 +36,7 @@ export default function Header({ token, decode }) {
             <div className={styles.welcome}>
                 <p className={styles.semititle}>PVS</p>
                 <img src={logo} className={styles.logo}></img>
-                <div className={styles.user} onClick={handleUser}><FaUser /> {User.getUser().get_user_name()}</div>
+                <div className={styles.user} onClick={handleUser}><FaUser /> {name}</div>
             </div>
             <div className={styles.title}>PetVetSet</div>
             <ul>

@@ -10,6 +10,7 @@ export default function AnimalList({ token }) {
     const [rate, setRate] = useState(0);
     useEffect(() => {
         if (temp) {
+            console.log(token)
             fetch(`http://localhost:8080/pet/all`, {
                 method: 'GET',
                 headers: {
