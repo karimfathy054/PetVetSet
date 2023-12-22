@@ -1,0 +1,491 @@
+/* Start General */
+:root {
+    --main-color: #f22c5c;
+    --Second-color: #212b31;
+    --back-ground-color: #171e22;
+    --main-transition: 0.3s;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: black;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+.heading {
+    margin: 0px auto 80px;
+    padding: 15px 25px;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: fit-content;
+    border: 2px solid var(--main-color);
+    position: relative;
+    z-index: 10;
+    color: var(--main-color);
+}
+
+.heading:hover {
+    color: white;
+    border: none;
+    border: 2px solid white;
+    transition-delay: 0.5s;
+    transition-duration: 0.2s;
+}
+
+.heading::before,
+.heading::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.heading::before {
+    left: -30px;
+}
+
+.heading::after {
+    right: -30px;
+}
+
+.heading:hover::before {
+    animation: to-right 0.5s linear forwards;
+}
+
+.heading:hover::after {
+    animation: to-left 0.5s linear forwards;
+}
+
+@keyframes to-right {
+    50% {
+        left: 0;
+    }
+
+    100% {
+        left: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0px;
+        z-index: -1;
+    }
+}
+
+@keyframes to-left {
+    50% {
+        right: 0;
+    }
+
+    100% {
+        right: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0px;
+        z-index: -1;
+    }
+}
+
+/* End General */
+/* Start Header  */
+.header {
+    background-color: black;
+    color: white;
+    position: relative;
+    height: 190px;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--main-color);
+}
+
+.header .welcome {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+.header .welcome .semititle {
+    font-size: 35px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: text;
+}
+
+.header .welcome .semititle:hover {
+    color: var(--main-color);
+}
+
+.header .welcome img {
+    width: 100px;
+    height: 70px;
+}
+
+.header .welcome .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 65px; */
+    font-size: 20px;
+    transition: var(--main-transition);
+    cursor: pointer;
+}
+
+.header .welcome .user:hover {
+    color: var(--main-color);
+}
+
+.header .welcome .user svg {
+    color: var(--main-color);
+}
+
+.header .title {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.header ul {
+    padding-right: 300px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header ul a {
+    padding: 0 20px;
+    cursor: pointer;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    position: relative;
+    transition: var(--main-transition);
+    text-transform: uppercase;
+}
+
+.header ul a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: var(--main-color);
+    transition: var(--main-transition);
+}
+
+.header ul a:hover {
+    color: var(--main-color);
+}
+
+.header ul a:hover::after {
+    width: 100%;
+}
+
+/* End Header  */
+/* Start Landing */
+.landing {
+    background-color: black;
+    position: relative;
+    background-image: url("../images/landing.jpg");
+    background-size: cover;
+    height: calc(100vh - 190px);
+}
+
+.landing::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.landing h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 52px;
+    color: white;
+    z-index: 2;
+    font-weight: 200;
+}
+
+/* End Landing */
+/* Start Products */
+.products {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.products .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.products .content .box {
+    text-align: center;
+}
+
+.products .content .box img {
+    width: 100%;
+}
+
+.products .content .box h3 {
+    color: #acacac;
+    font-size: 25px;
+    font-weight: 300;
+
+}
+
+.products .content .box p {
+    color: #777;
+}
+
+.products .list {
+    color: white;
+    margin: 30px auto 0;
+    width: fit-content;
+    font-size: 20px;
+    background-color: var(--main-color);
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: var(--main-transition);
+}
+
+.products .list:hover {
+    background-color: #d32c56;
+}
+
+/* End Products */
+/* Start Services */
+.services {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.services .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.services .content .box {
+    text-align: center;
+}
+
+.services .content .box img {
+    width: 100%;
+}
+
+.services .content .box h3 {
+    color: #acacac;
+    font-size: 25px;
+    font-weight: 300;
+
+}
+
+.services .content .box p {
+    color: #777;
+}
+
+.services .content .box .service {
+    color: white;
+    margin: 30px auto 0;
+    width: fit-content;
+    font-size: 18px;
+    background-color: var(--main-color);
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--main-transition);
+}
+
+
+.services .contact {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 50;
+}
+
+.services .contact .cover {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 550px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.services .contact .cover .close {
+    align-self: flex-end;
+    font-size: 25px;
+    color: #777;
+    width: fit-content;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.services .contact .cover h2 {
+    width: fit-content;
+    align-self: center;
+    color: #777;
+}
+
+.services .contact .cover form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 25px;
+}
+
+.services .contact .cover form input {
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.services .contact .cover form input:focus {
+    outline: none;
+}
+
+.services .contact .cover form textarea {
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    resize: none;
+    height: 120px;
+    padding: 5px;
+}
+
+.services .contact .cover form textarea:focus {
+    outline: none;
+}
+
+.services .contact .cover form button {
+    color: white;
+    margin: 0px auto 0;
+    width: fit-content;
+    font-size: 15px;
+    background-color: var(--main-color);
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: var(--main-transition);
+
+}
+
+.services .done {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 50;
+}
+
+.services .done .cover {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 550px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.services .done .cover .close {
+    align-self: flex-end;
+    font-size: 25px;
+    color: #777;
+    width: fit-content;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.services .done .cover p {
+    margin: 50px auto;
+    font-size: 20px;
+}
+
+.services .done .cover img {
+    width: 100px;
+    margin-top: 100px;
+    align-self: center;
+}
+
+.services .done .cover button {
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 20px;
+    padding: 5px;
+    width: 80%;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* End Services */

@@ -8,6 +8,11 @@ import {
 } from "react-router-dom";
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import RequestForm from './pages/RequestForm';
+import Home from './pages/Home';
+import ProductList from './pages/ProductList';
+import Animals from './pages/Animals';
+import Profile from './pages/UserProfile';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +25,26 @@ const router = createBrowserRouter([
   {
     path: '/Signup',
     element: <Signup></Signup>
+  },
+  {
+    path: '/RequestForm',
+    element: <RequestForm></RequestForm>
+  },
+  {
+    path: '/Home',
+    element: <Home></Home>
+  },
+  {
+    path: '/ProductList',
+    element: <ProductList></ProductList>
+  },
+  {
+    path: '/Animals',
+    element: <Animals />
+  },
+  {
+    path: '/Profile',
+    element: <Profile />
   }
 ]);
 

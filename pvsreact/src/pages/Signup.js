@@ -9,7 +9,9 @@ import { useLocation } from 'react-router-dom';
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
+import { User } from "../User.js"
 
+import { jwtDecode } from "jwt-decode"
 export default function Signup() {
 
     const navigate = useNavigate();
@@ -21,6 +23,8 @@ export default function Signup() {
     const [user, setUser] = useState([]);
     const [profile, setProfile] = useState([]);
     const [temp, setTemp] = useState(false);
+    const [decode, setDecode] = useState({});
+
     const handleUserName = (e) => {
         setUserName(e.target.value);
     }
@@ -33,6 +37,7 @@ export default function Signup() {
     const handleEmail = (e) => {
         setEmail(e.target.value);
     }
+    // const h
     const handleSubmit = (e) => {
         e.preventDefault();
         // navigate('/SignupController', { replace: true, state: { userName, password, email } });
@@ -49,13 +54,41 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
+                createUser(data.token, email)
                 setToken(data.token);
+                setDecode(jwtDecode(data.token));
             })
             .catch(error => { console.error('Error creating user:', error); window.alert("Account Is Already Exist"); });
 
     }
 
-
+    function createUser(token, email) {
+        console.log("Here")
+        let body = {
+            email: email
+        }
+        console.log(body)
+        fetch('http://localhost:8080/api/getUserByEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify(body),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                let user = User.getUser()
+                user.set_id(data.id)
+                user.set_user_name(data.user_name)
+                user.set_email(data.email)
+                user.set_is_admin(data.is_admin)
+                user.set_token(token)
+                user.set_decode(jwtDecode(token))
+                navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
+            })
+    }
 
     //new code
     const login = useGoogleLogin({
@@ -97,8 +130,11 @@ export default function Signup() {
             })
                 .then(response => response.json())
                 .then(data => {
+                    createUser(data.token, profile.email);
                     setToken(data.token);
+                    setDecode(jwtDecode(data.token));
                     setTemp(false);
+                    // navigate('../Home', { replace: true, state: { token: data.token, decode: jwtDecode(data.token) } });
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
