@@ -1,0 +1,143 @@
+/* Start General */
+:root {
+    --main-color: #f22c5c;
+    --Second-color: #272741;
+    --back-ground-color: #171e22;
+    --main-transition: 0.3s;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: white;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+.heading {
+    margin: 0px auto 80px;
+    padding: 15px 25px;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: fit-content;
+    border: 2px solid var(--main-color);
+    position: relative;
+    z-index: 10;
+    color: var(--main-color);
+}
+
+.heading:hover {
+    color: white;
+    border: none;
+    border: 2px solid white;
+    transition-delay: 0.5s;
+    transition-duration: 0.2s;
+}
+
+.heading::before,
+.heading::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.heading::before {
+    left: -30px;
+}
+
+.heading::after {
+    right: -30px;
+}
+
+.heading:hover::before {
+    animation: to-right 0.5s linear forwards;
+}
+
+.heading:hover::after {
+    animation: to-left 0.5s linear forwards;
+}
+
+@keyframes to-right {
+    50% {
+        left: 0;
+    }
+
+    100% {
+        left: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0px;
+        z-index: -1;
+    }
+}
+
+@keyframes to-left {
+    50% {
+        right: 0;
+    }
+
+    100% {
+        right: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 0px;
+        z-index: -1;
+    }
+}
+
+/* End General */
+/* Start Profile */
+.profile {
+    display: flex;
+    align-items: stretch;
+}
+
+/* End Profile */
+/* Start Navbar */
+.navbar {
+    flex-grow: 1;
+    background-color: var(--Second-color);
+    height: 100vh;
+    color: white;
+}
+
+/* End Navbar */
+/* Start Info */
+.info {
+    flex-grow: 5;
+}
+
+/* End Info */

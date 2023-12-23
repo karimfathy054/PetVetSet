@@ -5,15 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect } from "react";
 import axios from "axios";
-import { User } from "../User.js"
-
+import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode"
-export default function Signup() {
 
+export default function Signup() {
+    const [cookies, setCookie] = useCookies(["user"]);
+    function handleLogin(user) {
+        setCookie("user", user, { path: "/" });
+    }
     const navigate = useNavigate();
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -64,6 +66,7 @@ export default function Signup() {
 
     function createUser(token, email) {
         console.log("Here")
+        console.log(jwtDecode(token))
         let body = {
             email: email
         }
@@ -78,15 +81,9 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                let user = User.getUser()
-                user.set_id(data.id)
-                user.set_user_name(data.user_name)
-                user.set_email(data.email)
-                user.set_is_admin(data.is_admin)
-                user.set_token(token)
-                user.set_decode(jwtDecode(token))
-                navigate('../Home', { replace: true, state: { token: token, decode: jwtDecode(token) } });
+                console.log(data.user_name);
+                handleLogin({ id: data.id, userName: data.user_name, email: data.email, isAdmin: data.is_admin, token: token, decode: jwtDecode(token) });
+                navigate('/', { replace: true });
             })
     }
 
@@ -149,7 +146,7 @@ export default function Signup() {
             <div className={styles.signin}>
                 <div className={styles.content}>
                     <form onSubmit={handleSubmit}>
-                        <Link to="/Signin" className={styles.home}><FaHome></FaHome> Return</Link>
+                        <Link to="/" className={styles.home}><FaHome></FaHome> Return</Link>
                         <div className={styles.headup}>Sign up</div>
                         <input type="text" placeholder="Username" value={userName} onChange={handleUserName} required></input>
                         <input type="password" placeholder="Password" value={password} onChange={handlePassword} pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></input>

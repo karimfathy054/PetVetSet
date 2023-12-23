@@ -167,9 +167,24 @@ a {
     font-size: 20px;
     transition: var(--main-transition);
     cursor: pointer;
+    flex-direction: column;
 }
 
-.header .welcome .user:hover {
+.header .welcome .user .userName,
+.header .welcome .user .changeAccount {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: fit-content;
+    max-width: 250px;
+    gap: 10px;
+}
+
+.header .welcome .user .userName:hover {
+    color: var(--main-color);
+}
+
+.header .welcome .user .changeAccount:hover {
     color: var(--main-color);
 }
 
@@ -254,6 +269,7 @@ a {
 /* End Landing */
 /* Start Products */
 .products {
+    background-color: black;
     padding-top: 60px;
     padding-bottom: 60px;
 }
@@ -304,6 +320,7 @@ a {
 /* End Products */
 /* Start Services */
 .services {
+    background-color: black;
     padding-top: 60px;
     padding-bottom: 60px;
 }

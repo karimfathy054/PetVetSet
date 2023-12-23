@@ -3,7 +3,7 @@ import styles from "../CSS/List.module.css"
 import { FaArrowRight } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-export default function List({ token }) {
+export default function List({ user }) {
     const [products, setProducts] = useState([]);
     const [temp, setTemp] = useState(true);
     const [search, setSearch] = useState('');
@@ -13,7 +13,7 @@ export default function List({ token }) {
             fetch('http://localhost:8080/products/all', {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 }
             })
                 .then(response => response.json())
@@ -33,7 +33,7 @@ export default function List({ token }) {
         fetch(`http://localhost:8080/products/name=${search}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         })
             .then(response => response.json())
@@ -52,7 +52,7 @@ export default function List({ token }) {
             fetch(`http://localhost:8080/products/category=${e.target.value}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 }
             })
                 .then(response => response.json())
@@ -70,7 +70,7 @@ export default function List({ token }) {
             fetch(`http://localhost:8080/products/all`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 }
             })
                 .then(response => response.json())
@@ -92,7 +92,7 @@ export default function List({ token }) {
         fetch(`http://localhost:8080/products/rate=${e.target[0].value}&&id=${e.target.id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         })
             .then(response => response.json())
@@ -108,7 +108,7 @@ export default function List({ token }) {
         fetch('http://localhost:8080/products/all', {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         })
             .then(response => response.json())

@@ -1,6 +1,5 @@
 import land from "../images/landing-image.png"
 import styles from "../CSS/List.module.css"
-import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 export default function ListLanding() {
     return (
         <div class={styles.landing}>

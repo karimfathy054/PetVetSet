@@ -5,13 +5,11 @@ import List from "../ProductListComponents/List";
 import ListLanding from "../ProductListComponents/ListLanding";
 export default function ProductList() {
     const location = useLocation();
-    const [token, setToken] = useState('');
-    const [decode, setDecode] = useState({});
+    const [user, setUser] = useState({});
     const [temp, setTemp] = useState(true);
     useEffect(() => {
         if (location.state != null) {
-            setToken(location.state.token);
-            setDecode(location.state.decode);
+            setUser(location.state.user);
             setTemp(false);
         }
     }
@@ -19,9 +17,9 @@ export default function ProductList() {
 
     return (
         <>
-            <ProductListHeader token={token} decode={decode} />
+            <ProductListHeader user={user} />
             <ListLanding></ListLanding>
-            <List token={token} />
+            <List user={user} />
         </>
     )
 }

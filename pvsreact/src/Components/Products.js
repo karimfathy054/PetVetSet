@@ -5,10 +5,10 @@ import p3 from "../images/product-3.jpg"
 import p4 from "../images/product-4.png"
 import p5 from "../images/product-5.png"
 import { useNavigate } from "react-router-dom"
-export default function Products({ token, decode }) {
+export default function Products({ user }) {
     const navigate = useNavigate();
     const handleShopping = () => {
-        navigate('/ProductList', { replace: true, state: { token: token, decode: decode } });
+        navigate('/ProductList', { replace: true, state: { user } });
     }
     return (
         <div className={styles.products} id="products">

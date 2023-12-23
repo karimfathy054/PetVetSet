@@ -6,13 +6,11 @@ import ProductListHeader from "../ProductListComponents/ProductListHeader";
 const ProductUploadForm = () => {
   // start
   const location = useLocation();
-  const [token, setToken] = useState('');
-  const [decode, setDecode] = useState({});
+  const [user, setUser] = useState({});
   const [temp, setTemp] = useState(true);
   useEffect(() => {
     if (location.state != null) {
-      setToken(location.state.token);
-      setDecode(location.state.decode);
+      setUser(location.state.user);
       setTemp(false);
     }
   }
@@ -71,7 +69,7 @@ const ProductUploadForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${User.getUser().get_token()}`,
+          'Authorization': `Bearer ${user.token}`,
         },
         body: JSON.stringify({
           name: productName,
@@ -80,7 +78,7 @@ const ProductUploadForm = () => {
           price: Price,
           targetAnimal: selectedValue,
           categoryName: selectedValue2,
-          userEmail: User.getUser().get_email(),
+          userEmail: user.email,
           photo: image,
 
         }),
@@ -110,7 +108,7 @@ const ProductUploadForm = () => {
   }
   return (
     <>
-      <ProductListHeader token={token} decode={decode} />
+      <ProductListHeader user={user} />
       <div className={styles.mainClass}>
         <form className={styles.msform}>
           <fieldset className={styles.request}>
