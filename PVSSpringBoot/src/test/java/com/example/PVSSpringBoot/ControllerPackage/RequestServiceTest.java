@@ -7,7 +7,6 @@ import com.example.PVSSpringBoot.Entities.User;
 import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -168,7 +167,7 @@ class RequestServiceTest {
         BDDMockito.given(this.requestProductRepo.findByUserId(user.getUser_id()))
                 .willReturn(List.of(requestProduct));
 
-        List<ProductFront> res = serviceUnderTest.getProductByUserEmail(productFront.getUserEmail());
+        List<ProductFront> res = serviceUnderTest.getProductsByUserEmail(productFront.getUserEmail());
 
         ArgumentCaptor<Long> captor = ArgumentCaptor.forClass(Long.class);
 
@@ -190,6 +189,6 @@ class RequestServiceTest {
 
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))
                 .willReturn(Optional.empty());
-        assertEquals(listProductFront,serviceUnderTest.getProductByUserEmail(user.getEmail()));
+        assertEquals(listProductFront,serviceUnderTest.getProductsByUserEmail(user.getEmail()));
     }
 }

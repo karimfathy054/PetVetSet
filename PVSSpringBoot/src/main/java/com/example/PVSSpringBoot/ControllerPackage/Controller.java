@@ -8,7 +8,6 @@ import com.example.PVSSpringBoot.Entities.UserFront;
 
 import org.springframework.http.ResponseEntity;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -38,18 +37,18 @@ public class Controller {
 //        return new UserFront(-1, "Hello", "", false);
 //    }
 //
-//    @PostMapping("/setAdmin")
-//    public String setAdmin(@RequestBody Map<String, Long> body){
-//        return requestService.setAdmin(body.get("admin"), body.get("user"));
-//    }
-//    @PostMapping("/removeAdmin")
-//    public String removeAdminAccess(@RequestBody Map<String, Long> body){
-//        return requestService.removeAdminAccess(body.get("admin"), body.get("user"));
-//    }
-//    @PostMapping("/getUser")
-//    public UserFront getUser(@RequestBody Map<String, Integer> body){
-//        return requestService.getUser(body.get("id"));
-//    }
+    @PostMapping("/setAdmin")
+    public String setAdmin(@RequestBody Map<String, Long> body){
+        return requestService.setAdmin(body.get("admin"), body.get("user"));
+    }
+    @PostMapping("/removeAdmin")
+    public String removeAdminAccess(@RequestBody Map<String, Long> body){
+        return requestService.removeAdminAccess(body.get("admin"), body.get("user"));
+    }
+    @GetMapping("/getUserById/{id}")
+    public UserFront getUser(@PathVariable long id){
+        return requestService.getUserById(id);
+    }
     @PostMapping("/getUserByEmail")
     public UserFront getUserByEmail(@RequestBody Map<String, String> body){
         return requestService.getUserByEmail(body.get("email"));
@@ -62,10 +61,10 @@ public class Controller {
     public ResponseEntity<String> changeUserName(@RequestBody Map<String, String> body){
         return ResponseEntity.ok(requestService.changeUserName(Long.parseLong(body.get("id")), body.get("newName")));
     }
-//    @DeleteMapping("/deleteUser")
-//    public String deleteUser(@RequestBody Map<String, Long> body){
-//        return requestService.deleteUser(body.get("admin"), body.get("user"));
-//    }
+    @DeleteMapping("/deleteUser")
+    public String deleteUser(@RequestBody Map<String, Long> body){
+        return requestService.deleteUser(body.get("admin"), body.get("user"));
+    }
 
     @PostMapping("/addNewProduct")
     public String addNewProduct(@RequestBody Map<String, String> body){System.out.println("111");
@@ -86,8 +85,8 @@ public class Controller {
         );
     }
     @GetMapping("/getProductByUser")
-    public List<ProductFront> getRequestProductByUserEmail(@RequestBody Map<String, String> body){
-        return requestService.getProductByUserEmail(body.get("email"));
+    public List<ProductFront> getRequestProductsByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getProductsByUserEmail(body.get("email"));
     }
 
 

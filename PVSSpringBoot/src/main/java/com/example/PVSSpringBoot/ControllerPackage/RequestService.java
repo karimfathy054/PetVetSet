@@ -16,61 +16,62 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RequestService {
 
-    public static final String ADDED_TO_DATABASE = "Added to database...";
-    public static final String WRONG_USER_EMAIL = "The email of user is wrong";
-    public static final String PRODUCT_NOT_FOUND = "this product is not found...";
-    public static final String PRODUCT_DELETE_SUCCESS = "delete success from database...";
+    public static final String ADDED_TO_DATABASE = "Added To Database...";
+    public static final String WRONG_USER_EMAIL = "Wrong User Email!!";
+    public static final String PRODUCT_NOT_FOUND = "Product Not Found...";
+    public static final String PRODUCT_DELETE_SUCCESS = "Deleted From Database...";
     @Autowired
     private UsersRepo usersRepo;
     @Autowired
     private RequestProductRepo requestProductRepo;
 
-//    public String setAdmin(Long adminId, Long userId) {
-//        var enrtyAdmin = usersRepo.findById(userId);
-//        var enrtyUser = usersRepo.findById(userId);
-//        if(enrtyAdmin.isEmpty()){
-//            return "Wrong admin id";
-//        }
-//        if(enrtyUser.isEmpty()){
-//            return "Wrong user id";
-//        }
-//        User admin = enrtyAdmin.get();
-//        User user = enrtyUser.get();
-//        if(!admin.getIs_admin()){
-//            return "User granting admin access is not admin";
-//        }
-//        user.setIs_admin(true);
-//        usersRepo.save(user);
-//        return "Admin access granted successfully";
-//    }
-//
-//    public String removeAdminAccess(Long adminId, Long userId) {
-//        var enrtyAdmin = usersRepo.findById(adminId);
-//        var enrtyUser = usersRepo.findById(userId);
-//        if(enrtyAdmin.isEmpty()){
-//            return "Wrong admin id";
-//        }
-//        if(enrtyUser.isEmpty()){
-//            return "Wrong user id";
-//        }
-//        User admin = enrtyAdmin.get();
-//        User user = enrtyUser.get();
-//        if(!admin.getIs_admin()){
-//            return "User removing admin access is not admin";
-//        }
-//        user.setIs_admin(false);
-//        usersRepo.save(user);
-//        return "Admin access removed successfully";
-//    }
+    public String setAdmin(Long adminId, Long userId) {
+        var entryAdmin = usersRepo.findById(adminId);
+        var entryUser = usersRepo.findById(userId);
+        if(entryAdmin.isEmpty()){
+            return "Wrong Admin ID!!";
+        }
+        if(entryUser.isEmpty()){
+            return "Wrong User ID";
+        }
+        User admin = entryAdmin.get();
+        User user = entryUser.get();
+        if(!admin.getIs_admin()){
+            return "User Granting Admin Access Is Not Admin";
+        }
+        user.setIs_admin(true);
+        usersRepo.save(user);
+        return "Admin Access Granted Successfully";
+    }
 
-//    public UserFront getUser(Integer id) {
-//        var entry = usersRepo.findById(Long.valueOf(id));
-//        if( entry.isEmpty()){
-//            return new UserFront(-1, "Id not valid", "", false);
-//        }
-//        User user = entry.get();
-//        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
-//    }
+    public String removeAdminAccess(Long adminId, Long userId) {
+        var entryAdmin = usersRepo.findById(adminId);
+        var entryUser = usersRepo.findById(userId);
+        if(entryAdmin.isEmpty()){
+            return "Wrong Admin ID!!";
+        }
+        if(entryUser.isEmpty()){
+            return "Wrong User ID";
+        }
+        User admin = entryAdmin.get();
+        User user = entryUser.get();
+        if(!admin.getIs_admin()){
+            return "User Removing Admin Access Is Not Admin";
+        }
+        if(user.getUser_id()==0) return "Can't Remove The Master Admin";
+        user.setIs_admin(false);
+        usersRepo.save(user);
+        return "Admin Access Removed Successfully";
+    }
+
+    public UserFront getUserById(long id) {
+        var entry = usersRepo.findById(id);
+        if( entry.isEmpty()){
+            return new UserFront(-1, "No User With The Provided ID!!", "", false);
+        }
+        User user = entry.get();
+        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+    }
 
     public UserFront getUserByEmail(String email) {
         var entry = usersRepo.findByEmail(email);
@@ -81,26 +82,29 @@ public class RequestService {
         return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
 
-//    public String deleteUser(Long adminId, Long userID) {
-//        var enrtyAdmin = usersRepo.findById(adminId);
-//        var enrtyUser = usersRepo.findById(userID);
-//        if(enrtyAdmin.isEmpty()){
-//            return "Wrong admin id";
-//        }
-//        if(enrtyUser.isEmpty()){
-//            return "Wrong user id";
-//        }
-//        User admin = enrtyAdmin.get();
-//        User user = enrtyUser.get();
-//        if(!admin.getIs_admin()){
-//            return "Deleting user doesn't have admin access";
-//        }
-//        if(user.getUser_id()==0){
-//            return "Can't delete master admin";
-//        }
-//        usersRepo.deleteById(Long.valueOf(user.getUser_id()));
-//        return "User deleted successfully";
-//    }
+    public String deleteUser(Long adminId, Long userID) {
+        var entryAdmin = usersRepo.findById(adminId);
+        var entryUser = usersRepo.findById(userID);
+        if(entryAdmin.isEmpty()){
+            return "Wrong Admin ID";
+        }
+        if(entryUser.isEmpty()){
+            return "Wrong User ID";
+        }
+        User admin = entryAdmin.get();
+        User user = entryUser.get();
+        if(!admin.getIs_admin()){
+            return "Deleting User Doesn't Have Admin Access";
+        }
+        if(user.getUser_id()==0){
+            return "Can't Delete Master Admin";
+        }
+        if(user.getIs_admin() && admin.getUser_id() != 0){
+            return "Only Master Admin Can Delete Other Admins!!";
+        }
+        usersRepo.deleteById(Long.valueOf(user.getUser_id()));
+        return "User Deleted Successfully";
+    }
     public String addNewProduct(ProductFront product){
         RequestProduct reqProduct;
         try {
@@ -148,7 +152,7 @@ public class RequestService {
 
     }
 
-    public List<ProductFront> getProductByUserEmail(String email) {
+    public List<ProductFront> getProductsByUserEmail(String email) {
         var entryUser = usersRepo.findByEmail(email);
         List<ProductFront> listProductFront = new ArrayList<>();
         if(entryUser.isEmpty()){

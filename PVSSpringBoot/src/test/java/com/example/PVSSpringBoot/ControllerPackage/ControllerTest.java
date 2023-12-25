@@ -14,13 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import com.example.PVSSpringBoot.ControllerPackage.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 
 @WebMvcTest(Controller.class)
 @ContextConfiguration(classes = Controller.class)
@@ -94,7 +92,7 @@ class ControllerTest {
         product.setProductName("foodStrong1221111");
         product.setPhoto("photo_2023-09-29_13-41-12.jpg");
         product.setProductId(1);
-        Mockito.when(requestService.getProductByUserEmail(any())).thenReturn((List.of(product)));
+        Mockito.when(requestService.getProductsByUserEmail(any())).thenReturn((List.of(product)));
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/getProductByUser")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -117,12 +115,12 @@ class ControllerTest {
                                 "    \"photo\": \"photo_2023-09-29_13-41-12.jpg\"\n" +
                                 "}]"
                 ));
-        Mockito.verify(requestService,Mockito.times(1)).getProductByUserEmail(any());
+        Mockito.verify(requestService,Mockito.times(1)).getProductsByUserEmail(any());
     }
     @Test
     void getRequestProductByUserEmailError() throws Exception {
         List<ProductFront> listProductFront = new ArrayList<>();
-        Mockito.when(requestService.getProductByUserEmail(any())).thenReturn(listProductFront);
+        Mockito.when(requestService.getProductsByUserEmail(any())).thenReturn(listProductFront);
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/getProductByUser")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,7 +130,7 @@ class ControllerTest {
                         ))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[]"));
-        Mockito.verify(requestService,Mockito.times(1)).getProductByUserEmail(any());
+        Mockito.verify(requestService,Mockito.times(1)).getProductsByUserEmail(any());
     }
     @Test
     void deleteRequestProductByIdCorrect() throws Exception {

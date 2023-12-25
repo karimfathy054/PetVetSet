@@ -24,7 +24,6 @@ public class AuthenticationService {
         var user = User.builder()
                 .user_name(request.getUserName())
                 .email(request.getEmail())
-//                .password(request.getPassword())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .is_admin(false)
                 .join_date(new Date(System.currentTimeMillis()))
