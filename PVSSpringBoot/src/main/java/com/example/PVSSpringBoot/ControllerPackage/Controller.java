@@ -96,7 +96,7 @@ public class Controller {
         return requestService.getRequestPetsByUserEmail(body.get("email"));
     }
 
-     //three functions to handle get all requests to admin and accept one and refuse one
+     //three functions to handle get all requests to admin and accept one and refuse one.......
 
     @GetMapping("/getAllRequestPets")
     public List<requestPet> getAllRequestPets(){

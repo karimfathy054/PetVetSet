@@ -174,7 +174,7 @@ public class RequestService {
         return listProductFront;
 
     }
-    // three functions to handle get all requests to admin and accept one and refuse one
+    // three functions to handle get all requests to admin and accept one and refuse one......
     public List<ProductFront> getAllRequestProducts() {
         List<ProductFront> listProductFront = new ArrayList<>();
         List<RequestProduct> listProduct = (List<RequestProduct>) requestProductRepo.findAll();

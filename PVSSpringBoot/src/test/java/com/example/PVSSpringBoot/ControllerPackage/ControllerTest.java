@@ -57,6 +57,7 @@ class ControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Added to database..."));
         Mockito.verify(requestService,Mockito.times(1)).addNewProduct(any());
     }
+    //
     @Test
     void addNewProductFailed() throws Exception {
         ProductFrontBuilder productBuilder = new ProductFrontBuilder();
