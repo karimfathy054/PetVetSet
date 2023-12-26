@@ -1,7 +1,9 @@
 package com.example.PVSSpringBoot.Entities;
 
 
+import lombok.Builder;
 
+@Builder
 public class UserFront {
     private long id;
     private String user_name;
