@@ -38,7 +38,7 @@ public class UserRepoTest {
         usersRepo.save(x);
         Optional<User> result  = usersRepo.findByEmail(x.getEmail());
         Assertions.assertThat(result).isPresent();
-        Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
+        Assertions.assertThat(result.get().getUserId()).isEqualTo(x.getUserId());
         Assertions.assertThat(result.get().getEmail()).isEqualTo(x.getEmail());
         Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
     }
@@ -47,7 +47,7 @@ public class UserRepoTest {
     public void testDeleteingAUserByItsId() {
         User x = User.builder().email("kono").user_name("kimo").is_admin(false).join_date(new Date(100L)).build();
         usersRepo.save(x);
-        usersRepo.deleteById(Long.valueOf(x.getUser_id()));
+        usersRepo.deleteById(Long.valueOf(x.getUserId()));
         Optional<User> result  = usersRepo.findByEmail(x.getEmail());
         Assertions.assertThat(result).isNotPresent();
     }
@@ -68,7 +68,7 @@ public class UserRepoTest {
         usersRepo.updateEmail("admin","kono");
         Optional<User> result  = usersRepo.findByEmail("admin");
         Assertions.assertThat(result).isPresent();
-        Assertions.assertThat(result.get().getUser_id()).isEqualTo(x.getUser_id());
+        Assertions.assertThat(result.get().getUserId()).isEqualTo(x.getUserId());
         Assertions.assertThat(result.get().getEmail()).isEqualTo("admin");
         Assertions.assertThat(result.get().getUser_name()).isEqualTo(x.getUser_name());
     }

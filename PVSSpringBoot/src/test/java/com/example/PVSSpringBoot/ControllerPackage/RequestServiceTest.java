@@ -57,7 +57,7 @@ class RequestServiceTest {
 
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
 
         BDDMockito.given(this.usersRepo.findByEmail(productFront.getUserEmail()))
@@ -156,16 +156,16 @@ class RequestServiceTest {
 
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
 
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))
                 .willReturn(Optional.of(user));
 
-        BDDMockito.given(this.usersRepo.findById(user.getUser_id()))
+        BDDMockito.given(this.usersRepo.findById(user.getUserId()))
                 .willReturn(Optional.of(user));
 
-        BDDMockito.given(this.requestProductRepo.findByUserId(user.getUser_id()))
+        BDDMockito.given(this.requestProductRepo.findByUserId(user.getUserId()))
                 .willReturn(List.of(requestProduct));
 
         List<ProductFront> res = serviceUnderTest.getProductByUserEmail(productFront.getUserEmail());
@@ -185,7 +185,7 @@ class RequestServiceTest {
         List<ProductFront> listProductFront = new ArrayList<>();
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
 
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))

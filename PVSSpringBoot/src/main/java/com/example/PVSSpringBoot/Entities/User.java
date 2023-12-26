@@ -1,8 +1,10 @@
 package com.example.PVSSpringBoot.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,9 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Blob;
 import java.sql.Date;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id", nullable = false)
 
-    private Long user_id;
+    private Long userId;
 
 
     @Column(name = "email", nullable = false, unique = true, length = 30)
@@ -51,6 +51,32 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToMany
+    @JoinTable(name = "Users_products",
+            joinColumns = @JoinColumn(name = "user_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id"))
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Set<Product> bookmarks = new LinkedHashSet<>();
+
+    public void addBookmark(Product product){
+        product.getBookmarkingUsers().add(this);
+        this.bookmarks.add(product);
+    }
+
+    public void removeBookmark(Product product){
+        this.bookmarks.remove(product);
+    }
+
+    public void removeBookmark(Long productId){
+        Product p = this.bookmarks.stream().filter( x->x.getId() == productId).findFirst().orElse(null);
+        if(p != null){
+            p.getBookmarkingUsers().remove(this);
+            this.bookmarks.remove(p);
+        }
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(
