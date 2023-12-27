@@ -22,6 +22,8 @@ import com.example.PVSSpringBoot.ControllerPackage.Controller;
 import com.example.PVSSpringBoot.ControllerPackage.RequestService;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 
+import java.util.List;
+
 @WebMvcTest(Controller.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ContextConfiguration(classes = Controller.class)
@@ -99,29 +101,29 @@ public class UsersControllerTest {
     @Test
     void testGetUserById() throws Exception{
         UserFront user=  UserFront.builder()
-                .user_name("Omar Tarek")
+                .userName("Omar Tarek")
                 .id(1L)
                 .email("Omar@pet.com")
-                .is_admin(false).build();
+                .isAdmin(false).build();
         when(service.getUserById(1)).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/getUserById/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.content().json("{\n" +
                         "    \"id\": 1,\n" +
-                        "    \"user_name\": \"Omar Tarek\",\n" +
+                        "    \"userName\": \"Omar Tarek\",\n" +
                         "    \"email\": \"Omar@pet.com\",\n" +
-                        "    \"is_admin\": false\n" +
+                        "    \"isAdmin\": false\n" +
                         "}"));
         verify(service, times(1)).getUserById(1);
     }
     @Test
     void testGetUserByEmail() throws Exception{
         UserFront user=  UserFront.builder()
-                .user_name("Omar Tarek")
+                .userName("Omar Tarek")
                 .id(1L)
                 .email("Omar@pet.com")
-                .is_admin(false).build();
+                .isAdmin(false).build();
         when(service.getUserByEmail("Omar@pet.com")).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/getUserByEmail")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,9 +134,9 @@ public class UsersControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.content().json("{\n" +
                         "    \"id\": 1,\n" +
-                        "    \"user_name\": \"Omar Tarek\",\n" +
+                        "    \"userName\": \"Omar Tarek\",\n" +
                         "    \"email\": \"Omar@pet.com\",\n" +
-                        "    \"is_admin\": false\n" +
+                        "    \"isAdmin\": false\n" +
                         "}"));
         verify(service, times(1)).getUserByEmail("Omar@pet.com");
     }
@@ -152,5 +154,244 @@ public class UsersControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.content().string("User Deleted Successfully"));
         verify(service, times(1)).deleteUser(0L, 1L);
+    }
+
+    @Test
+    void testGetAllUsers() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Abdo Elsayed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(false)
+                .build();
+        when(service.getAllUsers()).thenReturn(List.of(user1, user2, user3));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/getAllUsers"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"userName\": \"Omar Tarek\",\n" +
+                        "        \"email\": \"Omar@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"userName\": \"Abdo Elsayed\",\n" +
+                        "        \"email\": \"Abdo@pet.com\",\n" +
+                        "        \"isAdmin\": true\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 3,\n" +
+                        "        \"userName\": \"Mohamed Amr\",\n" +
+                        "        \"email\": \"Mohamed@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).getAllUsers();
+    }
+
+    @Test
+    void testSearchAllUsers() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Mohamed Ahmed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(false)
+                .build();
+        when(service.searchAllUsers("mohamed")).thenReturn(List.of(user2, user3));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/searchAllUsers/mohamed"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"userName\": \"Mohamed Ahmed\",\n" +
+                        "        \"email\": \"Abdo@pet.com\",\n" +
+                        "        \"isAdmin\": true\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 3,\n" +
+                        "        \"userName\": \"Mohamed Amr\",\n" +
+                        "        \"email\": \"Mohamed@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).searchAllUsers("mohamed");
+    }
+
+    @Test
+    void testGetUsers() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Abdo Elsayed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(false)
+                .build();
+        when(service.getUsers()).thenReturn(List.of(user1, user3));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/getUsers"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"userName\": \"Omar Tarek\",\n" +
+                        "        \"email\": \"Omar@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 3,\n" +
+                        "        \"userName\": \"Mohamed Amr\",\n" +
+                        "        \"email\": \"Mohamed@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).getUsers();
+    }
+
+    @Test
+    void testSearchUser() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Abdo Elsayed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(false)
+                .build();
+        when(service.searchUsers("ma")).thenReturn(List.of(user1));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/searchUsers/ma"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"userName\": \"Omar Tarek\",\n" +
+                        "        \"email\": \"Omar@pet.com\",\n" +
+                        "        \"isAdmin\": false\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).searchUsers("ma");
+    }
+    @Test
+    void testGetAdmins() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Abdo Elsayed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(false)
+                .build();
+        when(service.getAdmins()).thenReturn(List.of(user2));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/getAdmins"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"userName\": \"Abdo Elsayed\",\n" +
+                        "        \"email\": \"Abdo@pet.com\",\n" +
+                        "        \"isAdmin\": true\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).getAdmins();
+    }
+
+    @Test
+    void testGetSearchAdmins() throws Exception {
+        UserFront user1 =  UserFront.builder()
+                .userName("Omar Tarek")
+                .id(1L)
+                .email("Omar@pet.com")
+                .isAdmin(false)
+                .build();
+        UserFront user2 =  UserFront.builder()
+                .userName("Abdo Elsayed")
+                .id(2L)
+                .email("Abdo@pet.com")
+                .isAdmin(true)
+                .build();
+        UserFront user3 =  UserFront.builder()
+                .userName("Mohamed Amr")
+                .id(3L)
+                .email("Mohamed@pet.com")
+                .isAdmin(true)
+                .build();
+        when(service.searchAdmins("h")).thenReturn(List.of(user3, user2));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/searchAdmins/h"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 2,\n" +
+                        "        \"userName\": \"Abdo Elsayed\",\n" +
+                        "        \"email\": \"Abdo@pet.com\",\n" +
+                        "        \"isAdmin\": true\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"id\": 3,\n" +
+                        "        \"userName\": \"Mohamed Amr\",\n" +
+                        "        \"email\": \"Mohamed@pet.com\",\n" +
+                        "        \"isAdmin\": true\n" +
+                        "    }\n" +
+                        "]"));
+        verify(service, times(1)).searchAdmins("h");
     }
 }

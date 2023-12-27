@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,17 @@ public class RequestService {
     public static final String WRONG_USER_EMAIL = "Wrong User Email!!";
     public static final String PRODUCT_NOT_FOUND = "Product Not Found...";
     public static final String PRODUCT_DELETE_SUCCESS = "Deleted From Database...";
+    public static final String WRONG_ADMIN_ID = "Wrong Admin ID!!";
+    public static final String WRONG_USER_ID = "Wrong User ID";
+    public static final String USER_GRANTING_ACCESS_ERROR = "User Granting Admin Access Is Not Admin";
+    public static final String ACCESS_GRANTED = "Admin Access Granted Successfully";
+    public static final String USER_REMOVING_ACCESS_ERROR = "User Removing Admin Access Is Not Admin";
+    public static final String USER_DELETING_ERROR = "Deleting User Doesn't Have Admin Access";
+    public static final String ACCESS_REMOVED = "Admin Access Removed Successfully";
+    public static final String MASTER_ADMIN_REMOVE_ERROR = "Can't Remove The Master Admin";
+    public static final String MASTER_ADMIN_ONLY_ERROR = "Only Master Admin Can Can Perform This Operation!!";
+    public static final String USER_DELETED = "User Deleted Successfully";
+    public static final String USER_CHANGE_NAME = "User Name Changed Successfully!!";
     @Autowired
     private UsersRepo usersRepo;
     @Autowired
@@ -29,81 +42,81 @@ public class RequestService {
         var entryAdmin = usersRepo.findById(adminId);
         var entryUser = usersRepo.findById(userId);
         if(entryAdmin.isEmpty()){
-            return "Wrong Admin ID!!";
+            return WRONG_ADMIN_ID;
         }
         if(entryUser.isEmpty()){
-            return "Wrong User ID";
+            return WRONG_USER_ID;
         }
         User admin = entryAdmin.get();
         User user = entryUser.get();
-        if(!admin.getIs_admin()){
-            return "User Granting Admin Access Is Not Admin";
+        if(!admin.getIsAdmin()){
+            return USER_GRANTING_ACCESS_ERROR;
         }
-        user.setIs_admin(true);
+        user.setIsAdmin(true);
         usersRepo.save(user);
-        return "Admin Access Granted Successfully";
+        return ACCESS_GRANTED;
     }
 
     public String removeAdminAccess(Long adminId, Long userId) {
         var entryAdmin = usersRepo.findById(adminId);
         var entryUser = usersRepo.findById(userId);
         if(entryAdmin.isEmpty()){
-            return "Wrong Admin ID!!";
+            return WRONG_ADMIN_ID;
         }
         if(entryUser.isEmpty()){
-            return "Wrong User ID";
+            return WRONG_USER_ID;
         }
         User admin = entryAdmin.get();
         User user = entryUser.get();
-        if(!admin.getIs_admin()){
-            return "User Removing Admin Access Is Not Admin";
+        if(!admin.getIsAdmin()){
+            return USER_REMOVING_ACCESS_ERROR;
         }
-        if(user.getUser_id()==0) return "Can't Remove The Master Admin";
-        user.setIs_admin(false);
+        if(user.getUserId()==0) return MASTER_ADMIN_REMOVE_ERROR;
+        user.setIsAdmin(false);
         usersRepo.save(user);
-        return "Admin Access Removed Successfully";
+        return ACCESS_REMOVED;
     }
 
     public UserFront getUserById(long id) {
         var entry = usersRepo.findById(id);
         if( entry.isEmpty()){
-            return new UserFront(-1, "No User With The Provided ID!!", "", false);
+            return new UserFront(-1, WRONG_USER_ID, "", false);
         }
         User user = entry.get();
-        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+        return UserFront.getUserFront(user);
     }
 
     public UserFront getUserByEmail(String email) {
         var entry = usersRepo.findByEmail(email);
         if(entry.isEmpty()){
-            return new UserFront(-1, "Email not valid", "", false);
+            return new UserFront(-1, WRONG_USER_EMAIL, "", false);
         }
         User user = entry.get();
-        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+        return UserFront.getUserFront(user);
     }
 
     public String deleteUser(Long adminId, Long userID) {
         var entryAdmin = usersRepo.findById(adminId);
         var entryUser = usersRepo.findById(userID);
         if(entryAdmin.isEmpty()){
-            return "Wrong Admin ID";
+            return WRONG_ADMIN_ID;
         }
         if(entryUser.isEmpty()){
-            return "Wrong User ID";
+            return WRONG_USER_ID;
         }
         User admin = entryAdmin.get();
         User user = entryUser.get();
-        if(!admin.getIs_admin()){
-            return "Deleting User Doesn't Have Admin Access";
+        if(!admin.getIsAdmin()){
+            return USER_DELETING_ERROR;
         }
-        if(user.getUser_id()==0){
-            return "Can't Delete Master Admin";
+        if(user.getUserId()==0){
+            return MASTER_ADMIN_REMOVE_ERROR;
         }
-        if(user.getIs_admin() && admin.getUser_id() != 0){
-            return "Only Master Admin Can Delete Other Admins!!";
+        if(user.getIsAdmin() && admin.getUserId() != 0){
+            return MASTER_ADMIN_ONLY_ERROR;
         }
-        usersRepo.deleteById(Long.valueOf(user.getUser_id()));
-        return "User Deleted Successfully";
+        usersRepo.deleteById(Long.valueOf(user.getUserId()));
+        return USER_DELETED;
     }
     public String addNewProduct(ProductFront product){
         RequestProduct reqProduct;
@@ -124,19 +137,19 @@ public class RequestService {
     public String getJoinDate(long id) {
         var user = usersRepo.findById(id);
         if(user.isEmpty()){
-            return "Wrong Id!!";
+            return WRONG_USER_ID;
         }
-        return user.get().getJoin_date().toString();
+        return user.get().getJoinDate().toString();
     }
 
     public String changeUserName(long id, String newName) {
         var userEntry = usersRepo.findById(id);
         if(userEntry.isEmpty())
-            return "Wrong Id!!";
+            return WRONG_USER_ID;
         User user = userEntry.get();
-        user.setUser_name(newName);
+        user.setUserName(newName);
         usersRepo.save(user);
-        return "User Saved Successfully!!";
+        return USER_CHANGE_NAME;
     }
 
 
@@ -158,12 +171,53 @@ public class RequestService {
         if(entryUser.isEmpty()){
             return listProductFront;
         }
-        List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUser_id());
+        List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUserId());
         for(RequestProduct it: listProduct){
             listProductFront.add(new RequestProductAdapter(requestProductRepo, usersRepo)
                     .dataToFront(it));
         }
         return listProductFront;
 
+    }
+
+    public List<UserFront> getAllUsers() {
+        return usersRepo.findAllUsers()
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
+    }
+
+    public List<UserFront> searchAllUsers(String email) {
+        return usersRepo.findAllUsersByEmail(email)
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
+    }
+
+    public List<UserFront> getUsers() {
+        return usersRepo.findByIsAdminFalse()
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
+    }
+
+    public List<UserFront> getAdmins() {
+        return usersRepo.findByIsAdminTrue()
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
+    }
+    public List<UserFront> searchUsers(String email) {
+        return usersRepo.findUsersByEmail(email)
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
+    }
+
+    public List<UserFront> searchAdmins(String email) {
+        return usersRepo.findAdminsByEmail(email)
+                .stream()
+                .map(u -> UserFront.getUserFront(u))
+                .toList();
     }
 }

@@ -22,12 +22,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .user_name(request.getUserName())
+                .userName(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .is_admin(false)
-                .join_date(new Date(System.currentTimeMillis()))
-                .profile_photo(null)
+                .isAdmin(false)
+                .joinDate(new Date(System.currentTimeMillis()))
+                .profilePhoto(null)
                 .role(Role.USER)
                 .build();
         repository.save(user);

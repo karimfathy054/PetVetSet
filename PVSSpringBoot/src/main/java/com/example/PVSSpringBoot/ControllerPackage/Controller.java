@@ -3,6 +3,7 @@ package com.example.PVSSpringBoot.ControllerPackage;
 
 import com.example.PVSSpringBoot.Entities.ProductFront;
 import com.example.PVSSpringBoot.Entities.ProductFrontBuilder;
+import com.example.PVSSpringBoot.Entities.User;
 import com.example.PVSSpringBoot.Entities.UserFront;
 
 
@@ -64,6 +65,33 @@ public class Controller {
     @DeleteMapping("/deleteUser")
     public String deleteUser(@RequestBody Map<String, Long> body){
         return requestService.deleteUser(body.get("admin"), body.get("user"));
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<UserFront> getAllUsers(){
+        return requestService.getAllUsers();
+    }
+    @GetMapping("/searchAllUsers/{email}")
+    public List<UserFront> searchAllUsers(@PathVariable String email){
+        return requestService.searchAllUsers(email);
+    }
+    @GetMapping("/getUsers")
+    public List<UserFront> getUsers(){
+        return requestService.getUsers();
+    }
+    @GetMapping("/searchUsers/{email}")
+    public List<UserFront> searchUsers(@PathVariable String email){
+        return requestService.searchUsers(email);
+    }
+
+    @GetMapping("/getAdmins")
+    public List<UserFront> getAdmins(){
+        return requestService.getAdmins();
+    }
+
+    @GetMapping("/searchAdmins/{email}")
+    public List<UserFront> searchAdmins(@PathVariable String email){
+        return requestService.searchAdmins(email);
     }
 
     @PostMapping("/addNewProduct")
