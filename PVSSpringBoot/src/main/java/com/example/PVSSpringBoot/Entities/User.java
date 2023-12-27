@@ -1,7 +1,6 @@
 package com.example.PVSSpringBoot.Entities;
 
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -13,7 +12,6 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -26,26 +24,26 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id", nullable = false)
 
-    private Long user_id;
+    private Long userId;
 
 
     @Column(name = "email", nullable = false, unique = true, length = 30)
     private String email;
 
     @Column(name = "user_name", nullable = false, length = 30)
-    private String user_name;
+    private String userName;
 
     @Column(name = "is_admin", nullable = false)
-    private Boolean is_admin = false;
+    private Boolean isAdmin = false;
 
     @Lob
     @Column(name = "profile_photo")
     @JdbcTypeCode(SqlTypes.BLOB)
-    private Blob profile_photo;
+    private Blob profilePhoto;
 
     @Column(name = "join_date", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)
-    private Date join_date;
+    private Date joinDate;
     @Column(name="password",length=80)
     private String password;
 
@@ -86,5 +84,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

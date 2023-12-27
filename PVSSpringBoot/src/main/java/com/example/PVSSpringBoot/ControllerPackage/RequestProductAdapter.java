@@ -6,10 +6,6 @@ import com.example.PVSSpringBoot.Entities.RequestProduct;
 import com.example.PVSSpringBoot.Entities.User;
 import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -63,7 +59,7 @@ public class RequestProductAdapter {
                 .join_date(Date.valueOf(LocalDate.now()))
                 .description(productFront.getDescription())
                 .targetAnimal(productFront.getTargetAnimal())
-                .userId(container.get().getUser_id())
+                .userId(container.get().getUserId())
                 .productPhoto(productFront.getPhoto())
                 .build();
     }
