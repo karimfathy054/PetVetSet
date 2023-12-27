@@ -36,10 +36,11 @@ public class User implements UserDetails {
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin = false;
 
-    @Lob
+//    @Lob
     @Column(name = "profile_photo")
-    @JdbcTypeCode(SqlTypes.BLOB)
-    private Blob profilePhoto;
+//    @JdbcTypeCode(SqlTypes.BLOB)
+    private String profile_photo;
+
 
     @Column(name = "join_date", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)

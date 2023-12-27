@@ -125,6 +125,7 @@ export default function Signin({ onLogin }) {
             .then(data => {
                 console.log(data)
                 onLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token) });
+
                 navigate('/', { replace: true });
             })
     }

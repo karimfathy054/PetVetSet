@@ -179,16 +179,6 @@ const ProductUploadForm = () => {
                     required
                   </select>
                 </div>
-                <div className={styles.select3}>
-                  <label className={styles.select2} htmlFor="mySelect">Select a Target animal:</label>
-                  <select className={styles.select_button} id="mySelect2" value={selectedValue2} onChange={handleTargetAnimal}>
-                    <option value="pet">pet</option>
-                    <option value="dog">dog</option>
-                    <option value="cat">cat</option>
-                    <option value="bird">bird</option>
-                    required
-                  </select>
-                </div>
                 <button className={styles.button} type="submit" onClick={handleSubmit}>Upload Product</button>
               </form>
             </div>

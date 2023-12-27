@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserFrontTest {
     @Test
     public void classTest(){
+        
+
         UserFront user = new UserFront(1, "omar", "om@gmail.com", false);
         Assertions.assertThat(user.getUserName()).isEqualTo("omar");
         Assertions.assertThat(user.getId()).isEqualTo(1);

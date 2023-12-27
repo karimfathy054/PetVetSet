@@ -9,12 +9,13 @@ public class UserFront {
     private long id;
     private String userName;
     private String email;
+    private String image;
     private boolean isAdmin;
-
-    public UserFront(long id, String userName, String email, boolean isAdmin) {
+    public UserFront(long id, String user_name, String email, boolean is_admin) {
         this.id = id;
         this.userName = userName;
         this.email = email;
+
         this.isAdmin = isAdmin;
     }
 
