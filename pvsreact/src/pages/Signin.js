@@ -123,8 +123,8 @@ export default function Signin({ onLogin }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.is_admin)
-                onLogin({ id: data.id, userName: data.user_name, email: data.email, isAdmin: data.is_admin, token: token, decode: jwtDecode(token) });
+                console.log(data)
+                onLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token) });
                 navigate('/', { replace: true });
             })
     }
