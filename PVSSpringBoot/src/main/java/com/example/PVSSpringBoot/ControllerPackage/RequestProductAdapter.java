@@ -63,7 +63,7 @@ public class RequestProductAdapter {
                 .join_date(Date.valueOf(LocalDate.now()))
                 .description(productFront.getDescription())
                 .targetAnimal(productFront.getTargetAnimal())
-                .userId(container.get().getUser_id())
+                .userId(container.get().getUserId())
                 .productPhoto(productFront.getPhoto())
                 .build();
     }

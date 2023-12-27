@@ -78,7 +78,7 @@ public class RequestService {
             return new UserFront(-1, "Email not valid", "", false);
         }
         User user = entry.get();
-        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+        return new UserFront(user.getUserId(), user.getUser_name(), user.getEmail(), user.getIs_admin());
     }
 
 //    public String deleteUser(Long adminId, Long userID) {
@@ -154,7 +154,7 @@ public class RequestService {
         if(entryUser.isEmpty()){
             return listProductFront;
         }
-        List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUser_id());
+        List<RequestProduct> listProduct = requestProductRepo.findByUserId(entryUser.get().getUserId());
         for(RequestProduct it: listProduct){
             listProductFront.add(new RequestProductAdapter(requestProductRepo, usersRepo)
                     .dataToFront(it));
