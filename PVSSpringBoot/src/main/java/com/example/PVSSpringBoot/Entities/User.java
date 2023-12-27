@@ -3,6 +3,8 @@ package com.example.PVSSpringBoot.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,10 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Blob;
 import java.sql.Date;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 
 @Data
 @AllArgsConstructor
@@ -54,6 +54,32 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany
+    @JoinTable(name = "Users_products",
+            joinColumns = @JoinColumn(name = "user_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id"))
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Set<Product> bookmarks = new LinkedHashSet<>();
+
+    public void addBookmark(Product product){
+        product.getBookmarkingUsers().add(this);
+        this.bookmarks.add(product);
+    }
+
+    public void removeBookmark(Product product){
+        this.bookmarks.remove(product);
+    }
+
+    public boolean removeBookmark(Long productId){
+        Product p = this.bookmarks.stream().filter( x->x.getId() == productId).findFirst().orElse(null);
+        if(p != null){
+            p.getBookmarkingUsers().remove(this);
+            this.bookmarks.remove(p);
+            return true;
+        }
+        return false;
+    }
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();

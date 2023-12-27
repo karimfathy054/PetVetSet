@@ -1,6 +1,7 @@
 package com.example.PVSSpringBoot.repositories;
 
 import com.example.PVSSpringBoot.Entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,8 +13,7 @@ import java.util.Optional;
 
 
 @Repository
-
-public interface UsersRepo extends CrudRepository<User,Long> {
+public interface UsersRepo extends JpaRepository<User,Long> {
     @Transactional
     @Modifying
     @Query("update User u set u.password = ?1 where u.email like ?2 and u.password like ?3")

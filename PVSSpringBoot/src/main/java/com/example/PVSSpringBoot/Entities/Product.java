@@ -3,9 +3,13 @@ package com.example.PVSSpringBoot.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -51,6 +55,10 @@ public class Product implements Cloneable{
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(mappedBy = "bookmarks")
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Set<User> bookmarkingUsers = new LinkedHashSet<>();
     @ManyToOne
     @JoinColumn(name = "user_user_id")
     @JsonIgnore
@@ -73,6 +81,14 @@ public class Product implements Cloneable{
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    @PreRemove
+    public void preRemove() {
+        for (User u :
+                bookmarkingUsers) {
+            u.removeBookmark(this);
+        }
     }
 
     @Override
