@@ -438,4 +438,17 @@ form .searchIcon {
     background-color: #eff2f3;
 }
 
+.admins .action form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center !important;
+    height: fit-content;
+    margin-left: 30px;
+}
+
+.admins .action form svg {
+    cursor: pointer;
+}
+
 /* End Admins */
