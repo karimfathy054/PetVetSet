@@ -1,5 +1,6 @@
 package com.example.PVSSpringBoot.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PetManagementService {
     @Autowired
     PetRepository repo;
+
+    @Autowired
+    public PetManagementService(PetRepository repo) {
+        this.repo = repo;
+    }
 
     //add a pet
     public boolean addPet(Pet pet){

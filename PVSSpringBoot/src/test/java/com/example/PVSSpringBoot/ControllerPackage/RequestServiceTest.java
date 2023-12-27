@@ -224,9 +224,9 @@ class RequestServiceTest {
                 .build();
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
-        BDDMockito.given(this.usersRepo.findById(user.getUser_id()))
+        BDDMockito.given(this.usersRepo.findById(user.getUserId()))
                 .willReturn(Optional.of(user));
         BDDMockito.given(this.requestProductRepo.findAll())
                 .willReturn(List.of(requestProduct));
@@ -334,7 +334,7 @@ class RequestServiceTest {
         reqPet.setUserEmail("abcd132@gmail.com");
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))
                 .willReturn(Optional.empty());
@@ -348,7 +348,7 @@ class RequestServiceTest {
         reqPet.setUserEmail("abcd132@gmail.com");
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
         BDDMockito.given(this.usersRepo.findByEmail(user.getEmail()))
                 .willReturn(Optional.of(user));

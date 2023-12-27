@@ -268,13 +268,12 @@ public class RequestService {
 
     public String refuseRequestPetById(Long id) {
         Optional<requestPet> requestPet = requestPetRepo.findById(id);
-        if(requestPet.isEmpty()){
+        if (requestPet.isEmpty()) {
             return PET_NOT_FOUND;
         }
         requestPetRepo.deleteById(id);
         return PRODUCT_DELETE_SUCCESS;
-
-
+    }
     public List<UserFront> getAllUsers() {
         return usersRepo.findAllUsers()
                 .stream()
