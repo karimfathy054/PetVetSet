@@ -53,6 +53,7 @@ public class Product implements Cloneable{
 
     @ManyToOne
     @JoinColumn(name = "user_user_id")
+    @JsonIgnore
     private User user;
 
 
