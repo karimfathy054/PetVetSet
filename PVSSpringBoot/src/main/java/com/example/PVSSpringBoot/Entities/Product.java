@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product")
 @RequiredArgsConstructor
-public class Product {
+public class Product implements Cloneable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -59,6 +59,13 @@ public class Product {
     @Fetch(FetchMode.JOIN)
     @JsonIgnore
     private Set<User> bookmarkingUsers = new LinkedHashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_user_id")
+    @JsonIgnore
+    private User user;
+
+
+
 
     @Override
     public final boolean equals(Object o) {
@@ -81,6 +88,17 @@ public class Product {
         for (User u :
                 bookmarkingUsers) {
             u.removeBookmark(this);
+        }
+    }
+
+    @Override
+    public Product clone() {
+        try {
+            Product clone = (Product) super.clone();
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
         }
     }
 }

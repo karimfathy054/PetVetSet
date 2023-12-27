@@ -4,8 +4,6 @@ import com.example.PVSSpringBoot.Entities.*;
 import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -15,6 +15,7 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.util.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,19 +34,20 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "user_name", nullable = false, length = 30)
-    private String user_name;
+    private String userName;
 
     @Column(name = "is_admin", nullable = false)
-    private Boolean is_admin = false;
+    private Boolean isAdmin = false;
 
-    @Lob
+//    @Lob
     @Column(name = "profile_photo")
-    @JdbcTypeCode(SqlTypes.BLOB)
-    private Blob profile_photo;
+//    @JdbcTypeCode(SqlTypes.BLOB)
+    private String profile_photo;
+
 
     @Column(name = "join_date", nullable = false)
     @JdbcTypeCode(SqlTypes.DATE)
-    private Date join_date;
+    private Date joinDate;
     @Column(name="password",length=80)
     private String password;
 
@@ -78,6 +80,14 @@ public class User implements UserDetails {
         }
         return false;
     }
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
+    private Set<Product> products = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
+    private Set<Pet> pets = new LinkedHashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -114,5 +124,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

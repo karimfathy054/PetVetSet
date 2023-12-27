@@ -16,7 +16,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Cairo', sans-serif;
-    background-color: white;
+    background-color: #eff2f3;
 }
 
 html {
@@ -130,14 +130,394 @@ a {
 .navbar {
     flex-grow: 1;
     background-color: var(--Second-color);
-    height: 100vh;
+    min-height: 100vh;
+    color: white;
+    padding: 30px;
+    font-size: 19px;
+    max-height: max-content;
+}
+
+.navbar .dashboard {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    width: fit-content;
+}
+
+.navbar .dashboard::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 50%;
+    height: 1px;
+    background-color: white;
+    transform: translateX(-50%);
+}
+
+.navbar ul .li {
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: var(--main-transition);
+}
+
+.navbar ul #setting {
+    color: var(--main-color);
+}
+
+.navbar ul #myProducts {
+    color: white;
+}
+
+.navbar ul #bookmark {
+    color: white;
+}
+
+.navbar ul .li:hover {
+    color: var(--main-color);
+}
+
+.navbar ul li a {
     color: white;
 }
 
 /* End Navbar */
 /* Start Info */
 .info {
+    flex-grow: 20;
+    display: flex;
+    align-items: stretch;
+    background-color: #eff2f3;
+}
+
+.info .general {
     flex-grow: 5;
+    background-color: white;
+    margin: 30px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.info .private {
+    flex-grow: 1;
+    margin: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--Second-color);
+}
+
+.info .private .privateInfo {
+    background-color: white;
+    flex-grow: 1;
+    border-radius: 10px;
+}
+
+.info .private .privateInfo svg {
+    width: 150px;
+    height: 150px;
+    margin-top: 100px;
+}
+
+.info .private .privateInfo .role h3 {
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.info .private .privateSelect {
+    background-color: white;
+    flex-grow: 1;
+    border-radius: 10px;
+}
+
+.info .private .privateSelect h2 {
+    margin: 10px;
 }
 
 /* End Info */
+/* Start Myproducts */
+.myproducts {
+    display: none;
+    flex-grow: 18;
+    align-items: stretch;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    max-width: 1300px;
+    background-color: #eff2f3;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    height: fit-content;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 150px;
+    background-color: white;
+    border: 1px solid #777;
+    transition: 0.3s;
+    color: #777;
+}
+
+select:hover {
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+form {
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+}
+
+form input {
+    border: 1px solid #777;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+form input:focus {
+    outline: none;
+}
+
+form .searchIcon {
+    color: #777;
+    font-size: 18px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.content .box {
+    box-shadow: 0px 2px 15px rgb(0, 0, 0, 0.1);
+    transition: 0.3s;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.content .box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 2px 15px rgb(0, 0, 0, 0.2);
+}
+
+.content .box img {
+    width: 100%;
+}
+
+.content .box .text {
+    padding: 20px;
+}
+
+.content .box .text h3 {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.content .box .text p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.content .box .text p:nth-child(3) {
+    font-weight: bold;
+}
+
+.content .box .text .price {
+    font-size: 20px;
+    margin-top: 10px;
+    color: var(--main-color);
+}
+
+.content .box .info {
+    padding: 20px;
+    border-top: 1px solid var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    color: var(--main-color);
+    align-items: center;
+    cursor: pointer;
+}
+
+.content .box .info a {
+    color: var(--main-color);
+}
+
+.content .box:hover .info .i {
+    animation: arrow-right 0.5s linear infinite;
+}
+
+@keyframes arrow-right {
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+.content .box .rateAndAdd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content .box .add {
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.content .box .add .type {
+    display: none;
+}
+
+.content .box .add .type input {
+    appearance: none;
+    width: 100px;
+    height: 30px;
+    border: 3px solid var(--main-color);
+}
+
+.content .box .rate {
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px;
+}
+
+.content .box .rate .i {
+    color: yellow;
+}
+
+/* End Myproducts */
+/* Start BookMark */
+.bookmark {
+    display: none;
+    flex-grow: 18;
+    align-items: stretch;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    max-width: 1300px;
+    background-color: #eff2f3;
+}
+
+/* End BookMark */
+/* Start Requests */
+.requests {
+    display: none;
+    flex-grow: 18;
+    align-items: stretch;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    max-width: 1300px;
+    background-color: #eff2f3;
+}
+
+.requests .box .brand,
+.requests .box .category {
+    display: flex;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+.requests .box .category {
+    margin-bottom: 20px;
+}
+
+.requests .box .brand p,
+.requests .box .category p {
+    font-weight: bold;
+}
+
+.requests .box .actionProduct {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.requests .box .actionProduct .accept,
+.requests .box .actionProduct .refuse {
+    background-color: var(--Second-color);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px 10px;
+}
+
+/* End Requests */
+/* Start Admins */
+.admins {
+    display: none;
+    flex-grow: 18;
+    align-items: stretch;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    max-width: 1300px;
+    background-color: #eff2f3;
+    color: var(--Second-color);
+}
+
+.admins .action form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center !important;
+    height: fit-content;
+    margin-left: 30px;
+}
+
+.admins .action form svg {
+    cursor: pointer;
+}
+
+.admins .users {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.admins .users .user {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.admins .users .user .userInfo {
+    font-weight: bold;
+}
+
+.admins .users .user .userInfo .userName {
+    text-transform: uppercase;
+}
+
+.admins .users .user .createAdmin {
+    align-self: flex-end;
+    margin: 10px;
+    background-color: var(--Second-color);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* End Admins */
