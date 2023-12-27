@@ -20,7 +20,7 @@ export default function Cart() {
                 <div class={styles.container}>
                     <div className={styles.approve} onClick={handleOrder}>Approve Order</div>
                     <div class={styles.content}>
-                        {cookies.cart.map((product, index) => {
+                        {cookies.cart ? (cookies.cart.map((product, index) => {
                             return (
                                 <div class={styles.box} key={product.id}>
                                     <div class={styles.image} style={{ width: "50%" }}><img src={require("../images/" + product.imageLink)} alt="" /></div>
@@ -31,7 +31,7 @@ export default function Cart() {
                                     <div className={styles.remove} onClick={handleRemove} id={index}>Remove</div>
                                 </div>
                             )
-                        })}
+                        })) : (<></>)}
                     </div>
                 </div>
             </div>

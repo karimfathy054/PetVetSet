@@ -155,12 +155,21 @@ export default function List({ user }) {
     }
     const handleCart = () => {
         let temp = false;
-        cookies.cart.map((product) => {
-            if (product.id === specialProduct.id && product.productName) { temp = true; }
-        })
+        const hasCookie = cookies.cart !== undefined;
+        console.log(hasCookie)
+        if (hasCookie !== false) {
+            cookies.cart.map((product) => {
+                if (product.id === specialProduct.id && product.productName) { temp = true; }
+            })
+        }
         if (!temp) {
             console.log(temp)
-            handleCartCookies([...cookies.cart, specialProduct]);
+            if (hasCookie === false) {
+                handleCartCookies([specialProduct]);
+            }
+            else {
+                handleCartCookies([...cookies.cart, specialProduct]);
+            }
         }
     }
     return (

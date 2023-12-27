@@ -115,11 +115,22 @@ export default function AnimalList({ user }) {
     }
     const handleCart = () => {
         let temp = false;
-        cookies.cart.map((product) => {
-            if (product.id === specialProduct.id && product.breed) { temp = true; }
-        })
-        if (!temp)
-            handleCartCookies([...cookies.cart, specialProduct]);
+        const hasCookie = cookies.cart !== undefined;
+        console.log(hasCookie)
+        if (hasCookie !== false) {
+            cookies.cart.map((product) => {
+                if (product.id === specialProduct.id && product.productName) { temp = true; }
+            })
+        }
+        if (!temp) {
+            console.log(temp)
+            if (hasCookie === false) {
+                handleCartCookies([specialProduct]);
+            }
+            else {
+                handleCartCookies([...cookies.cart, specialProduct]);
+            }
+        }
     }
     return (
         <div class={styles.list}>
