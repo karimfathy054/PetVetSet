@@ -1,5 +1,12 @@
 package com.example.PVSSpringBoot.Entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductFront {
     private String description;
 
@@ -14,6 +21,19 @@ public class ProductFront {
     private long productId;
 
     private String photo;
+
+    public ProductFront(Product productOriginal) {
+        this.description = productOriginal.getDescription();
+        this.price = productOriginal.getPrice();
+        this.brandName = productOriginal.getBrandName();
+        this.categoryName = productOriginal.getCategory();
+        this.targetAnimal = productOriginal.getTargetAnimal();
+        this.productName = productOriginal.getProductName();
+        this.isApproved = true;
+        this.userEmail = productOriginal.getUser().getEmail();
+        this.productId = productOriginal.getId();
+        this.photo = productOriginal.getImageLink();
+    }
 
     public String getUserEmail() {
         return userEmail;

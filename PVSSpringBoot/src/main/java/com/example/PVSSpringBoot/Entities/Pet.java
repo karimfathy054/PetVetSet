@@ -1,5 +1,6 @@
 package com.example.PVSSpringBoot.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +42,11 @@ public class Pet {
 
     @Column(name = "image_link")
     private String imageLink;
+
+    @ManyToOne
+    @JoinColumn(name = "user_user_id")
+    @JsonIgnore
+    private User user;
 
     @PostLoad
     public void postLoad() {

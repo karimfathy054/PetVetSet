@@ -721,7 +721,7 @@ class RequestServiceTest {
 
     @Test
     void testGetUserByIdWrongId(){
-        UserFront userFront = new UserFront(-1, RequestService.WRONG_USER_ID, "", false,"");
+        UserFront userFront = new UserFront(-1, RequestService.WRONG_USER_ID, "", "",false);
         BDDMockito.given(this.usersRepo.findById(1L))
                 .willReturn(Optional.empty());
         UserFront res = serviceUnderTest.getUserById(1L);
@@ -752,7 +752,7 @@ class RequestServiceTest {
 
     @Test
     void testGetUserByEmailWrongId(){
-        UserFront userFront = new UserFront(-1, RequestService.WRONG_USER_EMAIL, "", false,"");
+        UserFront userFront = new UserFront(-1, RequestService.WRONG_USER_EMAIL, "", "",false);
         // no email has a space in it
         BDDMockito.given(this.usersRepo.findByEmail("Wrong Email"))
                 .willReturn(Optional.empty());
