@@ -88,7 +88,7 @@ public class RequestService {
     public UserFront getUserById(long id) {
         var entry = usersRepo.findById(id);
         if( entry.isEmpty()){
-            return new UserFront(-1, WRONG_USER_ID, "", false);
+            return new UserFront(-1, WRONG_USER_ID, "", "",false);
         }
         User user = entry.get();
         return UserFront.getUserFront(user);
@@ -97,7 +97,7 @@ public class RequestService {
     public UserFront getUserByEmail(String email) {
         var entry = usersRepo.findByEmail(email);
         if(entry.isEmpty()){
-            return new UserFront(-1, WRONG_USER_EMAIL, "", false);
+            return new UserFront(-1, WRONG_USER_EMAIL, "", "",false);
         }
         User user = entry.get();
         return UserFront.getUserFront(user);

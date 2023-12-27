@@ -17,7 +17,6 @@ const AnimalUploadForm = () => {
     )
     //end
 
-
     const [selectedValue, setSelectedValue] = useState('food');
     const [selectedValue2, setSelectedValue2] = useState('pet');
     const [productName, setproductName] = useState('');
@@ -25,6 +24,8 @@ const AnimalUploadForm = () => {
     const [brandName, setBrandName] = useState('');
     const [Description, setDescription] = useState('');
     const [image, setImage] = useState('');
+    const [type, setType] = useState('');
+    const [age, setAge] = useState('');
 
     const handleTargetAnimal = (e) => {
         setSelectedValue2(e.target.value);
@@ -55,7 +56,7 @@ const AnimalUploadForm = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8080/api/addNewProduct', {
+        const response = await fetch('http://localhost:8080/api/addNewPet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,14 +64,11 @@ const AnimalUploadForm = () => {
             },
             body: JSON.stringify({
                 name: productName,
-                brandName: brandName,
+                type: selectedValue2,
+                breed: Breed,
                 description: Description,
-                price: Price,
-                targetAnimal: selectedValue,
-                categoryName: selectedValue2,
-                userEmail: user.email,
-                photo: image,
-
+                image_link: image,
+                userEmail: user.email
             }),
         })
 
@@ -130,6 +128,15 @@ const AnimalUploadForm = () => {
                                         onChange={handleBreed}
                                         required
 
+                                    />
+                                </label>
+                                <label className={styles.labe3}>
+                                    Age
+                                    <input type="number" className={styles.input3}
+                                        name="age"
+                                        value={age}
+                                        onChange={(e) => setAge(e.target.value)}
+                                        required
                                     />
                                 </label>
 

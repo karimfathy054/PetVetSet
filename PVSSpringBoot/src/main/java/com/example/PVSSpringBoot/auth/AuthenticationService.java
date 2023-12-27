@@ -27,7 +27,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .isAdmin(false)
                 .joinDate(new Date(System.currentTimeMillis()))
-                .profilePhoto(null)
+                .profile_photo(null)
                 .role(Role.USER)
                 .build();
         repository.save(user);

@@ -1,23 +1,27 @@
 package com.example.PVSSpringBoot.Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserFront {
     private long id;
     private String userName;
     private String email;
     private String image;
     private boolean isAdmin;
-    public UserFront(long id, String user_name, String email, boolean is_admin) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
-
-        this.isAdmin = isAdmin;
-    }
+//    public UserFront(long id, String userName, String email, boolean isAdmin,String image) {
+//        this.id = id;
+//        this.userName = userName;
+//        this.email = email;
+//        this.image = image;
+//        this.isAdmin = isAdmin;
+//    }
 
     public long getId() {
         return id;
@@ -56,7 +60,8 @@ public class UserFront {
                 .userName(user.getUserName())
                 .email(user.getEmail())
                 .isAdmin(user.getIsAdmin())
-                .id(user.getUserId()).build();
+                .id(user.getUserId())
+                .image(user.getProfile_photo()).build();
     }
 
     @Override

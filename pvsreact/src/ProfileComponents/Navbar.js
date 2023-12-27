@@ -59,7 +59,7 @@ export default function Navbar({ user }) {
     }
 
     const handleAdmins = () => {
-        document.getElementById("admins1").style.display = "flex";
+        document.getElementById("admins1").style.display = "block";
         document.getElementById("requests1").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
         document.getElementById("info").style.display = "none";
@@ -80,7 +80,7 @@ export default function Navbar({ user }) {
                     <li><div id={styles.setting} className={styles.li} onClick={handleSetting}><IoIosSettings />Setting</div></li>
                     <li><div id={styles.myProducts} className={styles.li} onClick={handleMyProducts}><FaProductHunt />My Products</div></li>
                     <li><div id={styles.bookmark} className={styles.li} onClick={handleBookMark}><FaBookmark />Book Mark</div></li>
-                    {!user.isAdmin ? (<>
+                    {user.isAdmin ? (<>
                         <li><div id={styles.requests} className={styles.li} onClick={handleRequests}><FaCodePullRequest />Requests</div></li>
                         <li><div id={styles.admins} className={styles.li} onClick={handleAdmins}><MdOutlineAdminPanelSettings />Generate Admins</div></li>
                     </>

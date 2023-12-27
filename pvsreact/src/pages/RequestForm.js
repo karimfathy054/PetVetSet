@@ -55,7 +55,7 @@ const ProductUploadForm = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file.name);
+    console.log(file);
     setImage(file.name);
   }
   const handleSubmit = async (e) => {
@@ -161,7 +161,7 @@ const ProductUploadForm = () => {
                   Image
                   <input className={styles.input1}
                     type="file"
-                    accept="image/*"
+                    // accept="image/*"
                     onChange={handleFileChange}
                     required
                   />
