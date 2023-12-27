@@ -76,8 +76,8 @@ const ProductUploadForm = () => {
           brandName: brandName,
           description: Description,
           price: Price,
-          targetAnimal: selectedValue,
-          categoryName: selectedValue2,
+          targetAnimal: selectedValue2,
+          categoryName: selectedValue,
           userEmail: user.email,
           photo: image,
 
