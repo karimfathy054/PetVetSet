@@ -7,12 +7,14 @@ public class UserFront {
     private String user_name;
     private String email;
     private boolean is_admin;
+    private String image;
 
-    public UserFront(long id, String user_name, String email, boolean is_admin) {
+    public UserFront(long id, String user_name, String email, boolean is_admin,String image) {
         this.id = id;
         this.user_name = user_name;
         this.email = email;
         this.is_admin = is_admin;
+        this.image = image;
     }
 
     public long getId() {

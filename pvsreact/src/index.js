@@ -13,6 +13,8 @@ import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Animals from './pages/Animals';
 import Profile from './pages/UserProfile';
+import Cart from './pages/Cart';
+import RequestAnimalForm from "./pages/RquestAnimalForm"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
   {
     path: '/Profile',
     element: <Profile />
+  },
+  {
+    path: '/Cart',
+    element: <Cart />
+  },
+  {
+    path: '/RequestAnimalForm',
+    element: <RequestAnimalForm />
   }
 ]);
 

@@ -3,11 +3,20 @@ import styles from "../CSS/List.module.css"
 import { FaArrowRight } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
+import { useCookies } from "react-cookie";
 export default function List({ user }) {
     const [products, setProducts] = useState([]);
+    const [specialProduct, setSpecialProduct] = useState({});
     const [temp, setTemp] = useState(true);
     const [search, setSearch] = useState('');
     const [rate, setRate] = useState(0);
+    const [cookies, setCookie] = useCookies(["cart"]);
+    function handleCartCookies(cart) {
+        setCookie("cart", cart, { path: "/" });
+    }
     useEffect(() => {
         if (temp) {
             fetch('http://localhost:8080/products/all', {
@@ -125,12 +134,41 @@ export default function List({ user }) {
         const contact = document.getElementById("rate" + e.target.id);
         contact.style.display = "block";
     }
+    const handleReadMe = (e) => {
+        setSpecialProduct(products[e.target.id]);
+        console.log(products[e.target.id]);
+        document.getElementsByClassName(styles.cover)[0].style.display = "block"
+    }
+    const handleClose = () => {
+        document.getElementsByClassName(styles.cover)[0].style.display = "none"
+    }
+    const handleBookMark = () => {
+        //handle the color 
+        const color = document.getElementsByClassName(styles.book)[0].style.color;
+        if (color === "black") {
+            document.getElementsByClassName(styles.book)[0].style.color = "#f22c5c";
+        }
+        else {
+            document.getElementsByClassName(styles.book)[0].style.color = "black";
+        }
+        // add to back
+    }
+    const handleCart = () => {
+        let temp = false;
+        cookies.cart.map((product) => {
+            if (product.id === specialProduct.id && product.productName) { temp = true; }
+        })
+        if (!temp) {
+            console.log(temp)
+            handleCartCookies([...cookies.cart, specialProduct]);
+        }
+    }
     return (
         <div class={styles.list}>
             <div class={styles.container}>
                 <h2 class={styles.heading}>Products</h2>
                 <div className={styles.action}>
-                    <form onSubmit={(e) => { e.preventDefault(); handleSearch() }}>
+                    <form onSubmit={(e) => { e.preventDefault(); handleSearch() }} className={styles.searchForm}>
                         <input type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)}></input>
                         <FaSearch className={styles.searchIcon} onClick={handleSearch} />
                     </form>
@@ -146,7 +184,7 @@ export default function List({ user }) {
                     </select>
                 </div>
                 <div class={styles.content}>
-                    {products.map((product) => {
+                    {products.map((product, index) => {
                         return (
                             <div class={styles.box}>
                                 <div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>
@@ -170,12 +208,33 @@ export default function List({ user }) {
                                     </div>
                                 </div>
                                 <div class={styles.info}>
-                                    <a>Read Me</a>
+                                    <a id={index} onClick={handleReadMe}>Read Me</a>
                                     <FaArrowRight className={styles.i} />
                                 </div>
                             </div>
                         )
                     })}
+                </div>
+            </div>
+            <div className={styles.cover}>
+                <div class={styles.specialProduct}>
+                    <div className={styles.close} onClick={handleClose}><IoClose /></div>
+                    {specialProduct.imageLink ? (<div class={styles.image}><img src={require("../images/" + specialProduct.imageLink)} alt="" /></div>) : <></>}
+                    <div class={styles.text}>
+                        <h3>{specialProduct.productName}</h3>
+                        <p>{specialProduct.description}</p>
+                        <div className={styles.price}>{specialProduct.price} $</div>
+                    </div>
+                    <div className={styles.rateAndAdd}>
+                        <div className={styles.rate}>
+                            <FaStar className={styles.i} />
+                            <div className={styles.rating}>{parseFloat(specialProduct.rating).toFixed(2)} /10</div>
+                        </div>
+                        <FaBookmark className={styles.book} onClick={handleBookMark} />
+                    </div>
+                    <div className={styles.brand}><p>Brand</p>{specialProduct.brandName}</div>
+                    <div className={styles.category}><p>Category</p>{specialProduct.category}</div>
+                    <div className={styles.cart} onClick={handleCart}><FaCartShopping /> Add To Cart</div>
                 </div>
             </div>
         </div>

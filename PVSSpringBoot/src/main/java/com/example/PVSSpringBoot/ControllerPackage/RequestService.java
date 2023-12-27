@@ -75,10 +75,10 @@ public class RequestService {
     public UserFront getUserByEmail(String email) {
         var entry = usersRepo.findByEmail(email);
         if(entry.isEmpty()){
-            return new UserFront(-1, "Email not valid", "", false);
+            return new UserFront(-1, "Email not valid", "", false,"");
         }
         User user = entry.get();
-        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin());
+        return new UserFront(user.getUser_id(), user.getUser_name(), user.getEmail(), user.getIs_admin(),user.getProfile_photo());
     }
 
 //    public String deleteUser(Long adminId, Long userID) {

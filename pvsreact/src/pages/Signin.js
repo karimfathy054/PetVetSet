@@ -123,7 +123,9 @@ export default function Signin({ onLogin }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.is_admin)
+                console.log("dataaaaa : ")
+                console.log(data)
+                console.log(data.image)
                 onLogin({ id: data.id, userName: data.user_name, email: data.email, isAdmin: data.is_admin, token: token, decode: jwtDecode(token) });
                 navigate('/', { replace: true });
             })
