@@ -68,7 +68,8 @@ const AnimalUploadForm = () => {
                 breed: Breed,
                 description: Description,
                 image_link: image,
-                userEmail: user.email
+                userEmail: user.email,
+                birthDate: "2020-12-12"
             }),
         })
 
@@ -85,7 +86,6 @@ const AnimalUploadForm = () => {
 
         setDescription("");
         setImage(null);
-        setPrice("");
         setproductName("");
         setSelectedValue("");
         setSelectedValue2("");

@@ -8,6 +8,8 @@ import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -114,8 +116,16 @@ public class Controller {
     }
 //     For Pet
     @PostMapping("/addNewPet")
-    public String addNewPet(@RequestBody requestPet reqPet){
-        boolean status = requestService.addRequestPet(reqPet);
+    public String addNewPet(@RequestBody Map<String, String> body){
+        requestPet reqpet = new requestPet();
+        reqpet.setName(body.get("name"));
+        reqpet.setBreed(body.get("breed"));
+        reqpet.setDescription(body.get("description"));
+        reqpet.setImageLink(body.get("image_link"));
+        reqpet.setUserEmail(body.get("userEmail"));
+        reqpet.setType(body.get("type"));
+        reqpet.setBirthDate(Date.valueOf(body.get("birthDate")));
+        boolean status = requestService.addRequestPet(reqpet);
         if(status) return "your request pet is added";
         else return "Can not add Your request Pet";
     }
