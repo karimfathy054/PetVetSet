@@ -20,11 +20,13 @@ public class BookmarksController {
 
     @PutMapping("/add/user={userId}&&product={productId}")
     String addBookmark(@PathVariable Long userId, @PathVariable Long productId){
-        return bookmarkService.addBookmark(userId, productId);
+        if(bookmarkService.addBookmark(userId, productId)) return "bookmark added";
+        return "can't add bookmark";
     }
 
     @PutMapping("/remove/user={userId}&&product={productId}")
     String removeBookmark(@PathVariable Long userId , @PathVariable Long productId){
-        return bookmarkService.removeBookmark(userId,productId);
+        if(bookmarkService.removeBookmark(userId,productId)) return "bookmark removed";
+        return "can't remove bookmark";
     }
 }

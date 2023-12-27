@@ -16,7 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -150,7 +153,87 @@ public class DataBaseTest {
     }
 
     //test removing a user
+    @Order(4)
+    @Test
+    void testRemovingAUser(){
+        usersRepo.deleteById(1L);
+        List<User> users = usersRepo.findAll();
+        List<Product> products = productRepository.findAll();
+        User user2 = User.builder()
+                .userId(2L)
+                .email("user2@email.com")
+                .user_name("user2")
+                .is_admin(false)
+                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .build();
+        User user3 = User.builder()
+                .userId(3L)
+                .email("user3@email.com")
+                .user_name("user3")
+                .is_admin(false)
+                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .build();
+        Product product1 = Product.builder()
+                .id(1L)
+                .productName("p1")
+                .brandName("b1")
+                .price(10f)
+                .build();
+        Product product2 = Product.builder()
+                .id(2L)
+                .productName("p2")
+                .brandName("b2")
+                .price(20f)
+                .build();
+        Product product3 = Product.builder()
+                .id(3L)
+                .productName("p3")
+                .brandName("b3")
+                .price(30f)
+                .build();
+        Set<Product> bookmarks = new LinkedHashSet<>();
+        bookmarks.add(product1);
+        bookmarks.add(product2);
+        bookmarks.add(product3);
+        user2.setBookmarks(bookmarks);
+        user3.setBookmarks(bookmarks);
+        List<User> finalUsers = List.of(user2,user3);
+
+        assertThat(users.size()).isEqualTo(2);
+        for (Product p :
+                products) {
+            assertThat(p.getBookmarkingUsers().size()).isEqualTo(2);
+            assertThat(p.getBookmarkingUsers()).containsAll(finalUsers);
+        }
+    }
     //test removing a product
+    @Order(5)
+    @Test
+    void testRemovingAProduct(){
+        productRepository.deleteById(1L);
+        List<Product> products = productRepository.findAll();
+        List<User>users = usersRepo.findAll();
+        Product product2 = Product.builder()
+                .id(2L)
+                .productName("p2")
+                .brandName("b2")
+                .price(20f)
+                .build();
+        Product product3 = Product.builder()
+                .id(3L)
+                .productName("p3")
+                .brandName("b3")
+                .price(30f)
+                .build();
+        List<Product> finalProducts = List.of(product2,product3);
+        assertThat(products.size()).isEqualTo(2);
+        for (User u :
+                users) {
+            assertThat(u.getBookmarks().size()).isEqualTo(2);
+            assertThat(u.getBookmarks()).containsAll(finalProducts);
+        }
+    }
+    //in service
     //test adding a bookmark for non existant user
     //test adding a bookmark with non existant product
     //test adding a non existant product as a bookmark for non existant user

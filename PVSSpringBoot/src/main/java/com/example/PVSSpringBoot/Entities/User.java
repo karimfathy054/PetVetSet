@@ -69,12 +69,14 @@ public class User implements UserDetails {
         this.bookmarks.remove(product);
     }
 
-    public void removeBookmark(Long productId){
+    public boolean removeBookmark(Long productId){
         Product p = this.bookmarks.stream().filter( x->x.getId() == productId).findFirst().orElse(null);
         if(p != null){
             p.getBookmarkingUsers().remove(this);
             this.bookmarks.remove(p);
+            return true;
         }
+        return false;
     }
 
     @Override

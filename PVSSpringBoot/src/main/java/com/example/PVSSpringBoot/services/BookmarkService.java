@@ -22,7 +22,7 @@ public class BookmarkService {
     @Autowired
     BookmarksRepository bookmarksRepository;
 
-    public String addBookmark(Long productId,Long userId){
+    public boolean addBookmark(Long productId,Long userId){
         Optional<User> userOptional = usersRepo.findById(userId);
         Optional<Product> productOptional = productRepository.findById(productId);
         if(userOptional.isPresent() && productOptional.isPresent()){
@@ -30,22 +30,21 @@ public class BookmarkService {
             Product product = productOptional.get();
             user.addBookmark(product);
             usersRepo.save(user);
-            return "bookmark added";
+            return true;
         }else{
-            return "can't add bookmark";
+            return false;
         }
     }
-    public String removeBookmark(Long productId,Long userId){
+    public boolean removeBookmark(Long productId,Long userId){
         Optional<User> userOptional = usersRepo.findById(userId);
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            user.removeBookmark(productId);
-            usersRepo.save(user);
-            return "bookmark removed";
+            if(user.removeBookmark(productId)){
+                usersRepo.save(user);
+                return true;
+            }
         }
-        else{
-            return "can't remove bookmark";
-        }
+        return false;
     }
 
     public List<Product> getBookmarksOf(Long userID){
