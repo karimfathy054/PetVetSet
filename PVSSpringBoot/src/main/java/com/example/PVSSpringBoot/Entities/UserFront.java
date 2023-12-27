@@ -1,11 +1,9 @@
 package com.example.PVSSpringBoot.Entities;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 import java.util.Objects;
-
 @Builder
 public class UserFront {
     private long id;

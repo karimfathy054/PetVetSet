@@ -1,28 +1,15 @@
 package com.example.PVSSpringBoot.ControllerPackage;
-
-
-import com.example.PVSSpringBoot.Entities.ProductFront;
-import com.example.PVSSpringBoot.Entities.ProductFrontBuilder;
-import com.example.PVSSpringBoot.Entities.User;
-import com.example.PVSSpringBoot.Entities.UserFront;
-
-
+import com.example.PVSSpringBoot.Entities.*;
 import org.springframework.http.ResponseEntity;
 
+
 import org.springframework.web.bind.annotation.*;
-
-
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import java.util.List;
 import java.util.Map;
-
-
-
 
 @RestController
 @CrossOrigin
@@ -33,11 +20,6 @@ public class Controller {
     @Autowired
     private RequestService requestService;
 
-    //    @GetMapping("/hello")
-//    UserFront hello(){
-//        return new UserFront(-1, "Hello", "", false);
-//    }
-//
     @PostMapping("/setAdmin")
     public String setAdmin(@RequestBody Map<String, Long> body){
         return requestService.setAdmin(body.get("admin"), body.get("user"));
@@ -117,9 +99,44 @@ public class Controller {
         return requestService.getProductsByUserEmail(body.get("email"));
     }
 
-
+    // three functions to handle get all requests to admin and accept one and refuse one
     @PostMapping("/deleteRequestProduct")
     public String deleteRequestProductById(@RequestBody Map<String, Long> body){
         return requestService.deleteProductById(body.get("id"));
+    }
+    @GetMapping("/getAllRequestProducts")
+    public List<ProductFront> getAllRequestProducts(){
+        return requestService.getAllRequestProducts();
+    }
+    @PostMapping("/acceptRequestProduct")
+    public String acceptRequestProduct(@RequestBody Map<String, Long> body){
+        return requestService.acceptProductById(body.get("id"));
+    }
+//     For Pet
+    @PostMapping("/addNewPet")
+    public String addNewPet(@RequestBody requestPet reqPet){
+        boolean status = requestService.addRequestPet(reqPet);
+        if(status) return "your request pet is added";
+        else return "Can not add Your request Pet";
+    }
+
+    @GetMapping("/getRequestPetByUserEmail")
+    public List<requestPet> getRequestPetsByUserEmail(@RequestBody Map<String, String> body){
+        return requestService.getRequestPetsByUserEmail(body.get("email"));
+    }
+
+     //three functions to handle get all requests to admin and accept one and refuse one.......
+
+    @GetMapping("/getAllRequestPets")
+    public List<requestPet> getAllRequestPets(){
+        return requestService.getAllRequestPets();
+    }
+    @PostMapping("/acceptRequestPet")
+    public String acceptRequestPet(@RequestBody Map<String, Long> body){
+        return requestService.acceptPetById(body.get("id"));
+    }
+    @PostMapping("/refuseRequestPet")
+    public String refuseRequestPetById(@RequestBody Map<String, Long> body){
+        return requestService.refuseRequestPetById(body.get("id"));
     }
 }
