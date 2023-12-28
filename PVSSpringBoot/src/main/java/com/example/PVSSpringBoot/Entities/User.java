@@ -62,6 +62,12 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Product> bookmarks = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Collection<Pet> pets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Collection<Product> products = new ArrayList<>();
+
     public void addBookmark(Product product){
         product.getBookmarkingUsers().add(this);
         this.bookmarks.add(product);
@@ -80,13 +86,7 @@ public class User implements UserDetails {
         }
         return false;
     }
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonIgnore
-    private Set<Product> products = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonIgnore
-    private Set<Pet> pets = new LinkedHashSet<>();
 
 
     @Override

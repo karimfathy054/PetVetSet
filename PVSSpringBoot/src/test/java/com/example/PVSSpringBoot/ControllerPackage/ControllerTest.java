@@ -222,7 +222,7 @@ class ControllerTest {
                         " \"type\":\"cat\",\n" +
                         " \"breed\":\"cat2\",\n" +
                         " \"description\":\"cat cat\",\n" +
-                        " \"birth_date\":\"2022-1-15\",\n" +
+                        " \"birthDate\":\"2022-1-15\",\n" +
                         " \"image_link\":\"mm.jpg\",\n" +
                         " \"userEmail\":\"abdo@gmail.com\"\n" +
                         "}"
@@ -242,7 +242,7 @@ class ControllerTest {
                                 " \"type\":\"cat\",\n" +
                                 " \"breed\":\"cat2\",\n" +
                                 " \"description\":\"cat cat\",\n" +
-                                " \"birth_date\":\"2022-1-15\",\n" +
+                                " \"birthDate\":\"2022-1-15\",\n" +
                                 " \"image_link\":\"mm.jpg\",\n" +
                                 " \"userEmail\":\"abdo@gmail.com\"\n" +
                                 "}"
