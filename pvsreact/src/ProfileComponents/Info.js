@@ -8,7 +8,23 @@ export default function Info({ user }) {
     const handleChange = (e) => {
         console.log(e.target.files);
         setImage(URL.createObjectURL(e.target.files[0]));
-        handleUpload();
+        handleUpload(e.target.files[0].name);
+    }
+
+    const handleUpload = (image) => {
+        fetch(`http://localhost:8080/api/addImage/user=${user.id}&&image=${image}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+            });
     }
 
 
@@ -17,13 +33,11 @@ export default function Info({ user }) {
             <div className={styles.info} id="info">
                 <div className={styles.general}>
                     <h2>General Information</h2>
-                    <form>
-                        aaaaaa
-                    </form>
+
                 </div>
                 <div className={styles.private}>
                     <div className={styles.privateInfo}>
-                        <div className={styles.photo}>{user.image ? (<img src={user.image}></img>) : <FaUserCircle />}</div>
+                        <div className={styles.photo}>{user.image ? (<img src={require("../images/" + user.image)}></img>) : <FaUserCircle />}</div>
                         <div className={styles.role}>{user.isAdmin ? (<h3>admin</h3>) : (<h3>user</h3>)}</div>
                         <div className={styles.email}>{user.email}</div>
                     </div>

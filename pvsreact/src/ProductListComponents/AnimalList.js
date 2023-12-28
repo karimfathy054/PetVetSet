@@ -107,9 +107,37 @@ export default function AnimalList({ user }) {
         const color = document.getElementsByClassName(styles.book)[0].style.color;
         if (color === "black") {
             document.getElementsByClassName(styles.book)[0].style.color = "#f22c5c";
+            fetch(`http://localhost:8080/bookmarks/add/user=${user.id}&&product=${specialProduct.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            })
+                .then(data => {
+                    console.log(data);
+                    setTemp(false);
+                })
+                .catch(error => {
+                    console.error('Error creating user:', error);
+                    setTemp(false);
+                });
         }
         else {
             document.getElementsByClassName(styles.book)[0].style.color = "black";
+            fetch(`http://localhost:8080/bookmarks/remove/user=${user.id}&&product=${specialProduct.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            })
+                .then(data => {
+                    console.log(data);
+                    setTemp(false);
+                })
+                .catch(error => {
+                    console.error('Error creating user:', error);
+                    setTemp(false);
+                });
         }
         // add to back
     }
@@ -151,7 +179,7 @@ export default function AnimalList({ user }) {
                 <div class={styles.content}>
                     {products.map((product, index) => {
                         return (<div class={styles.box} key={product.id}>
-                            <div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>
+                            {product.imageLink ? (<div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>) : (<></>)}
                             <div class={styles.text}>
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
@@ -174,7 +202,7 @@ export default function AnimalList({ user }) {
                         <h3>{specialProduct.name}</h3>
                         <p>{specialProduct.description}</p>
                         <div className={styles.price}>For Adoption</div>
-                        <FaBookmark className={styles.book} onClick={handleBookMark} />
+                        {/* <FaBookmark className={styles.book} onClick={handleBookMark} /> */}
                     </div>
                     <div className={styles.brand}><p>Type</p>{specialProduct.type}</div>
                     <div className={styles.brand}><p>Breed</p>{specialProduct.breed}</div>

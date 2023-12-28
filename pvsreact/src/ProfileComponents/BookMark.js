@@ -9,7 +9,7 @@ export default function BookMark({ user }) {
     const [search, setSearch] = useState('');
     useEffect(() => {
         if (temp) {
-            fetch('http://localhost:8080/products/all', {
+            fetch(`http://localhost:8080/bookmarks/${user.id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${user.token}`,
@@ -18,91 +18,21 @@ export default function BookMark({ user }) {
                 .then(response => response.json())
                 .then(data => {
                     setProducts(data);
-                    // console.log(data);
+                    console.log(data);
                     setTemp(false);
                 })
                 .catch(error => {
+                    console.log("77777777777777777777")
                     console.error('Error creating user:', error);
                     setTemp(false);
                 });
         }
     })
-    const handleSearch = () => {
-        fetch(`http://localhost:8080/products/name=${search}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${user.token}`,
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setProducts(data);
-                // console.log(data);
-                setTemp(false);
-            })
-            .catch(error => {
-                console.error('Error creating user:', error);
-                setTemp(false);
-            });
-    }
-    const handleFilter = (e) => {
-        if (e.target.value != "all") {
-            fetch(`http://localhost:8080/products/category=${e.target.value}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${user.token}`,
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setProducts(data);
-                    // console.log(data);
-                    setTemp(false);
-                })
-                .catch(error => {
-                    console.error('Error creating user:', error);
-                    setTemp(false);
-                });
-        }
-        else {
-            fetch(`http://localhost:8080/products/all`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${user.token}`,
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setProducts(data);
-                    // console.log(data);
-                    setTemp(false);
-                })
-                .catch(error => {
-                    console.error('Error creating user:', error);
-                    setTemp(false);
-                });
-        }
-    }
+
     return (
         <>
             <div id="bookmark1" className={styles.bookmark}>
                 <div class={styles.container}>
-                    <div className={styles.action}>
-                        <form onSubmit={(e) => { e.preventDefault(); handleSearch() }}>
-                            <input type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-                            <FaSearch className={styles.searchIcon} onClick={handleSearch} />
-                        </form>
-                        <select onChange={handleFilter}>
-                            <option value="all">All Products</option>
-                            <option value="food">Dry Food</option>
-                            <option value="accessories">Accessories</option>
-                            <option value="ariika">Ariika</option>
-                            <option value="frontline">Frontline</option>
-                            <option value="canin">Royal Canin</option>
-                            <option value="toys">Toys</option>
-                            <option value="medicine">Medicine</option>
-                        </select>
-                    </div>
                     <div class={styles.content}>
                         {products.map((product) => {
                             return (
@@ -118,10 +48,6 @@ export default function BookMark({ user }) {
                                             <FaStar className={styles.i} />
                                             <div className={styles.rating}>{parseFloat(product.rating).toFixed(2)} /10</div>
                                         </div>
-                                    </div>
-                                    <div class={styles.info}>
-                                        <a>Read Me</a>
-                                        <FaArrowRight className={styles.i} />
                                     </div>
                                 </div>
                             )

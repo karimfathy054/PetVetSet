@@ -82,7 +82,7 @@ export default function Signup() {
             .then(response => response.json())
             .then(data => {
                 console.log(data.userName);
-                handleLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token) });
+                handleLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token), image: data.image });
                 navigate('/', { replace: true });
             })
     }

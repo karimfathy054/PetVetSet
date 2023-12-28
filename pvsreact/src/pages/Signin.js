@@ -124,8 +124,8 @@ export default function Signin({ onLogin }) {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                onLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token) });
-
+                console.log(data.image)
+                onLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token), image: data.image });
                 navigate('/', { replace: true });
             })
     }

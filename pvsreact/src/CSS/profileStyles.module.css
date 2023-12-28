@@ -219,6 +219,13 @@ a {
     border-radius: 10px;
 }
 
+.info .private .privateInfo img {
+    width: 150px;
+    height: 150px;
+    margin-top: 100px;
+    border-radius: 50%;
+}
+
 .info .private .privateInfo svg {
     width: 150px;
     height: 150px;
