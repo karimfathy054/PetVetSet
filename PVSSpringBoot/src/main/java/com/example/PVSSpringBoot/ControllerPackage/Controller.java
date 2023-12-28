@@ -8,6 +8,7 @@ import com.example.PVSSpringBoot.Entities.UserFront;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.nimbusds.jose.shaded.gson.Gson;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,9 @@ public class Controller {
         return requestService.getUserByEmail(body.get("email"));
     }
     @GetMapping("/getJoinDate/{id}")
-    public ResponseEntity<String> getJoinDate(@PathVariable long id){
-        return ResponseEntity.ok(requestService.getJoinDate(id));
+    public String getJoinDate(@PathVariable long id){
+        Gson G = new Gson();
+        return G.toJson(requestService.getJoinDate(id));
     }
     @PostMapping("/changeUserName")
     public ResponseEntity<String> changeUserName(@RequestBody Map<String, String> body){

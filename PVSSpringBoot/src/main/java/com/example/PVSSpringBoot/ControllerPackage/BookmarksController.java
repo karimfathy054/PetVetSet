@@ -27,7 +27,7 @@ public class BookmarksController {
 
     @PutMapping("/remove/user={userId}&&product={productId}")
     String removeBookmark(@PathVariable Long userId , @PathVariable Long productId){
-        if(bookmarkService.removeBookmark(userId,productId)) return "bookmark removed";
+        if(bookmarkService.removeBookmark(productId,userId)) return "bookmark removed";
         return "can't remove bookmark";
     }
 }

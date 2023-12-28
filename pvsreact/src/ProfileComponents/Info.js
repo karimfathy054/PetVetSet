@@ -1,9 +1,34 @@
 import styles from "../CSS/profileStyles.module.css"
 import { FaUserCircle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Info({ user }) {
     const [image, setImage] = useState();
+    const [joinDate, setJoinDate] = useState();
+    const [temp, setTemp] = useState(true);
+
+    useEffect(() => {
+        if (temp) {
+            fetch(`http://localhost:8080/api/getJoinDate/${user.id}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    setJoinDate(data);
+                    setTemp(false);
+                })
+                .catch(error => {
+                    console.log("44444444")
+                    console.error('Error creating user:', error);
+                    setTemp(false);
+                });
+        }
+    }
+    )
 
     const handleChange = (e) => {
         console.log(e.target.files);
@@ -33,6 +58,9 @@ export default function Info({ user }) {
             <div className={styles.info} id="info">
                 <div className={styles.general}>
                     <h2>General Information</h2>
+                    <div className={styles.userName}><p>User Name</p> {user.userName}</div>
+                    <div className={styles.userName}><p>Email</p> {user.email}</div>
+                    <div className={styles.userName}><p>Join Date</p> {joinDate}</div>
 
                 </div>
                 <div className={styles.private}>

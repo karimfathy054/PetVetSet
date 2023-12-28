@@ -10,23 +10,23 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 export default function Navbar({ user }) {
     const handleSetting = () => {
         document.getElementById("info").style.display = "flex";
-        document.getElementById("myproducts1").style.display = "none";
+        // document.getElementById("myproducts1").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
         document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "#f22c5c";
-        document.getElementById(styles.myProducts).style.color = "white";
+        // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "white";
         document.getElementById(styles.requests).style.color = "white";
         document.getElementById("admins1").style.display = "none";
         document.getElementById(styles.admins).style.color = "white";
     }
     const handleMyProducts = (e) => {
-        document.getElementById("myproducts1").style.display = "flex";
+        // document.getElementById("myproducts1").style.display = "flex";
         document.getElementById("info").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
         document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
-        document.getElementById(styles.myProducts).style.color = "#f22c5c";
+        // document.getElementById(styles.myProducts).style.color = "#f22c5c";
         document.getElementById(styles.bookmark).style.color = "white";
         document.getElementById(styles.requests).style.color = "white";
         document.getElementById("admins1").style.display = "none";
@@ -35,10 +35,10 @@ export default function Navbar({ user }) {
     const handleBookMark = () => {
         document.getElementById("bookmark1").style.display = "flex";
         document.getElementById("info").style.display = "none";
-        document.getElementById("myproducts1").style.display = "none";
+        // document.getElementById("myproducts1").style.display = "none";
         document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
-        document.getElementById(styles.myProducts).style.color = "white";
+        // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "#f22c5c";
         document.getElementById(styles.requests).style.color = "white";
         document.getElementById("admins1").style.display = "none";
@@ -49,9 +49,9 @@ export default function Navbar({ user }) {
         document.getElementById("requests1").style.display = "flex";
         document.getElementById("bookmark1").style.display = "none";
         document.getElementById("info").style.display = "none";
-        document.getElementById("myproducts1").style.display = "none";
+        // document.getElementById("myproducts1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
-        document.getElementById(styles.myProducts).style.color = "white";
+        // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "white";
         document.getElementById(styles.requests).style.color = "#f22c5c";
         document.getElementById("admins1").style.display = "none";
@@ -63,9 +63,9 @@ export default function Navbar({ user }) {
         document.getElementById("requests1").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
         document.getElementById("info").style.display = "none";
-        document.getElementById("myproducts1").style.display = "none";
+        // document.getElementById("myproducts1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
-        document.getElementById(styles.myProducts).style.color = "white";
+        // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "white";
         document.getElementById(styles.requests).style.color = "white";
         document.getElementById(styles.admins).style.color = "#f22c5c";
@@ -78,7 +78,7 @@ export default function Navbar({ user }) {
                 <ul>
                     <li><Link to='/' className={styles.li}><FaHome />Home</Link></li>
                     <li><div id={styles.setting} className={styles.li} onClick={handleSetting}><IoIosSettings />Setting</div></li>
-                    <li><div id={styles.myProducts} className={styles.li} onClick={handleMyProducts}><FaProductHunt />My Products</div></li>
+                    {/* <li><div id={styles.myProducts} className={styles.li} onClick={handleMyProducts}><FaProductHunt />My Products</div></li> */}
                     <li><div id={styles.bookmark} className={styles.li} onClick={handleBookMark}><FaBookmark />Book Mark</div></li>
                     {user.isAdmin ? (<>
                         <li><div id={styles.requests} className={styles.li} onClick={handleRequests}><FaCodePullRequest />Requests</div></li>

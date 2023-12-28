@@ -203,6 +203,20 @@ a {
     padding: 20px;
 }
 
+.info .general h2 {
+    margin-bottom: 30px;
+}
+
+.info .general .userName {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.info .general .userName p {
+    font-weight: bold;
+}
+
 .info .private {
     flex-grow: 1;
     margin: 30px;
@@ -419,6 +433,21 @@ form .searchIcon {
     padding-bottom: 120px;
     max-width: 1300px;
     background-color: #eff2f3;
+}
+
+.bookmark .box {
+    display: flex;
+    flex-direction: column;
+}
+
+.bookmark .box .book {
+    margin: 20px;
+    background-color: var(--main-color);
+    width: fit-content;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 /* End BookMark */

@@ -10,8 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.COLLECTION;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,7 +26,8 @@ import java.util.Set;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DataBaseTest {
 
     @Autowired
@@ -34,8 +37,8 @@ public class DataBaseTest {
     @Autowired
     BookmarksRepository bookmarksRepository;
 
-    @BeforeAll
     @Order(1)
+    @Test
     void setup(){
         Product product1 = Product.builder()
                 .id(1L)

@@ -145,23 +145,23 @@ export default function List({ user }) {
     const handleBookMark = () => {
         //handle the color 
         const color = document.getElementsByClassName(styles.book)[0].style.color;
-        if (color === "black") {
-            document.getElementsByClassName(styles.book)[0].style.color = "#f22c5c";
-            fetch(`http://localhost:8080/bookmarks/add/user=${user.id}&&product=${specialProduct.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${user.token}`,
-                }
+        console.log(color)
+        document.getElementsByClassName(styles.book)[0].style.color = "#f22c5c";
+        fetch(`http://localhost:8080/bookmarks/add/user=${user.id}&&product=${specialProduct.id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+            }
+        })
+            .then(data => {
+                console.log(data);
+                setTemp(false);
             })
-                .then(data => {
-                    console.log(data);
-                    setTemp(false);
-                })
-                .catch(error => {
-                    console.error('Error creating user:', error);
-                    setTemp(false);
-                });
-        }
+            .catch(error => {
+                console.error('Error creating user:', error);
+                setTemp(false);
+            });
+
         // else {
         //     document.getElementsByClassName(styles.book)[0].style.color = "black";
         //     fetch(`http://localhost:8080/bookmarks/remove/user=${user.id}&&product=${specialProduct.id}`, {
