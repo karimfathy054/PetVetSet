@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bookmarks")
+@CrossOrigin
 public class BookmarksController {
 
     @Autowired

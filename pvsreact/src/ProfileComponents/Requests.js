@@ -133,7 +133,7 @@ export default function Requests({ user }) {
                             if (product.categoryName) {
                                 return (
                                     (<div class={styles.box}>
-                                        {(<div class={styles.image}><img src={require("../images/" + product.photo)} alt="" /></div>)}
+                                        {product.photo ? (<div class={styles.image}><img src={require("../images/" + product.photo)} alt="" /></div>) : (<></>)}
                                         <div class={styles.text}>
                                             <h3>{product.productName}</h3>
                                             <p>{product.description}</p>
@@ -153,7 +153,7 @@ export default function Requests({ user }) {
                         {pets.map((product, index) => {
                             return (
                                 (<div class={styles.box}>
-                                    {(<div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>)}
+                                    {product.imageLink ? (<div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>) : (<></>)}
                                     <div class={styles.text}>
                                         <h3>{product.productName}</h3>
                                         <p>{product.description}</p>

@@ -8,6 +8,7 @@ import com.example.PVSSpringBoot.services.ProductManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,16 @@ public class RequestService {
     @Autowired
     private PetRepository petRepository;
 
+    public boolean changeImage(Long userId, String image){
+        Optional<User> op = usersRepo.findById(userId);
+        if(op.isPresent()){
+            User user = op.get();
+            user.setProfile_photo(image);
+            usersRepo.save(user);
+            return true;
+        }
+        return false;
+    }
     public String setAdmin(Long adminId, Long userId) {
         var entryAdmin = usersRepo.findById(adminId);
         var entryUser = usersRepo.findById(userId);
@@ -100,7 +111,8 @@ public class RequestService {
             return new UserFront(-1, WRONG_USER_EMAIL, "", "",false);
         }
         User user = entry.get();
-        return UserFront.getUserFront(user);
+        UserFront u =UserFront.getUserFront(user);
+        return u;
     }
 
     public String deleteUser(Long adminId, Long userID) {

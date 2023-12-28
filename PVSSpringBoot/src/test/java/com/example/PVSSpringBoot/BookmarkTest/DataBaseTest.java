@@ -33,6 +33,7 @@ public class DataBaseTest {
     BookmarksRepository bookmarksRepository;
 
     @BeforeAll
+    @Order(1)
     void setup(){
         Product product1 = Product.builder()
                 .id(1L)
@@ -58,23 +59,23 @@ public class DataBaseTest {
         User user1 = User.builder()
                 .userId(1L)
                 .email("user1@email.com")
-                .user_name("user1")
-                .is_admin(false)
-                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .userName("user1")
+                .isAdmin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
                 .build();
         User user2 = User.builder()
                 .userId(2L)
                 .email("user2@email.com")
-                .user_name("user2")
-                .is_admin(false)
-                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .userName("user2")
+                .isAdmin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
                 .build();
         User user3 = User.builder()
                 .userId(3L)
                 .email("user3@email.com")
-                .user_name("user3")
-                .is_admin(false)
-                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .userName("user3")
+                .isAdmin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
                 .build();
         usersRepo.save(user1);
         usersRepo.save(user2);
@@ -89,7 +90,7 @@ public class DataBaseTest {
 
     //test adding a bookmark for a user
 
-    @Order(1)
+    @Order(2)
     @Test
     public void testAddingABookmark(){
         User user = usersRepo.findById(1L).get();
@@ -102,7 +103,7 @@ public class DataBaseTest {
     }
     //test all users bookmark all products
 
-    @Order(2)
+    @Order(3)
 
     @Test
     public void testAllUsersBookmarkAllProducts(){
@@ -128,7 +129,7 @@ public class DataBaseTest {
         assertThat(bookmarks3).isEqualTo(products);
     }
     //test user remove a bookmark
-    @Order(3)
+    @Order(4)
     @Test
     void testRemoveABookmark(){
         User user = usersRepo.findById(1L).get();
@@ -153,7 +154,7 @@ public class DataBaseTest {
     }
 
     //test removing a user
-    @Order(4)
+    @Order(5)
     @Test
     void testRemovingAUser(){
         usersRepo.deleteById(1L);
@@ -162,16 +163,16 @@ public class DataBaseTest {
         User user2 = User.builder()
                 .userId(2L)
                 .email("user2@email.com")
-                .user_name("user2")
-                .is_admin(false)
-                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .userName("user2")
+                .isAdmin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
                 .build();
         User user3 = User.builder()
                 .userId(3L)
                 .email("user3@email.com")
-                .user_name("user3")
-                .is_admin(false)
-                .join_date(Date.valueOf(LocalDate.EPOCH))
+                .userName("user3")
+                .isAdmin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
                 .build();
         Product product1 = Product.builder()
                 .id(1L)
@@ -207,7 +208,7 @@ public class DataBaseTest {
         }
     }
     //test removing a product
-    @Order(5)
+    @Order(6)
     @Test
     void testRemovingAProduct(){
         productRepository.deleteById(1L);

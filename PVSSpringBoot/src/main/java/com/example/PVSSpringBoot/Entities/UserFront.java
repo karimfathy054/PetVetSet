@@ -3,12 +3,14 @@ package com.example.PVSSpringBoot.Entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class UserFront {
     private long id;
     private String userName;

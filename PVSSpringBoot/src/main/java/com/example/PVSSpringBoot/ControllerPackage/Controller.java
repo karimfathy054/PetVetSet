@@ -22,6 +22,11 @@ public class Controller {
     @Autowired
     private RequestService requestService;
 
+    @PutMapping("/addImage/user={userId}&&image={image}")
+    public Boolean addImage(@PathVariable Long userId, @PathVariable String image){
+        return requestService.changeImage(userId,image);
+    }
+
     @PostMapping("/setAdmin")
     public String setAdmin(@RequestBody Map<String, Long> body){
         return requestService.setAdmin(body.get("admin"), body.get("user"));
