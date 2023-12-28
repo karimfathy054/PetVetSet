@@ -39,6 +39,6 @@ public class PetFront {
         this.birthDate = original.getBirthDate();
         this.age = original.getAge();
         this.imageLink = original.getImageLink();
-        this.userEmail = original.getUser() != null ? original.getUser().getEmail():null;
+//        this.userEmail = original.getUser() != null ? original.getUser().getEmail():null;
     }
 }

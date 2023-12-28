@@ -21,7 +21,7 @@ public class BookmarksController {
 
     @PutMapping("/add/user={userId}&&product={productId}")
     String addBookmark(@PathVariable Long userId, @PathVariable Long productId){
-        if(bookmarkService.addBookmark(userId, productId)) return "bookmark added";
+        if(bookmarkService.addBookmark(productId,userId)) return "bookmark added";
         return "can't add bookmark";
     }
 

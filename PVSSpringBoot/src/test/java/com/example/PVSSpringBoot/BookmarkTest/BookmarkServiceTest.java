@@ -51,9 +51,9 @@ public class BookmarkServiceTest {
         User user = User.builder()
                 .userId(1L)
                 .email("user1@email.com")
-                .join_date(Date.valueOf(LocalDate.EPOCH))
-                .user_name("user1")
-                .is_admin(false)
+                .joinDate(Date.valueOf(LocalDate.EPOCH))
+                .userName("user1")
+                .isAdmin(false)
                 .build();
         Product product = Product.builder()
                 .id(1L)
