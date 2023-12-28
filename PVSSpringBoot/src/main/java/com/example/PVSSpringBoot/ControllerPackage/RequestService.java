@@ -50,6 +50,7 @@ public class RequestService {
     @Autowired
     private PetManagementService petService;
 
+    @Autowired
     private RequestPetRepo requestPetRepo;
     @Autowired
     private PetRepository petRepository;
@@ -255,6 +256,7 @@ public class RequestService {
         product.setRating(0F);
         product.setNoOfRating(0L);
         deleteProductById(id);
+        System.out.println(product);
         if(productManagementService.addNewProduct(product)){
             return "Accept success.";
         }else{
