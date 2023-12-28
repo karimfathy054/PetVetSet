@@ -1,26 +1,27 @@
 package com.example.PVSSpringBoot.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-
+//
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
-public class Pet {
+@Table(name = "requestPet")
+public class requestPet {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "petId", nullable = false)
+
+    private Long productId;
+
+    @Column(name = "userEmail", nullable = false, length = 30)
+    private String userEmail;
 
     @Column(name = "name")
     private String name;
@@ -43,14 +44,9 @@ public class Pet {
     @Column(name = "image_link")
     private String imageLink;
 
-    @ManyToOne
-    @JoinColumn(name = "user_user_id")
-    @JsonIgnore
-    private User user;
-
     @PostLoad
     public void postLoad() {
-        this.age = (short)Period.between(birthDate.toLocalDate(),LocalDate.now()).getYears();
+        this.age = (short) Period.between(birthDate.toLocalDate(), LocalDate.now()).getYears();
     }
 
 

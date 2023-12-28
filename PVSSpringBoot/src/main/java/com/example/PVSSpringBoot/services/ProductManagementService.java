@@ -83,4 +83,9 @@ public class ProductManagementService {
         if(priceStart > priceEnd) return null;
         return repo.findByPriceBetween(priceStart, priceEnd);
     }
+
+    public List<Product> searchProductsByProvidingUser(Long userId){
+        List<Product> products = repo.findProductsByUserId(userId);
+        return products;
+    }
 }

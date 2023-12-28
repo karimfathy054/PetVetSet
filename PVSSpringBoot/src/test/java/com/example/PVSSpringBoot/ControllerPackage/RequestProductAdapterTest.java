@@ -4,8 +4,6 @@ import com.example.PVSSpringBoot.Entities.*;
 import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -96,7 +94,7 @@ class RequestProductAdapterTest {
 
         User user = User.builder()
                 .email("abcd132@gmail.com")
-                .user_id(123L)
+                .userId(123L)
                 .build();
 
         BDDMockito.given(usersRepo.findByEmail(productFront.getUserEmail()))
@@ -116,7 +114,7 @@ class RequestProductAdapterTest {
                 productFront.getDescription());
         assertEquals(requestProduct.getTargetAnimal(),
                 productFront.getTargetAnimal());
-        assertEquals(requestProduct.getUserId(), user.getUser_id());
+        assertEquals(requestProduct.getUserId(), user.getUserId());
     }
 
     @Test

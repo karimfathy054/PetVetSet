@@ -55,7 +55,7 @@ const ProductUploadForm = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file.name);
+    console.log(file);
     setImage(file.name);
   }
   const handleSubmit = async (e) => {
@@ -76,8 +76,8 @@ const ProductUploadForm = () => {
           brandName: brandName,
           description: Description,
           price: Price,
-          targetAnimal: selectedValue,
-          categoryName: selectedValue2,
+          targetAnimal: selectedValue2,
+          categoryName: selectedValue,
           userEmail: user.email,
           photo: image,
 
@@ -161,7 +161,7 @@ const ProductUploadForm = () => {
                   Image
                   <input className={styles.input1}
                     type="file"
-                    accept="image/*"
+                    // accept="image/*"
                     onChange={handleFileChange}
                     required
                   />
@@ -176,16 +176,6 @@ const ProductUploadForm = () => {
                     <option value="canin">canin</option>
                     <option value="toys">toys</option>
                     <option value="medicine">medicine</option>
-                    required
-                  </select>
-                </div>
-                <div className={styles.select3}>
-                  <label className={styles.select2} htmlFor="mySelect">Select a Target animal:</label>
-                  <select className={styles.select_button} id="mySelect2" value={selectedValue2} onChange={handleTargetAnimal}>
-                    <option value="pet">pet</option>
-                    <option value="dog">dog</option>
-                    <option value="cat">cat</option>
-                    <option value="bird">bird</option>
                     required
                   </select>
                 </div>

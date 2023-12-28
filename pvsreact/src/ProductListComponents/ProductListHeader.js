@@ -9,27 +9,6 @@ export default function ProductListHeader({ user }) {
     const [name, setName] = useState("");
     const navigate = useNavigate();
     const [mainUser, setMainUser] = useState({});
-    // useEffect(() => {
-    //     fetch(`http://localhost:8080/api/getUserByEmail`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Authorization': `Bearer ${user.token}`,
-    //             "Accept": 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             email: user.decode.sub,
-    //         }),
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setName(data.user_name);
-    //             setMainUser(data);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error creating user:', error);
-    //         });
-    // })
     const handleHome = () => {
         navigate('/', { replace: true });
     }
@@ -46,6 +25,12 @@ export default function ProductListHeader({ user }) {
         console.log("ERERE")
         navigate('/RequestForm', { replace: true, state: { user } });
     }
+    const handleAddAnimal = () => {
+        navigate('/RequestAnimalForm', { replace: true, state: { user } });
+    }
+    const handleCart = () => {
+        navigate('/Cart', { replace: true, state: { user } });
+    }
     return (
         <div className={styles.header}>
             <div className={styles.welcome}>
@@ -54,10 +39,11 @@ export default function ProductListHeader({ user }) {
             </div>
             <ul>
                 <li><a onClick={handleHome}>Home</a></li>
-                <li><a onClick={handleAnimals}>Animals</a></li>
-                <li><a onClick={handleProducts}>Products</a></li>
-                <li><a onClick={handleAddProduct}>Add Product</a></li>
-                <li><a>Cart</a></li>
+                <li><a onClick={handleAnimals} id={styles.animals}>Animals</a></li>
+                <li><a onClick={handleProducts} id={styles.products}>Products</a></li>
+                <li><a onClick={handleAddProduct} id={styles.addProduct}>Add Product</a></li>
+                <li><a onClick={handleAddAnimal} >Add Animal</a></li>
+                <li><a onClick={handleCart} id={styles.cart}>Cart</a></li>
             </ul>
         </div>
     )

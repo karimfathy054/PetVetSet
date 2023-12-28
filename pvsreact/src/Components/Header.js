@@ -39,6 +39,7 @@ export default function Header({ user }) {
 
         // Replace 'yourCookieName' with the actual name of the cookie you want to remove
         removeCookie('user');
+        removeCookie('cart');
     }
     return (
         <div className={styles.header}>
