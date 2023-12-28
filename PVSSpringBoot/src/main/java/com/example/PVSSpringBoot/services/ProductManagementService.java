@@ -2,6 +2,7 @@ package com.example.PVSSpringBoot.services;
 
 
 import com.example.PVSSpringBoot.Entities.Product;
+import com.example.PVSSpringBoot.Entities.ProductFront;
 import com.example.PVSSpringBoot.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

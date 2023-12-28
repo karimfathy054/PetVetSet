@@ -4,6 +4,8 @@ package com.example.PVSSpringBoot.ControllerPackage;
 import com.example.PVSSpringBoot.Entities.*;
 import com.example.PVSSpringBoot.repositories.RequestProductRepo;
 import com.example.PVSSpringBoot.repositories.UsersRepo;
+import com.example.PVSSpringBoot.services.PetManagementService;
+import com.example.PVSSpringBoot.services.ProductManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,10 @@ public class RequestService {
     private UsersRepo usersRepo;
     @Autowired
     private RequestProductRepo requestProductRepo;
+    @Autowired
+    private ProductManagementService productService;
+    @Autowired
+    private PetManagementService petService;
 
 //    public String setAdmin(Long adminId, Long userId) {
 //        var enrtyAdmin = usersRepo.findById(userId);
@@ -137,7 +143,7 @@ public class RequestService {
 
 
 
-    public String deleteProductById( Long id) {
+    public String deleteProductById(Long id) {
         Optional<RequestProduct> reqProduct = requestProductRepo.findById(id);
         if(reqProduct.isEmpty()){
             return PRODUCT_NOT_FOUND;
@@ -161,5 +167,24 @@ public class RequestService {
         }
         return listProductFront;
 
+    }
+    public boolean checkOutCart(List<Object[]> objectsInCart){
+        /*
+           Returns a boolean to indicate whether all products
+            were checked out successfully
+           Products can get deleted in the checkout process
+            even if other products fail
+         */
+        return objectsInCart.stream().map(arr ->{
+            if(arr[0].equals("product")){
+                return productService
+                        .findById((long)arr[1]) != null
+                        && productService.delete((long)arr[1]);
+            }
+            //pet
+            return petService.getById((long)arr[1]) != null
+                    && petService.removePet((long)arr[1]);
+
+        }).reduce(true, Boolean::logicalAnd);
     }
 }
