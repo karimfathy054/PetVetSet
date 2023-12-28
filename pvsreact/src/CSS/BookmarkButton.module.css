@@ -1,0 +1,16 @@
+/* BookmarkButton.module.css */
+.bookmarkButton {
+    /* Common styles for the button */
+    padding: 6px;
+    cursor: pointer;
+}
+
+.bookmarked {
+    background-color: #f22c5c;
+    color: black;
+}
+
+.notBookmarked {
+    background-color: rgb(71, 6, 6);
+    color: rgb(2, 1, 1);
+}

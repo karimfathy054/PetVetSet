@@ -1,3 +1,6 @@
+import BookmarkButton from "./BookmarkButton.js"
+import {BookmarkedPost} from "../BookmarkedPost.js"
+import {User} from "../User.js"
 import styles from "../CSS/HomeStyle.module.css"
 import p1 from "../images/product-1.jpg"
 import p2 from "../images/product-2.jpg"
@@ -7,6 +10,12 @@ import p5 from "../images/product-5.png"
 import { useNavigate } from "react-router-dom"
 export default function Products({ user }) {
     const navigate = useNavigate();
+    const userBook = new BookmarkedPost(1,1);
+    
+
+    const handleBookmarkClick = (e)=>{
+        console.log(e)
+    }
     const handleShopping = () => {
         navigate('/ProductList', { replace: true, state: { user } });
     }
@@ -17,7 +26,8 @@ export default function Products({ user }) {
                 <div className={styles.content}>
                     <div className={styles.box}>
                         <img src={p1}></img>
-                        <h3>product 1</h3>
+                        <h3>product 1 </h3>
+                        <p>bookmark <BookmarkButton onClick={handleBookmarkClick} ProductId={1} userId={userBook.getUserId()} /></p>
                         <p>We train your pet with the foundation tricks and commands to make them well behaved and mannered.</p>
                     </div>
                     <div className={styles.box}>

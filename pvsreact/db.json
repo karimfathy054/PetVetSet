@@ -1,0 +1,104 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 7
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 9
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 10
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 11
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 13
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 14
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 15
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 16
+    },
+    {
+      "userId": 1,
+      "isBookmarked": false,
+      "id": 17
+    },
+    {
+      "userId": 1,
+      "isBookmarked": true,
+      "id": 18
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
