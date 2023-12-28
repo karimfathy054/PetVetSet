@@ -1,6 +1,6 @@
 import styles from "../CSS/List.module.css";
 import { useCookies } from "react-cookie";
-export default function Cart() {
+export default function CartList({ user }) {
     const [cookies, setCookie] = useCookies(["cart"]);
     function handleCartCookies(cart) {
         setCookie("cart", cart, { path: "/" });
@@ -12,6 +12,23 @@ export default function Cart() {
     }
     const handleOrder = () => {
         // send to back
+        fetch('http://localhost:8080/api/checkOutCart', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${user.token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                list: cookies.cart
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+            });
         handleCartCookies([])
     }
     return (

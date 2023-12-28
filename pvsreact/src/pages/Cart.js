@@ -14,7 +14,7 @@ export default function Cart() {
     return (
         <>
             <ProductListHeader user={user} />
-            <CartList />
+            <CartList user={user} />
         </>
     )
 }
