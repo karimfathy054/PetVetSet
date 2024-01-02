@@ -213,6 +213,190 @@ a {
 
 
 /* End Signin */
+/* Start SignUp */
+.signup {
+    padding: 0;
+    position: relative;
+    height: 100vh;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/Sign-In-2.png);
+    background-size: cover;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    filter: blur(100px);
+}
+
+.signup .content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    height: 650px;
+    box-shadow: -10px 7px 20px rgba(0, 0, 0, 0.341);
+    background-color: rgba(255, 255, 255, 0.684);
+    border-radius: 5px;
+}
+
+.signup .content form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 60px 20px;
+    color: var(--Second-color);
+    text-align: center;
+    justify-content: center;
+}
+
+.signup .content form .head {
+    text-transform: uppercase;
+    margin: 10px 0 30px 0;
+    margin-top: 60px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.signup .content .headup {
+    text-transform: uppercase;
+    margin: 0px 0 30px 0;
+    font-weight: bold;
+    font-size: 25px;
+    color: var(--Second-color);
+    margin: 0 auto;
+}
+
+.signup .content form input {
+    margin: 15px 0;
+    border: none;
+    border-bottom: 1px solid #bcbcbc;
+    padding: 10px;
+    width: 60%;
+    font-size: 17px;
+    background-color: inherit;
+}
+
+.signup .content form input:focus {
+    outline: none;
+}
+
+.signup .content form input::placeholder {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #777;
+}
+
+.signup .content form button {
+    width: 30%;
+    margin: 30px auto;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--Second-color);
+    color: white;
+    cursor: pointer;
+    transition: var(--main-transition);
+}
+
+.signup .content form button:hover {
+    box-shadow: -10px 7px 20px rgba(0, 0, 0, 0.341);
+    background-color: var(--back-ground-color);
+    color: white;
+}
+
+.signup .content form a {
+    width: fit-content;
+    align-self: flex-end;
+    color: var(--Second-color);
+    color: var(--Second-color);
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    transition: var(--main-transition);
+}
+
+.signup .content form a:hover {
+    text-shadow: -10px 7px 20px rgba(0, 0, 0, 0.541);
+}
+
+.signup .content .home {
+    width: fit-content;
+    align-self: flex-start;
+    color: var(--Second-color);
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 20px 0 0 20px;
+}
+
+.signup .content form .line {
+    color: #676767;
+    margin: 10px 0;
+    width: fit-content;
+    position: relative;
+    align-self: center;
+}
+
+.signup .content form .line::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 1px;
+    top: 50%;
+    right: 110%;
+    background-color: #ababab;
+}
+
+.signup .content form .line::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 1px;
+    top: 50%;
+    left: 110%;
+    background-color: #ababab;
+}
+
+.signup .content form .googleSign {
+    margin: 15px auto;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.signup .content img {
+    width: 100%;
+    height: 70%;
+    margin: auto;
+    margin-right: -60px;
+    z-index: 4;
+    box-shadow: -10px 7px 20px rgba(0, 0, 0, 0.341);
+    position: relative;
+    display: block;
+    filter: blur(1px);
+}
+
+
+/* End SignUp */
 body {
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;

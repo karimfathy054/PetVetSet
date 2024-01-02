@@ -61,40 +61,54 @@ export default function Services({ token, decode }) {
                 </div>
             </div>
             <div className={styles.container}>
-                <h2 className={styles.heading}>Services</h2>
+                <div class={styles.mainHeading}>
+                    <h2>Services</h2>
+                </div>
                 <div className={styles.content}>
                     <div className={styles.box}>
-                        <img src={s1}></img>
+                        <div className={styles.image}>
+                            <img src={s1}></img>
+                        </div>
                         <h3>Basic Training</h3>
                         <p>We train your pet with the foundation tricks and commands to make them well behaved and mannered.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>
                     </div>
                     <div className={styles.box}>
-                        <img src={s2}></img>
+                        <div className={styles.image}>
+                            <img src={s2}></img>
+                        </div>
                         <h3>Dog Hiring</h3>
                         <p>We also avail dogs for hiring for short time and have variety of breeds to choose your favorite one.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>
                     </div>
                     <div className={styles.box}>
-                        <img src={s3}></img>
+                        <div className={styles.image}>
+                            <img src={s3}></img>
+                        </div>
                         <h3>Advanced Training</h3>
                         <p>We have advanced courses which includes obedience and skilled commands training for your pet.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>
                     </div>
                     <div className={styles.box}>
-                        <img src={s4}></img>
+                        <div className={styles.image}>
+                            <img src={s4}></img>
+                        </div>
                         <h3>Lodging Facility</h3>
                         <p>Be it one day, weekend or long holidays, we have lodging services for your pets and take good care of them.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>
                     </div>
                     <div className={styles.box}>
-                        <img src={s5}></img>
+                        <div className={styles.image}>
+                            <img src={s5}></img>
+                        </div>
                         <h3>Advanced Dental Care</h3>
                         <p>We make sure that your pet have a healthy teeth and polish to improve quality of life of pet.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>
                     </div>
                     <div className={styles.box}>
-                        <img src={s6}></img>
+                        <div className={styles.image}>
+                            <img src={s6}></img>
+                        </div>
                         <h3>Pampering</h3>
                         <p>We offer your pet a clean, healthy, hygienic and loving environment to stay, while he is away from you.</p>
                         <div className={styles.service} onClick={handleEnquire}>Enquire Now</div>

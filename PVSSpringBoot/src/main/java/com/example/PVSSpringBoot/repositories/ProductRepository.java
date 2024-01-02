@@ -11,6 +11,13 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    @Query("select p from Product p where p.user.userId = ?1")
+    List<Product> findProductsByUserId(Long userId);
+
+    @Query("select p from Product p where p.user.email = ?1")
+    List<Product> findProductsByUserEmail(String email);
+
+
     @Query("""
             select (count(p) > 0) from Product p
             where upper(p.productName) like upper(?1) and upper(p.brandName) like upper(?2)""")

@@ -81,8 +81,8 @@ export default function Signup() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.user_name);
-                handleLogin({ id: data.id, userName: data.user_name, email: data.email, isAdmin: data.is_admin, token: token, decode: jwtDecode(token) });
+                console.log(data.userName);
+                handleLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token), image: data.image });
                 navigate('/', { replace: true });
             })
     }
@@ -143,20 +143,20 @@ export default function Signup() {
     })
     return (
         <>
-            <div className={styles.signin}>
+            <div className={styles.signup}>
                 <div className={styles.content}>
+                    <Link to="/" className={styles.home}><FaHome></FaHome> Return</Link>
+                    <div className={styles.headup}>Sign up</div>
                     <form onSubmit={handleSubmit}>
-                        <Link to="/" className={styles.home}><FaHome></FaHome> Return</Link>
-                        <div className={styles.headup}>Sign up</div>
                         <input type="text" placeholder="Username" value={userName} onChange={handleUserName} required></input>
                         <input type="password" placeholder="Password" value={password} onChange={handlePassword} pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required></input>
                         <input type="password" placeholder="Confirm Password" value={confirmedPassword} onChange={handleConfirmedPassword} pattern={password} title="Password and Confirm Password does not match." required></input>
-                        <input type="email" placeholder="Email" value={email} onChange={handleEmail}></input>
+                        <input type="email" placeholder="Email" value={email} onChange={handleEmail} required></input>
                         <button type="submit">Sign Up</button>
-                        {/* <div onClick={() => navigate('../GoogleOAuthSignupController', { replace: true })} className={styles.googleSign}><FaGoogle></FaGoogle> Google</div> */}
+                        <div className={styles.line}>or sign up with</div>
                         <div onClick={() => { login(); }} className={styles.googleSign} ><FaGoogle></FaGoogle> Google</div>
                     </form>
-                    <img src={dog}></img>
+                    {/* <img src={dog}></img> */}
                 </div>
             </div>
         </>

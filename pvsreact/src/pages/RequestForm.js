@@ -3,6 +3,7 @@ import { User } from '../User'
 import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import ProductListHeader from "../ProductListComponents/ProductListHeader";
+import done from "../images/done.png"
 const ProductUploadForm = () => {
   // start
   const location = useLocation();
@@ -55,7 +56,7 @@ const ProductUploadForm = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file.name);
+    console.log(file);
     setImage(file.name);
   }
   const handleSubmit = async (e) => {
@@ -76,24 +77,28 @@ const ProductUploadForm = () => {
           brandName: brandName,
           description: Description,
           price: Price,
-          targetAnimal: selectedValue,
-          categoryName: selectedValue2,
+          targetAnimal: selectedValue2,
+          categoryName: selectedValue,
           userEmail: user.email,
           photo: image,
 
         }),
+      }).then(data => {
+        // window.alert("Uploading success and waiting For admin acceptance")
+        const done = document.getElementById("serviceDone");
+        done.style.display = "block";
       })
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
 
       // Assuming the server returns a string
-      const textResponse = await response.text();
-      console.log(textResponse);
-      if (textResponse == "Added to database...") {
-        window.alert("Uploading success and waiting For admin acceptance");
-      }
+      // const textResponse = await response.text();
+      // console.log(textResponse);
+      // if (textResponse === "Added to database...") {
+      //   window.alert("Uploading success and waiting For admin acceptance");
+      // }
 
       setBrandName("");
       setDescription("");
@@ -103,12 +108,23 @@ const ProductUploadForm = () => {
       setSelectedValue("");
       setSelectedValue2("");
     }
+  }
 
-
+  const handleCloseDone = () => {
+    const done = document.getElementById("serviceDone");
+    done.style.display = "none";
   }
   return (
-    <>
-      <ProductListHeader user={user} />
+    <div id="uploadProduct" style={{ display: "none" }}>
+      <div className={styles.done} id="serviceDone">
+        <div className={styles.cov}>
+          <div className={styles.close} onClick={handleCloseDone}>x</div>
+          <p>Uploading success and waiting For admin acceptance</p>
+          <img src={done}></img>
+          <button onClick={handleCloseDone}>Continue</button>
+        </div>
+      </div>
+      {/* <ProductListHeader user={user} /> */}
       <div className={styles.mainClass}>
         <form className={styles.msform}>
           <fieldset className={styles.request}>
@@ -161,7 +177,7 @@ const ProductUploadForm = () => {
                   Image
                   <input className={styles.input1}
                     type="file"
-                    accept="image/*"
+                    // accept="image/*"
                     onChange={handleFileChange}
                     required
                   />
@@ -179,23 +195,13 @@ const ProductUploadForm = () => {
                     required
                   </select>
                 </div>
-                <div className={styles.select3}>
-                  <label className={styles.select2} htmlFor="mySelect">Select a Target animal:</label>
-                  <select className={styles.select_button} id="mySelect2" value={selectedValue2} onChange={handleTargetAnimal}>
-                    <option value="pet">pet</option>
-                    <option value="dog">dog</option>
-                    <option value="cat">cat</option>
-                    <option value="bird">bird</option>
-                    required
-                  </select>
-                </div>
                 <button className={styles.button} type="submit" onClick={handleSubmit}>Upload Product</button>
               </form>
             </div>
           </fieldset>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

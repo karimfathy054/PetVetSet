@@ -123,8 +123,9 @@ export default function Signin({ onLogin }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.is_admin)
-                onLogin({ id: data.id, userName: data.user_name, email: data.email, isAdmin: data.is_admin, token: token, decode: jwtDecode(token) });
+                console.log(data)
+                console.log(data.image)
+                onLogin({ id: data.id, userName: data.userName, email: data.email, isAdmin: data.isAdmin, token: token, decode: jwtDecode(token), image: data.image });
                 navigate('/', { replace: true });
             })
     }
@@ -132,7 +133,7 @@ export default function Signin({ onLogin }) {
         <div className={styles.signin}>
             <div className={styles.content}>
                 <form onSubmit={handleSubmit}>
-                    <div className={styles.head}>Sign in</div>
+                    <div className={styles.head}>Log in</div>
                     <input type="email" placeholder="Email" value={userName} onChange={handleUserName} required></input>
                     <input type="password" placeholder="Password" value={password} onChange={handlePassword} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Invalid Password" required></input>
                     <button type="submit">Sign in</button>

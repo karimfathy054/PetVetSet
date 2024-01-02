@@ -39,6 +39,13 @@ body {
   padding-bottom: 10px;
 }
 
+form {
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+}
+
 form .label {
   display: flex;
   font-size: 20px;
@@ -152,11 +159,13 @@ form .labe3 {
   background-color: #f22c5c;
   width: 250px;
   height: 40px;
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
-  color: black;
+  color: white;
   font-size: 20px;
   transition: 0.3s;
+  margin: 20px auto;
+  font-weight: bold;
 
   &:hover {
     background-color: #e10c41;
@@ -184,6 +193,7 @@ form .labe3 {
   margin-right: 5%;
 }
 
+
 .select1 {
   font-size: 20px;
 }
@@ -207,4 +217,75 @@ form .labe3 {
 
 .select2 {
   font-size: 20px;
+}
+
+.select3 select {
+  height: fit-content;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 150px;
+  background-color: white;
+  border: 1px solid #777;
+  transition: 0.3s;
+  color: #777;
+}
+
+
+.done {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 50;
+}
+
+.done .cov {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 350px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.done .cov .close {
+  align-self: flex-end;
+  font-size: 25px;
+  color: #777;
+  width: fit-content;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.done .cov p {
+  margin: 20px auto 0px;
+  font-size: 20px;
+}
+
+.done .cov img {
+  width: 100px;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.done .cov button {
+  border: none;
+  background-color: var(--main-color);
+  color: white;
+  margin-top: 20px;
+  padding: 5px;
+  width: 80%;
+  align-self: center;
+  border-radius: 5px;
+  cursor: pointer;
 }

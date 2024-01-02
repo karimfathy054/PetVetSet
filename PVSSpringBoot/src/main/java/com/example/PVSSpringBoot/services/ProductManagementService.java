@@ -2,6 +2,7 @@ package com.example.PVSSpringBoot.services;
 
 
 import com.example.PVSSpringBoot.Entities.Product;
+import com.example.PVSSpringBoot.Entities.ProductFront;
 import com.example.PVSSpringBoot.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,5 +82,10 @@ public class ProductManagementService {
         if(priceStart<0||priceEnd<0) return null;
         if(priceStart > priceEnd) return null;
         return repo.findByPriceBetween(priceStart, priceEnd);
+    }
+
+    public List<Product> searchProductsByProvidingUser(Long userId){
+        List<Product> products = repo.findProductsByUserId(userId);
+        return products;
     }
 }

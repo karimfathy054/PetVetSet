@@ -8,8 +8,8 @@ export default function Home({ user }) {
         <>
             <Header user={user}></Header>
             <Landing user={user} ></Landing>
-            <Products user={user}></Products>
             <Services user={user}></Services>
+            <Products user={user}></Products>
         </>
     )
 }
