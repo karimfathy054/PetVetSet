@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
+import done from "../images/done.png"
 export default function BookMark({ user }) {
     const [products, setProducts] = useState([]);
     const [temp, setTemp] = useState(true);
@@ -32,7 +33,6 @@ export default function BookMark({ user }) {
     })
 
     const handleRemove = (product) => {
-        console.log(specialProduct)
         fetch(`http://localhost:8080/bookmarks/remove/user=${user.id}&&product=${product.id}`, {
             method: 'PUT',
             headers: {
@@ -41,18 +41,33 @@ export default function BookMark({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert("Product Removed From Book Mark");
+                const done = document.getElementById("serviceDone");
+                done.style.display = "block";
+                setTemp(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
+                setTemp(true)
             });
     }
     const handleRemoveBookMark = (e) => {
         handleRemove(products[e.target.id])
     }
+    const handleCloseDone = () => {
+        const done = document.getElementById("serviceDone");
+        done.style.display = "none";
+    }
     return (
         <>
             <div id="bookmark1" className={styles.bookmark}>
+                <div className={styles.done} id="serviceDone">
+                    <div className={styles.cover}>
+                        <div className={styles.close} onClick={handleCloseDone}>x</div>
+                        <p>Product Removed Successfully</p>
+                        <img src={done}></img>
+                        <button onClick={handleCloseDone}>Continue</button>
+                    </div>
+                </div>
                 <div class={styles.container}>
                     <div class={styles.content}>
                         {products.map((product, index) => {

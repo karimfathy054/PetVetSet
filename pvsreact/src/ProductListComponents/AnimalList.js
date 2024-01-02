@@ -97,10 +97,11 @@ export default function AnimalList({ user }) {
     const handleReadMe = (e) => {
         setSpecialProduct(products[e.target.id]);
         console.log(products[e.target.id]);
-        document.getElementsByClassName(styles.cover)[0].style.display = "block"
+        document.getElementsByClassName(styles.cover)[1].style.display = "block"
+        console.log(document.getElementsByClassName(styles.cover)[1].style.display)
     }
     const handleClose = () => {
-        document.getElementsByClassName(styles.cover)[0].style.display = "none"
+        document.getElementsByClassName(styles.cover)[1].style.display = "none"
     }
     const handleBookMark = () => {
         //handle the color 
@@ -161,7 +162,7 @@ export default function AnimalList({ user }) {
         }
     }
     return (
-        <div class={styles.list}>
+        <div class={styles.list} id="pet" style={{ display: "none" }}>
             <div class={styles.container}>
                 <h2 class={styles.heading}>Animals</h2>
                 <div className={styles.action}>

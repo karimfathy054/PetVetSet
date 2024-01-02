@@ -450,6 +450,64 @@ form .searchIcon {
     border-radius: 10px;
 }
 
+.bookmark .done {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 50;
+}
+
+.bookmark .done .cover {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 350px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.bookmark .done .cover .close {
+    align-self: flex-end;
+    font-size: 25px;
+    color: #777;
+    width: fit-content;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.bookmark .done .cover p {
+    margin: 20px auto 0px;
+    font-size: 20px;
+}
+
+.bookmark .done .cover img {
+    width: 100px;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.bookmark .done .cover button {
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 20px;
+    padding: 5px;
+    width: 80%;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 /* End BookMark */
 /* Start Requests */
 .requests {
@@ -492,6 +550,63 @@ form .searchIcon {
     cursor: pointer;
     font-size: 15px;
     padding: 5px 10px;
+}
+
+.requests .done {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 50;
+}
+
+.requests .done .cover {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 350px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.requests .done .cover .close {
+    align-self: flex-end;
+    font-size: 25px;
+    color: #777;
+    width: fit-content;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.requests .done .cover p {
+    margin: 20px auto 0px;
+    font-size: 20px;
+}
+
+.requests .done .cover img {
+    width: 100px;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.requests .done .cover button {
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 20px;
+    padding: 5px;
+    width: 80%;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 /* End Requests */
@@ -554,6 +669,63 @@ form .searchIcon {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 12px;
+}
+
+.admins .done {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 50;
+}
+
+.admins .done .cover {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 350px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.admins .done .cover .close {
+    align-self: flex-end;
+    font-size: 25px;
+    color: #777;
+    width: fit-content;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.admins .done .cover p {
+    margin: 20px auto 0px;
+    font-size: 20px;
+}
+
+.admins .done .cover img {
+    width: 100px;
+    margin-top: 10px;
+    align-self: center;
+}
+
+.admins .done .cover button {
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    margin-top: 20px;
+    padding: 5px;
+    width: 80%;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 /* End Admins */

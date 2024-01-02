@@ -13,10 +13,11 @@
 }
 
 body {
+    position: relative;
     padding: 0;
     margin: 0;
     font-family: 'Cairo', sans-serif;
-    background-color: black;
+    background-color: white;
 }
 
 html {
@@ -40,6 +41,45 @@ a {
     padding-left: 120px;
     padding-right: 120px;
 }
+
+.mainHeading {
+    text-align: center;
+}
+
+.mainHeading h2 {
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.mainHeading h2::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #333;
+    border-radius: 50%;
+    bottom: -37.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+}
+
+.mainHeading h2::before {
+    content: "";
+    background-color: #333;
+    bottom: -30px;
+    position: absolute;
+    width: 120px;
+    height: 1.5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
 
 .heading {
     margin: 0px auto 80px;
@@ -120,156 +160,170 @@ a {
 
 /* End General */
 /* Start Header  */
-.header {
-    background-color: black;
-    color: white;
-    position: relative;
-    height: 190px;
-}
-
-.header::before {
-    content: "";
+header {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 5px;
-    background-color: var(--main-color);
+    z-index: 2;
+    left: 0;
 }
 
-.header .welcome {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 30px;
-}
-
-.header .welcome .semititle {
-    font-size: 35px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: text;
-}
-
-.header .welcome .semititle:hover {
-    color: var(--main-color);
-}
-
-.header .welcome img {
-    width: 100px;
-    height: 70px;
-}
-
-.header .welcome .user {
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* width: 65px; */
-    font-size: 20px;
-    transition: var(--main-transition);
-    cursor: pointer;
-    flex-direction: column;
-}
-
-.header .welcome .user .userName,
-.header .welcome .user .changeAccount {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    min-width: fit-content;
-    max-width: 250px;
-    gap: 10px;
-}
-
-.header .welcome .user .userName:hover {
-    color: var(--main-color);
-}
-
-.header .welcome .user .changeAccount:hover {
-    color: var(--main-color);
-}
-
-.header .welcome .user svg {
-    color: var(--main-color);
-}
-
-.header .title {
-    display: flex;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 100;
-}
-
-.header ul {
-    padding-right: 300px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.header ul a {
-    padding: 0 20px;
-    cursor: pointer;
-    color: white;
-    font-weight: 400;
-    font-size: 18px;
     position: relative;
-    transition: var(--main-transition);
-    text-transform: uppercase;
+    min-height: 97.25px;
 }
 
-.header ul a::after {
+header .container::after {
     content: "";
     position: absolute;
+    width: calc(100% - 240px);
+    height: 0.5px;
     bottom: 0;
-    left: 0;
-    height: 2px;
-    width: 0;
-    background-color: var(--main-color);
+    background-color: #a2a2a2;
+}
+
+header .container .logo {
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+header .container nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+header .container nav .icon {
+    width: 40px;
+}
+
+header .container nav .icon i {
+    font-size: 20px;
+    color: white;
+
+}
+
+
+header .container nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+header .container nav ul a {
+    padding: 40px 15px;
+    position: relative;
+    display: block;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
     transition: var(--main-transition);
 }
 
-.header ul a:hover {
+header .container nav ul .home,
+header .container nav ul a:hover {
     color: var(--main-color);
 }
 
-.header ul a:hover::after {
+header .container nav ul .home::after,
+header .container nav ul a:hover::after {
+    content: "";
+    position: absolute;
+    background-color: var(--main-color);
+    z-index: 2;
     width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+}
+
+header .container nav .user {
+    color: white;
+    font-size: 18px;
+    position: relative;
+    margin-left: 20px;
+}
+
+header .container nav .user::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background-color: white;
+    left: -20px;
+}
+
+header .container nav .user svg {
+    color: var(--main-color);
+}
+
+header .container nav .user .userName,
+header .container nav .user .changeAccount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--main-transition);
+}
+
+header .container nav .user .userName:hover,
+header .container nav .user .changeAccount:hover {
+    color: var(--main-color);
 }
 
 /* End Header  */
 /* Start Landing */
 .landing {
-    background-color: black;
     position: relative;
-    background-image: url("../images/landing.jpg");
+    background-image: url(../images/landing.jpg);
     background-size: cover;
-    height: calc(100vh - 190px);
+    height: 100vh;
 }
 
-.landing::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+.landing .overlay {
+    background-color: rgb(0 0 0 / 60%);
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    position: relative;
 }
 
-.landing h2 {
+.landing .overlay .text {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    font-size: 52px;
+    transform: translateY(-50%);
     color: white;
-    z-index: 2;
-    font-weight: 200;
+    width: 50%;
+    background-color: var(--transparent-color);
+    padding: 50px;
+    display: flex;
+    justify-content: flex-end;
 }
+
+.landing .overlay .text .content {
+    width: 500px;
+}
+
+.landing .overlay .text .content h2 {
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
 
 /* End Landing */
 /* Start Products */
 .products {
-    background-color: black;
+    background-color: #eff2f3;
     padding-top: 60px;
     padding-bottom: 60px;
 }
@@ -320,7 +374,7 @@ a {
 /* End Products */
 /* Start Services */
 .services {
-    background-color: black;
+    background-color: white;
     padding-top: 60px;
     padding-bottom: 60px;
 }
@@ -332,37 +386,96 @@ a {
 }
 
 .services .content .box {
+    border: 1px solid #ccc;
+    overflow: hidden;
     text-align: center;
 }
 
+.services .content .box .image {
+    position: relative;
+    overflow: hidden;
+}
+
 .services .content .box img {
+    max-width: 100%;
+    z-index: 1;
     width: 100%;
 }
 
-.services .content .box h3 {
-    color: #acacac;
-    font-size: 25px;
-    font-weight: 300;
+.services .content .box .image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgb(244, 64, 54, 0.3);
+}
 
+.services .content .box .image::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 0 solid;
+    border-color: transparent transparent white transparent;
+    border-width: 0px 0px 170px 700px;
+    transition: 0.3s;
+    z-index: 3;
+}
+
+.services .content .box:hover .image::before {
+    border-width: 0px 600px 130px 0px;
+}
+
+
+.services .content .box h3 {
+    font-size: 30px;
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.services .content .box h3::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 30px);
+    height: 4px;
+    bottom: -15px;
+    left: 15px;
+    background-color: rgb(244, 64, 54);
 }
 
 .services .content .box p {
     color: #777;
+    line-height: 2;
+    margin: 30px;
 }
 
 .services .content .box .service {
-    color: white;
-    margin: 30px auto 0;
+    font-size: 20px;
+    padding: 10px 25px;
+    display: block;
     width: fit-content;
-    font-size: 18px;
-    background-color: var(--main-color);
-    padding: 15px;
-    border-radius: 5px;
-    font-weight: bold;
+    margin: 0 auto 30px;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    color: rgb(244, 64, 54);
+    border: 3px solid rgb(244, 64, 54);
+    background: linear-gradient(to right, rgb(244, 64, 54) 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
     cursor: pointer;
-    transition: var(--main-transition);
 }
 
+.services .content .box:hover .service {
+    background-position: left;
+    color: white;
+    transition: 0.3s;
+}
 
 .services .contact {
     display: none;

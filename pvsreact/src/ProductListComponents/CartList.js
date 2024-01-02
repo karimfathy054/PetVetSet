@@ -25,6 +25,7 @@ export default function CartList({ user }) {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                window.alert("Successful Order")
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -33,7 +34,7 @@ export default function CartList({ user }) {
     }
     return (
         <>
-            <div class={styles.list}>
+            <div class={styles.list} id="cart" style={{ display: "none" }}>
                 <div class={styles.container}>
                     <div className={styles.approve} onClick={handleOrder}>Approve Order</div>
                     <div class={styles.content}>

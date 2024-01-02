@@ -141,6 +141,7 @@ export default function List({ user }) {
     }
     const handleClose = () => {
         document.getElementsByClassName(styles.cover)[0].style.display = "none"
+        document.getElementsByClassName(styles.book)[0].style.color = "black"
     }
     const handleBookMark = () => {
         //handle the color 
@@ -201,7 +202,7 @@ export default function List({ user }) {
         }
     }
     return (
-        <div class={styles.list}>
+        <div class={styles.list} id="product">
             <div class={styles.container}>
                 <h2 class={styles.heading}>Products</h2>
                 <div className={styles.action}>

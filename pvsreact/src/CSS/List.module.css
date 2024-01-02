@@ -20,7 +20,7 @@ body {
     font-family: 'Mooli', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Work Sans', sans-serif;
-    background-color: black;
+    background-color: white;
 }
 
 html {
@@ -214,9 +214,10 @@ a {
     content: "";
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     height: 2px;
     width: 0;
+    transform: translate(-50%);
     background-color: var(--main-color);
     transition: var(--main-transition);
 }
@@ -226,8 +227,22 @@ a {
 }
 
 .header ul a:hover::after {
-    width: 100%;
+    width: 80%;
 }
+
+.header ul #products {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.header ul #addProduct {}
+
+.header ul #animals {}
+
+.header ul #addPet {}
+
+.header ul #carts {}
+
 
 /* End Header  */
 /* Start Landing */

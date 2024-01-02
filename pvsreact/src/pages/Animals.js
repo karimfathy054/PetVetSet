@@ -16,8 +16,8 @@ export default function Animals() {
     )
     return (
         <>
-            <ProductListHeader user={user} />
-            <ListLanding></ListLanding>
+            {/* <ProductListHeader user={user} />
+            <ListLanding></ListLanding> */}
             <AnimalList user={user} />
         </>
     )

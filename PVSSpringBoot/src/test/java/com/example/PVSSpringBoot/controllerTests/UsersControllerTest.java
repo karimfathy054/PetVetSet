@@ -66,7 +66,7 @@ public class UsersControllerTest {
         when(service.getJoinDate(1L)).thenReturn("2002-04-05");
         mockMvc.perform(MockMvcRequestBuilders.get("/api/getJoinDate/1"))
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string("2002-04-05"));
+        .andExpect(MockMvcResultMatchers.content().string("\"2002-04-05\""));
         verify(service, times(1)).getJoinDate(1L);
     }
     @Test
@@ -74,7 +74,7 @@ public class UsersControllerTest {
         when(service.getJoinDate(1L)).thenReturn("Wrong Id!!");
         mockMvc.perform(MockMvcRequestBuilders.get("/api/getJoinDate/1"))
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string("Wrong Id!!"));
+        .andExpect(MockMvcResultMatchers.content().string("\"Wrong Id!!\""));
         verify(service, times(1)).getJoinDate(1L);
     }
 

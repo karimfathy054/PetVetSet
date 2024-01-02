@@ -3,6 +3,7 @@ import { User } from '../User'
 import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import ProductListHeader from "../ProductListComponents/ProductListHeader";
+import done from "../images/done.png"
 const ProductUploadForm = () => {
   // start
   const location = useLocation();
@@ -82,18 +83,22 @@ const ProductUploadForm = () => {
           photo: image,
 
         }),
+      }).then(data => {
+        // window.alert("Uploading success and waiting For admin acceptance")
+        const done = document.getElementById("serviceDone");
+        done.style.display = "block";
       })
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
 
       // Assuming the server returns a string
-      const textResponse = await response.text();
-      console.log(textResponse);
-      if (textResponse == "Added to database...") {
-        window.alert("Uploading success and waiting For admin acceptance");
-      }
+      // const textResponse = await response.text();
+      // console.log(textResponse);
+      // if (textResponse === "Added to database...") {
+      //   window.alert("Uploading success and waiting For admin acceptance");
+      // }
 
       setBrandName("");
       setDescription("");
@@ -103,12 +108,23 @@ const ProductUploadForm = () => {
       setSelectedValue("");
       setSelectedValue2("");
     }
+  }
 
-
+  const handleCloseDone = () => {
+    const done = document.getElementById("serviceDone");
+    done.style.display = "none";
   }
   return (
-    <>
-      <ProductListHeader user={user} />
+    <div id="uploadProduct" style={{ display: "none" }}>
+      <div className={styles.done} id="serviceDone">
+        <div className={styles.cov}>
+          <div className={styles.close} onClick={handleCloseDone}>x</div>
+          <p>Uploading success and waiting For admin acceptance</p>
+          <img src={done}></img>
+          <button onClick={handleCloseDone}>Continue</button>
+        </div>
+      </div>
+      {/* <ProductListHeader user={user} /> */}
       <div className={styles.mainClass}>
         <form className={styles.msform}>
           <fieldset className={styles.request}>
@@ -185,7 +201,7 @@ const ProductUploadForm = () => {
           </fieldset>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import styles from "../CSS/profileStyles.module.css"
 import { useEffect, useState } from "react"
 import { FaSearch } from "react-icons/fa";
+import done from "../images/done.png"
 export default function Admins({ user }) {
     const [search, setSearch] = useState('');
     const [admins, setAdmins] = useState([]);
@@ -40,7 +41,10 @@ export default function Admins({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert(newAdmin.userName + " becomes admin");
+                // window.alert(newAdmin.userName + " becomes admin");
+                const done = document.getElementById("serviceDone4");
+                done.style.display = "block";
+                setTemp(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -50,9 +54,21 @@ export default function Admins({ user }) {
     const handleCreateAdmin = (e) => {
         handleCreateAdminRequest(admins[e.target.id]);
     }
+    const handleCloseDone = () => {
+        const done = document.getElementById("serviceDone4");
+        done.style.display = "none";
+    }
     return (
         <>
             <div id="admins1" className={styles.admins}>
+                <div className={styles.done} id="serviceDone4">
+                    <div className={styles.cover}>
+                        <div className={styles.close} onClick={handleCloseDone}>x</div>
+                        <p>User Becomes Admin</p>
+                        <img src={done}></img>
+                        <button onClick={handleCloseDone}>Continue</button>
+                    </div>
+                </div>
                 <div className={styles.action}>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch() }}>
                         <input type="text" placeholder="Search by email" value={search} onChange={(e) => setSearch(e.target.value)}></input>

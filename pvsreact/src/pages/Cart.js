@@ -13,7 +13,7 @@ export default function Cart() {
     )
     return (
         <>
-            <ProductListHeader user={user} />
+            {/* <ProductListHeader user={user} /> */}
             <CartList user={user} />
         </>
     )

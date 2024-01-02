@@ -12,37 +12,43 @@ export default function Navbar({ user }) {
         document.getElementById("info").style.display = "flex";
         // document.getElementById("myproducts1").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
-        document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "#f22c5c";
         // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "white";
-        document.getElementById(styles.requests).style.color = "white";
-        document.getElementById("admins1").style.display = "none";
-        document.getElementById(styles.admins).style.color = "white";
+        if (user.isAdmin) {
+            document.getElementById("admins1").style.display = "none";
+            document.getElementById(styles.admins).style.color = "white";
+            document.getElementById(styles.requests).style.color = "white";
+            document.getElementById("requests1").style.display = "none";
+        }
     }
     const handleMyProducts = (e) => {
         // document.getElementById("myproducts1").style.display = "flex";
         document.getElementById("info").style.display = "none";
         document.getElementById("bookmark1").style.display = "none";
-        document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
         // document.getElementById(styles.myProducts).style.color = "#f22c5c";
         document.getElementById(styles.bookmark).style.color = "white";
-        document.getElementById(styles.requests).style.color = "white";
-        document.getElementById("admins1").style.display = "none";
-        document.getElementById(styles.admins).style.color = "white";
+        if (user.isAdmin) {
+            document.getElementById(styles.requests).style.color = "white";
+            document.getElementById(styles.admins).style.color = "white";
+            document.getElementById("admins1").style.display = "none";
+            document.getElementById("requests1").style.display = "none";
+        }
     }
     const handleBookMark = () => {
         document.getElementById("bookmark1").style.display = "flex";
         document.getElementById("info").style.display = "none";
         // document.getElementById("myproducts1").style.display = "none";
-        document.getElementById("requests1").style.display = "none";
         document.getElementById(styles.setting).style.color = "white";
         // document.getElementById(styles.myProducts).style.color = "white";
         document.getElementById(styles.bookmark).style.color = "#f22c5c";
-        document.getElementById(styles.requests).style.color = "white";
-        document.getElementById("admins1").style.display = "none";
-        document.getElementById(styles.admins).style.color = "white";
+        if (user.isAdmin) {
+            document.getElementById(styles.requests).style.color = "white";
+            document.getElementById(styles.admins).style.color = "white";
+            document.getElementById("admins1").style.display = "none";
+            document.getElementById("requests1").style.display = "none";
+        }
     }
 
     const handleRequests = () => {

@@ -13,7 +13,9 @@ export default function Products({ user }) {
     return (
         <div className={styles.products} id="products">
             <div className={styles.container}>
-                <h2 className={styles.heading}>Products</h2>
+                <div class={styles.mainHeading}>
+                    <h2>Products</h2>
+                </div>
                 <div className={styles.content}>
                     <div className={styles.box}>
                         <img src={p1}></img>

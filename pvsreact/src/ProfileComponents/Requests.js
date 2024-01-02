@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import done from "../images/done.png"
 export default function Requests({ user }) {
     const [products, setProducts] = useState([]);
     const [pets, setPets] = useState([]);
     const [temp, setTemp] = useState(true);
+    const [temp2, setTemp2] = useState(true);
     const [search, setSearch] = useState('');
     useEffect(() => {
         if (temp) {
@@ -29,7 +31,7 @@ export default function Requests({ user }) {
         }
     })
     useEffect(() => {
-        if (temp) {
+        if (temp2) {
             fetch('http://localhost:8080/api/getAllRequestPets', {
                 method: 'GET',
                 headers: {
@@ -40,11 +42,11 @@ export default function Requests({ user }) {
                 .then(data => {
                     setPets(data);
                     console.log(data);
-                    setTemp(false);
+                    setTemp2(false);
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
-                    setTemp(false);
+                    setTemp2(false);
                 });
         }
     })
@@ -61,7 +63,11 @@ export default function Requests({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert("Product Accepted");
+                // window.alert("Product Accepted");
+                const done = document.getElementById("serviceDone3");
+                done.style.display = "block";
+                setTemp(true)
+                setTemp2(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -80,7 +86,11 @@ export default function Requests({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert("Product Refuced");
+                // window.alert("Product Refuced");
+                const done = document.getElementById("serviceDone2");
+                done.style.display = "block";
+                setTemp(true)
+                setTemp2(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -99,7 +109,11 @@ export default function Requests({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert("Pet Accepted");
+                // window.alert("Pet Accepted");
+                const done = document.getElementById("serviceDone3");
+                done.style.display = "block";
+                setTemp(true)
+                setTemp2(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -118,15 +132,41 @@ export default function Requests({ user }) {
         })
             .then(data => {
                 console.log(data);
-                window.alert("Pet Refused");
+                // window.alert("Pet Refused");
+                const done = document.getElementById("serviceDone2");
+                done.style.display = "block";
+                setTemp(true)
+                setTemp2(true)
             })
             .catch(error => {
                 console.error('Error creating user:', error);
             });
     }
+    const handleCloseDone = () => {
+        const done = document.getElementById("serviceDone2");
+        done.style.display = "none";
+        const done2 = document.getElementById("serviceDone3");
+        done2.style.display = "none";
+    }
     return (
         <>
             <div id="requests1" className={styles.requests}>
+                <div className={styles.done} id="serviceDone2">
+                    <div className={styles.cover}>
+                        <div className={styles.close} onClick={handleCloseDone}>x</div>
+                        <p>Upload Refused</p>
+                        <img src={done}></img>
+                        <button onClick={handleCloseDone}>Continue</button>
+                    </div>
+                </div>
+                <div className={styles.done} id="serviceDone3">
+                    <div className={styles.cover}>
+                        <div className={styles.close} onClick={handleCloseDone}>x</div>
+                        <p>Upload Accepted</p>
+                        <img src={done}></img>
+                        <button onClick={handleCloseDone}>Continue</button>
+                    </div>
+                </div>
                 <div class={styles.container}>
                     <div class={styles.content}>
                         {products.map((product, index) => {
@@ -155,7 +195,7 @@ export default function Requests({ user }) {
                                 (<div class={styles.box}>
                                     {product.imageLink ? (<div class={styles.image}><img src={require("../images/" + product.imageLink)} alt="" /></div>) : (<></>)}
                                     <div class={styles.text}>
-                                        <h3>{product.productName}</h3>
+                                        <h3>{product.name}</h3>
                                         <p>{product.description}</p>
                                     </div>
                                     <div className={styles.brand}><p>Type</p>{product.type}</div>

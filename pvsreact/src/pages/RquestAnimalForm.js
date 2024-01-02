@@ -3,6 +3,7 @@ import { User } from '../User'
 import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import ProductListHeader from "../ProductListComponents/ProductListHeader";
+import done from "../images/done.png"
 const AnimalUploadForm = () => {
     // start
     const location = useLocation();
@@ -71,33 +72,45 @@ const AnimalUploadForm = () => {
                 userEmail: user.email,
                 birthDate: "2020-12-12"
             }),
+        }).then(data => {
+            // window.alert("Uploading success and waiting For admin acceptance")
+            const done = document.getElementById("serviceDone2");
+            done.style.display = "block";
         })
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
 
-        // Assuming the server returns a string
-        const textResponse = await response.text();
-        console.log(textResponse);
-        if (textResponse == "Added to database...") {
-            window.alert("Uploading success and waiting For admin acceptance");
-        }
+        // if (!response.ok) {
+        //     throw new Error(`HTTP error! Status: ${response.status}`);
+        // }
 
-        setDescription("");
-        setImage(null);
-        setproductName("");
-        setSelectedValue("");
-        setSelectedValue2("");
+        // // Assuming the server returns a string
+        // const textResponse = await response.text();
+        // console.log(textResponse);
+        // if (textResponse == "Added to database...") {
+        //     window.alert("Uploading success and waiting For admin acceptance");
+        // }
+    }
+
+    const handleCloseDone = () => {
+        const done = document.getElementById("serviceDone2");
+        done.style.display = "none";
     }
     return (
-        <>
-            <ProductListHeader user={user} />
+        <div id="uploadPet" style={{ display: "none" }}>
+            <div className={styles.done} id="serviceDone2">
+                <div className={styles.cov}>
+                    <div className={styles.close} onClick={handleCloseDone}>x</div>
+                    <p>Uploading success and waiting For admin acceptance</p>
+                    <img src={done}></img>
+                    <button onClick={handleCloseDone}>Continue</button>
+                </div>
+            </div>
+            {/* <ProductListHeader user={user} /> */}
             <div className={styles.mainClass}>
                 <form className={styles.msform}>
                     <fieldset className={styles.request}>
                         <div className={styles.productFormContainer}>
-                            <h2 className={styles.label}>Animal Upload Form</h2>
+                            <h2 className={styles.label}>Pet Upload Form</h2>
                             <form >
                                 <label className={styles.label}>
                                     Animal Name
@@ -165,7 +178,7 @@ const AnimalUploadForm = () => {
                     </fieldset>
                 </form>
             </div>
-        </>
+        </div>
     );
 };
 
