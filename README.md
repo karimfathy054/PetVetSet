@@ -41,6 +41,10 @@ npm run
 ```
 4. the webapp should be running on localhost port ```3000```
 
+## Demo run:
+https://github.com/karimfathy054/PetVetSet/assets/96244656/ebb098d3-1f41-419e-89b4-3dc04fadfed7
+
+
 ## Contributors
 - [Omar Mahmoud](https://github.com/OmarMahmoud11)
 - [Omar Tarek](https://github.com/OmarTarekAbdelWahab)
@@ -49,7 +53,7 @@ npm run
 - [Mohamed Amr](https://github.com/MohamedAmr982)
 - [AbdelRahman Magdy](https://github.com/es-abdalrhman)
 
-  ## Future work
-  1. Handling payments and money transactions using **Stripe**
-  2. deploying backend onto a cloud service
-  3. Developing a mobile app for the project's backend service  
+## Future work
+1. Handling payments and money transactions using **Stripe**
+2. deploying backend onto a cloud service
+3. Developing a mobile app for the project's backend service  
