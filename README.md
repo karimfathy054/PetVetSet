@@ -16,6 +16,7 @@ create a seamless and user-friendly experience for individuals passionate about 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript, React
 - **Backend**: Java , SpringBoot , SpringData ,SpringSecurity
+- **Testsing**: Junit, Mockito, Postman  
 - **Database**: Mysql
 - **Authentication**: JSON Web Tokens (JWT) , Google OAuth
 - **Version Control**: Git, GitHub
